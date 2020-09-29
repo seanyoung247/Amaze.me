@@ -1,10 +1,12 @@
-# ![brain-maze-icon](/assets/icons/brain-maze-icon.png)AMaze.me
+# ![brain-maze-icon](/assets/icons/brain-maze-icon.png)
+
+# AMaze.me
 
 AMaze.me is a memory game designed to help improve spatial memory. The idea was inspired by the Mind Field episode ["Your Brain on Tech" (S2:E4)](https://www.youtube.com/watch?v=1RHsAUyFCAM), specifically the maze section. I have also long been fascinated by the early 3D engine techniques used by games such as "Wolfenstein 3D" and "Rise of the Triad", which are uniquely suited for maze, catacomb and dungeon style 3D games. I was curious if I could reimplement the "raycasting" technique myself in Javascript.
 
 AMaze.me requires the player to remember the position of objects in a maze and the route to get to them. They are presented with a random order in which to collect these objects, and judged on time, with the object being to improve their timings. The object is to improve memory while having fun.
 
-<screenshot of final game goes here>
+<screenshot of final game screen goes here>
 
 ## UX
 
