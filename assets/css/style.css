@@ -1,0 +1,19 @@
+body {
+  min-width: 600px;
+}
+
+.gameWrapper {
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+}
+
+#gameCanvas {
+  width: 100%;
+  height: 100%;
+  border: 1px solid blue;
+}
+
+.statusWrapper {
+  border: 1px solid green;
+}
