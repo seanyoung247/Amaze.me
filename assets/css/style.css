@@ -1,14 +1,23 @@
+body, html {
+    height: 100vh;
+}
+
 body {
   min-width: 600px;
 }
 
-.gameWrapper {
-  width: 100%;
-  height: 100%;
+.headerWrapper {
+  border: 1px solid orange;
+  height: 5vh;
+}
+
+.gameWrapper, .statusWrapper {
+  padding: 15px;
+  height: 90vh;
   border: 1px solid red;
 }
 
-#gameCanvas {
+#gameCanvas, #statusCanvas {
   width: 100%;
   height: 100%;
   border: 1px solid blue;
@@ -16,4 +25,9 @@ body {
 
 .statusWrapper {
   border: 1px solid green;
+}
+
+.footerWrapper {
+  border: 1px solid orange;
+  height: 5vh;
 }
