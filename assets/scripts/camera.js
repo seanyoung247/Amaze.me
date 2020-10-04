@@ -19,8 +19,10 @@ function Ray2(oX = 0, oY = 0, vX = 0, vY = 0, range = 15) {
 }
 
 /*
- * Traces the path of this ray through the map,
- * logging any collisions as they occur.
+ * Traces the path of this ray through the map, logging any collisions as
+ * they occur, and then returned as an array of RayHit objects (not yet implimented).
+ *
+ * Ray cast algorithm is based on the DDA grid traversal algorithm.
  */
 Ray2.prototype.cast = function (map) {
   let rayStep = new Vector2(0,0);
@@ -60,6 +62,8 @@ Ray2.prototype.cast = function (map) {
 
       //Has a collision occured?
       if (map.getMapTile(mapPos.x, mapPos.y) > 0) {
+        /* Optimised distance calculation based on code from:
+           https://lodev.org/cgtutor/raycasting.html */
         let len = (mapPos.x - this.origin.x + (1 - rayStep.x) / 2) / this.vector.x;
 
         return new Array(new RayHit(
@@ -73,6 +77,8 @@ Ray2.prototype.cast = function (map) {
       mapPos.y += rayStep.y;
       //Has a collision occured?
       if (map.getMapTile(mapPos.x, mapPos.y) > 0) {
+        /* Optimised distance calculation based on code from:
+           https://lodev.org/cgtutor/raycasting.html */
         let len = (mapPos.y - this.origin.y + (1 - rayStep.y) / 2) / this.vector.y;
 
         return new Array(new RayHit(
@@ -83,3 +89,14 @@ Ray2.prototype.cast = function (map) {
   }
   return new Array();
 };
+
+/*
+ * Models a raycasting camera that constructs a "3D" scenes from 2D data.
+ *  (1.57079632679 is 90 degrees in radians)
+ */
+function Camera(pX = 0, pY = 0, dX = 0, dY = 0, fov = 1.57079632679, range = 15) {
+  this.position = new Point2(pX, pY);
+  this.direction = new Vector2(dX, dY);
+  this.fov = fov;
+  this.range = range;
+}
