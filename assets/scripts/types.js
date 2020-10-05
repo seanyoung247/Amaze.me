@@ -80,12 +80,12 @@ BoundingBox.prototype.copy = function (box) {
  * Returns true if 2D point is within this box, otherwise false.
  */
 BoundingBox.prototype.pointInBounds = function (point) {
-  return inBounds(point.x, point.y);
+  return this.inBounds(point.x, point.y);
 };
 BoundingBox.prototype.inBounds = function (x, y) {
-  if (x > this.x && y > this.y
-      && x < (this.x + this.width)
-      && y < (this.y + this.height)) {
+  if (x >= this.x && y >= this.y
+      && x <= (this.x + this.width)
+      && y <= (this.y + this.height)) {
     return true;
   } else return false;
 };

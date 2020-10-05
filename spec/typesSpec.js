@@ -78,3 +78,40 @@ describe("Vector2", function() {
     });
   });
 }); //Vector2
+
+//BoundingBox tests
+describe("BoundingBox", function() {
+  beforeEach(function() {
+     //Creates a new vector with an angle of 45degrees and magnitude of 1:
+    box = new BoundingBox(5, 5, 10, 10);
+  })
+
+  describe("collision detection tests", function() {
+    it("should return true", function() {
+      //This point should be within bounds
+      p2 = new Point2(11,11);
+      expect(box.pointInBounds(p2)).toBe(true);
+    });
+    it("should return true", function() {
+      expect(box.inBounds(5,5)).toBe(true);
+    });
+    it("should return true", function() {
+      expect(box.inBounds(10,10)).toBe(true);
+    });
+    it("should return true", function() {
+      expect(box.inBounds(15,15)).toBe(true);
+    });
+    it("should return true", function() {
+      expect(box.inBounds(5.1,5.1)).toBe(true);
+    });
+    it("should return false", function() {
+      expect(box.inBounds(1,4)).toBe(false);
+    });
+    it("should return false", function() {
+      expect(box.inBounds(4.9, 4.9)).toBe(false);
+    });
+    it("should return false", function() {
+      expect(box.inBounds(15.1, 15.1)).toBe(false);
+    });
+  });
+}); //BoundingBox
