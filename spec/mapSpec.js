@@ -16,14 +16,6 @@ describe("RayMap2", function() {
     it ("should return 10", function() {
       expect(map.height).toBe(10);
     });
-    //Out of bounds request (should return open)
-    it ("should return 0", function() {
-      expect(map.getMapTile(-1,-1)).toBe(0);
-    });
-    //Out of bounds request (should return open)
-    it ("should return 0", function() {
-      expect(map.getMapTile(11,11)).toBe(0);
-    });
     //Open location
     it ("should return 0", function() {
       expect(map.getMapTile(1,1)).toBe(0);
@@ -35,6 +27,16 @@ describe("RayMap2", function() {
     //Gate location
     it ("should return 2", function() {
       expect(map.getMapTile(0,1)).toBe(2);
+    });
+  });
+  describe("Out of bounds tests", function() {
+    //Out of bounds request (should return open)
+    it ("should return 0", function() {
+      expect(map.getMapTile(-1,-1)).toBe(0);
+    });
+    //Out of bounds request (should return open)
+    it ("should return 0", function() {
+      expect(map.getMapTile(11,11)).toBe(0);
     });
   });
 });
