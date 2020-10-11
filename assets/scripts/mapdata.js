@@ -12,11 +12,15 @@ var easyMap = {
           [1,0,1,0,0,0,0,1,0,1],
           [1,0,1,1,1,1,1,1,0,1],
           [1,0,0,0,0,0,0,0,0,1],
-          [1,1,1,1,1,1,1,1,1,1] ],
-  width: 10,
-  height: 10,
-  objects: 4
-  //Object location list here
+          [1,1,1,1,1,1,1,1,1,1] ],  //The map cell types
+  width: 10,                        //Map cell width
+  height: 10,                       //Map cell height
+  pSpawn: [1.5,1.5,1,0],            //Player spawn point (pos-x,pos-y,vec-x,vec-y)
+  objects: 4,                       //Number of objects spawn points in map
+  oSpawn: [ [1.5,3.5],
+            [4.5,3.5],
+            [4.5,5.5],
+            [1.5,9.5], ]            //Object spawn points
 };
 //Normal difficulty
 var normalMap = {
@@ -37,6 +41,12 @@ var normalMap = {
           [1,1,1,1,1,1,1,1,1,1,1,1,1,2,1] ],
   width: 15,
   height: 15,
-  objects: 6
-  //Object location list here
+  pSpawn: [10.5,1.5,0,1],
+  objects: 6,
+  oSpawn: [ [7.5,1.5],
+            [9.5,1.5],
+            [3.5,3.5],
+            [5.5,13.5],
+            [7.5,13.5],
+            [12.5,13.5] ]
 };
