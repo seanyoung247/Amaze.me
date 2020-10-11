@@ -1,4 +1,4 @@
-/*
+4/*
  * Defines the 2D maps for use in the raycaster
  */
 //Easy difficulty
