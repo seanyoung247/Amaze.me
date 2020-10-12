@@ -2,8 +2,42 @@
  * Functions as the player's avatar in the game world. Accepts player commands
  * and positions and interacts with world objects to render the scene.
  */
-function Player(map, fov) {
-  this.position = new Point2();
+function Player(map, mSpeed, tSpeed, fov) {
+  this.map = map;
+  //Read initial position from map
+  this.position = new Point2( map.playerSpawn.position.x,
+                              map.playerSpawn.position.y );
+  this.moveSpeed = mSpeed;
+  //Read initial vector from map
+  this.direction = new Vector2( map.playerSpawn.vector.x,
+                                map.playerSpawn.vector.y );
+  this.turnSpeed = tSpeed;
   //Create camera object to render player view
-  this.camera = new Camera();
+  this.camera = new Camera( this.position.x, this.position.y,
+                            this.direction.x, this.direction.y,
+                            fov);
 }
+
+Player.prototype.setFOV = function (fov) {
+  this.camera.fov = fov;
+};
+
+Player.prototype.drawScene = function (surface) {
+  this.camera.drawScene(surface, this.map);
+};
+
+Player.prototype.moveForward = function () {
+
+};
+
+Player.prototype.moveBack = function () {
+
+};
+
+Player.prototype.turnLeft = function () {
+  this.direction.rotateByRadians(this.turnSpeed);
+};
+
+Player.prototype.turnRight = function () {
+  this.direction.rotateByRadians(-this.turnSpeed);
+};
