@@ -5,6 +5,11 @@ function Point2(x,y) {
   this.x = x;
   this.y = y;
 }
+//copy point values
+Point2.prototype.copy = function (point) {
+  this.x = point.x;
+  this.y = point.y;
+}
 
 /**
  * Models a 2D Vector
@@ -13,11 +18,16 @@ function Vector2(x,y) {
   this.x = x;
   this.y = y;
 }
+//Copy vector values
+Vector2.prototype.copy = function (vector) {
+  this.x = vector.x;
+  this.y = vector.y;
+}
 //Calculates and returns the euclidean distance (length) of this Vector
-Vector2.prototype.getMagnitude = function() {
+Vector2.prototype.getMagnitude = function () {
   return Math.sqrt(this.x * this.x + this.y * this.y);
 };
-Vector2.prototype.setMagnitude = function(magnitude) {
+Vector2.prototype.setMagnitude = function (magnitude) {
   //First reset the length of the vector to 1
   this.normalize();
   //Then multiply it by it's new magnitude
@@ -25,7 +35,7 @@ Vector2.prototype.setMagnitude = function(magnitude) {
   this.y *= magnitude;
 };
 //Normaises this vector. A normalised vector is one with a magnitude of 1.
-Vector2.prototype.normalize = function() {
+Vector2.prototype.normalize = function () {
   let mag = this.getMagnitude();
   this.x /= mag;
   this.y /= mag;
@@ -33,26 +43,26 @@ Vector2.prototype.normalize = function() {
 /**
  * These functions convert to and from angular vector notation in radians.
  */
-Vector2.prototype.toRadian = function() {
+Vector2.prototype.toRadian = function () {
   return Math.atan2(this.y, this.x);
 };
-Vector2.prototype.fromRadian = function(radians) {
+Vector2.prototype.fromRadian = function (radians) {
   this.x = Math.cos(radians);
   this.y = Math.sin(radians);
 };
 /**
  * Rotates this vector by a given vector or angle
  */
-Vector2.prototype.rotateByRadians = function(radians) {
+Vector2.prototype.rotateByRadians = function (radians) {
   this.rotate(
     Math.cos(radians),
     Math.sin(radians)
   );
 };
-Vector2.prototype.rotateByVector = function(vector) {
+Vector2.prototype.rotateByVector = function (vector) {
   this.rotate(vector.x, vector.y);
 };
-Vector2.prototype.rotate = function(x, y) {
+Vector2.prototype.rotate = function (x, y) {
   let tX = this.x * x - this.y * y;
   let tY = this.x * y + this.y * x;
   this.x = tX;

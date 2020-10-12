@@ -23,6 +23,10 @@ Player.prototype.setFOV = function (fov) {
 };
 
 Player.prototype.drawScene = function (surface) {
+  //set camera to player position and direction
+  this.camera.position.copy(this.position);
+  this.camera.direction.copy(this.direction);
+  //draw the scene
   this.camera.drawScene(surface, this.map);
 };
 
@@ -35,9 +39,9 @@ Player.prototype.moveBack = function () {
 };
 
 Player.prototype.turnLeft = function () {
-  this.direction.rotateByRadians(this.turnSpeed);
+  this.direction.rotateByRadians(-this.turnSpeed);
 };
 
 Player.prototype.turnRight = function () {
-  this.direction.rotateByRadians(-this.turnSpeed);
+  this.direction.rotateByRadians(this.turnSpeed);
 };

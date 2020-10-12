@@ -10,14 +10,20 @@ $( document ).ready(function() {
   ctx = gameCanvas.getContext("2d");
 
   map = new RayMap2(normalMap);
-  player = new Player(map, 0.1, 0.1, (ctx.canvas.width / ctx.canvas.height));
+  player = new Player(map, 0.1, 0.025, (ctx.canvas.width / ctx.canvas.height));
 
   window.requestAnimationFrame(loop);
 });
 
 //Updates game state
 function update() {
-
+  //Player view direction
+  if (pressedKeys.left) {
+    player.turnLeft();
+  }
+  if (pressedKeys.right) {
+    player.turnRight();
+  }
 }
 
 //Renders game screen
