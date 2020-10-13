@@ -36,10 +36,10 @@ Player.prototype.drawScene = function (surface) {
   this.camera.drawScene(surface, this.map);
 };
 
-Player.prototype.moveForward = function () {
+Player.prototype.moveForward = function (timeDelta) {
   //Check for collision
-  let x = this.position.x + (this.direction.x * this.moveSpeed);
-  let y = this.position.y + (this.direction.y * this.moveSpeed);
+  let x = this.position.x + (this.direction.x * (this.moveSpeed / timeDelta));
+  let y = this.position.y + (this.direction.y * (this.moveSpeed / timeDelta));
 
   if (this.map.getTilePassable(Math.floor(x - this.radius), Math.floor(this.position.y)) &&
       this.map.getTilePassable(Math.floor(x + this.radius), Math.floor(this.position.y)))
@@ -50,10 +50,10 @@ Player.prototype.moveForward = function () {
         this.position.y = y;
 };
 
-Player.prototype.moveBack = function () {
+Player.prototype.moveBack = function (timeDelta) {
   //Check for collision
-  let x = this.position.x - (this.direction.x * this.moveSpeed);
-  let y = this.position.y - (this.direction.y * this.moveSpeed);
+  let x = this.position.x - (this.direction.x * (this.moveSpeed / timeDelta));
+  let y = this.position.y - (this.direction.y * (this.moveSpeed / timeDelta));
 
   if (this.map.getTilePassable(Math.floor(x - this.radius), Math.floor(this.position.y)) &&
       this.map.getTilePassable(Math.floor(x + this.radius), Math.floor(this.position.y)))
@@ -64,10 +64,10 @@ Player.prototype.moveBack = function () {
         this.position.y = y;
 };
 
-Player.prototype.turnLeft = function () {
-  this.direction.rotateByRadians(-this.turnSpeed);
+Player.prototype.turnLeft = function (timeDelta) {
+  this.direction.rotateByRadians(-this.turnSpeed / timeDelta);
 };
 
-Player.prototype.turnRight = function () {
-  this.direction.rotateByRadians(this.turnSpeed);
+Player.prototype.turnRight = function (timeDelta) {
+  this.direction.rotateByRadians(this.turnSpeed / timeDelta);
 };

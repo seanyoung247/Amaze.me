@@ -11,8 +11,8 @@ $( document ).ready(function() {
 
   map = new RayMap2(normalMap);
   player = new Player(map,
-                      0.1,    //Movement speed (world units per-second)
-                      0.05,  //Turning speed (radians per-second)
+                      1.0,    //Movement speed (world units per-time)
+                      1.5,    //Turning speed (radians per-time)
                       0.2,    //Player object radius (world units)
                       1.0,    //Interaction distance (world units)
                       (ctx.canvas.width / ctx.canvas.height)); //FOV in radians
@@ -21,20 +21,20 @@ $( document ).ready(function() {
 });
 
 //Updates game state
-function update() {
+function update(frameTime) {
   //Player direction
   if (pressedKeys.left) {
-    player.turnLeft();
+    player.turnLeft(frameTime);
   }
   if (pressedKeys.right) {
-    player.turnRight();
+    player.turnRight(frameTime);
   }
   //Player movement
   if (pressedKeys.up) {
-    player.moveForward();
+    player.moveForward(frameTime);
   }
   if (pressedKeys.down) {
-    player.moveBack();
+    player.moveBack(frameTime);
   }
 }
 
@@ -61,7 +61,7 @@ function draw() {
 function loop(timeStamp) {
   var frameTime = timeStamp - lastFrame;
 
-  update();
+  update(frameTime);
   draw();
 
   lastFrame = timeStamp;
