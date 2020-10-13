@@ -1,7 +1,7 @@
-4/*
+/*
  * Defines the 2D maps for use in the raycaster
  */
-//Easy difficulty
+//Easy difficulty + testing
 var easyMap = {
   map: [  [1,1,1,1,1,1,1,1,1,1],
           [2,0,0,0,0,0,0,1,0,1],

@@ -40,7 +40,7 @@ function RayMap2(template) {
 }
 
 /*
- * Returns the tile object describing the tile at x,y
+ * Returns the tile type at x,y
  */
 RayMap2.prototype.getMapTile = function (x, y) {
   if (x >= 0 && y >= 0 && x < this.width && y < this.height) {
@@ -51,4 +51,14 @@ RayMap2.prototype.getMapTile = function (x, y) {
   }
 };
 
+/*
+ * Returns whether a tile at x,y can be traversed
+ */
+RayMap2.prototype.getTilePassable = function (x, y) {
+  if (this.getMapTile(x,y) === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
  //More functions here as needed:

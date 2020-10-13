@@ -10,7 +10,12 @@ $( document ).ready(function() {
   ctx = gameCanvas.getContext("2d");
 
   map = new RayMap2(normalMap);
-  player = new Player(map, 0.1, 0.025, (ctx.canvas.width / ctx.canvas.height));
+  player = new Player(map,
+                      0.1,    //Movement speed (world units per-second)
+                      0.025,  //Turning speed (radians per-second)
+                      0.2,    //Player object radius (world units)
+                      1.0,    //Interaction distance (world units)
+                      (ctx.canvas.width / ctx.canvas.height)); //FOV in radians
 
   window.requestAnimationFrame(loop);
 });

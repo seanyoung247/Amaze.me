@@ -30,13 +30,21 @@ describe("RayMap2", function() {
     });
   });
   describe("Out of bounds tests", function() {
-    //Out of bounds request (should return open)
+    //Out of bounds request (should return empty (0))
     it ("should return 0", function() {
       expect(map.getMapTile(-1,-1)).toBe(0);
     });
-    //Out of bounds request (should return open)
+    //Out of bounds request (should return empty (0))
     it ("should return 0", function() {
       expect(map.getMapTile(11,11)).toBe(0);
+    });
+  });
+  describe("Tile passability test", function() {
+    it ("should return false", function() {
+      expect(map.getTilePassable(0,0)).toBe(false);
+    });
+    it ("should return true", function() {
+      expect(map.getTilePassable(1,1)).toBe(true);
     });
   });
   describe("Player Spawn point tests", function() {
