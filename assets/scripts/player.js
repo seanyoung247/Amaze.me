@@ -41,10 +41,11 @@ Player.prototype.moveForward = function () {
   let x = this.position.x + (this.direction.x * this.moveSpeed);
   let y = this.position.y + (this.direction.y * this.moveSpeed);
 
-  if (this.map.getTilePassable(Math.floor(x), Math.floor(y))) {
+  if (this.map.getTilePassable(Math.floor(x), Math.floor(this.position.y)))
     this.position.x = x;
+
+  if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(y)))
     this.position.y = y;
-  }
 };
 
 Player.prototype.moveBack = function () {
@@ -52,10 +53,11 @@ Player.prototype.moveBack = function () {
   let x = this.position.x - (this.direction.x * this.moveSpeed);
   let y = this.position.y - (this.direction.y * this.moveSpeed);
 
-  if (this.map.getTilePassable(Math.floor(x), Math.floor(y))) {
+  if (this.map.getTilePassable(Math.floor(x), Math.floor(this.position.y)))
     this.position.x = x;
+
+  if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(y)))
     this.position.y = y;
-  }
 };
 
 Player.prototype.turnLeft = function () {
