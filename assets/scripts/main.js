@@ -12,7 +12,7 @@ $( document ).ready(function() {
   map = new RayMap2(normalMap);
   player = new Player(map,
                       0.1,    //Movement speed (world units per-second)
-                      0.025,  //Turning speed (radians per-second)
+                      0.05,  //Turning speed (radians per-second)
                       0.2,    //Player object radius (world units)
                       1.0,    //Interaction distance (world units)
                       (ctx.canvas.width / ctx.canvas.height)); //FOV in radians
@@ -50,6 +50,11 @@ function draw() {
   player.setFOV(ctx.canvas.width / ctx.canvas.height);
   //Render player view
   player.drawScene(gameCanvas);
+
+  //// DEBUG:
+  ctx.fillStyle = "rgb(255,255,255)";
+  ctx.fillText(("Player Position x: " + player.position.x + " Y: " + player.position.y), 25, 25);
+  ctx.fillText(("Player Vector x: " + player.direction.x + " Y: " + player.direction.y), 25, 50);
 }
 
 //Game loop
