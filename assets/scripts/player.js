@@ -31,11 +31,15 @@ Player.prototype.drawScene = function (surface) {
 };
 
 Player.prototype.moveForward = function () {
-
+  //Check for collision
+  this.position.x += (this.direction.x * this.moveSpeed);
+  this.position.y += (this.direction.y * this.moveSpeed);
 };
 
 Player.prototype.moveBack = function () {
-
+  //Check for collision
+  this.position.x -= (this.direction.x * this.moveSpeed);
+  this.position.y -= (this.direction.y * this.moveSpeed);
 };
 
 Player.prototype.turnLeft = function () {

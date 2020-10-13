@@ -17,12 +17,19 @@ $( document ).ready(function() {
 
 //Updates game state
 function update() {
-  //Player view direction
+  //Player direction
   if (pressedKeys.left) {
     player.turnLeft();
   }
   if (pressedKeys.right) {
     player.turnRight();
+  }
+  //Player movement
+  if (pressedKeys.up) {
+    player.moveForward();
+  }
+  if (pressedKeys.down) {
+    player.moveBack();
   }
 }
 
