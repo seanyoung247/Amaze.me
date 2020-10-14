@@ -22,10 +22,6 @@ function Player(map, mSpeed, tSpeed, radius, reach, fov) {
   this.camera = new Camera( this.position.x, this.position.y,
                             this.direction.x, this.direction.y,
                             fov);
-
-  //// DEBUG:
-  this.collisionX = false;
-  this.collisionY = false;
 }
 
 Player.prototype.setFOV = function (fov) {
