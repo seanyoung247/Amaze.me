@@ -53,8 +53,8 @@ Player.prototype.moveTo = function (pX, pY, bX, bY) {
 
 Player.prototype.moveForward = function (timeDelta) {
   //Calculate new position
-  let x = this.position.x + (this.direction.x * (this.moveSpeed / timeDelta));
-  let y = this.position.y + (this.direction.y * (this.moveSpeed / timeDelta));
+  let x = this.position.x + (this.direction.x * (timeDelta * this.moveSpeed));
+  let y = this.position.y + (this.direction.y * (timeDelta * this.moveSpeed));
   //Calculate player outer boundary point
   let boundaryX = x + (this.direction.x * this.radius);
   let boundaryY = y + (this.direction.y * this.radius);
@@ -64,8 +64,8 @@ Player.prototype.moveForward = function (timeDelta) {
 
 Player.prototype.moveBack = function (timeDelta) {
   //Calculate new position
-  let x = this.position.x - (this.direction.x * (this.moveSpeed / timeDelta));
-  let y = this.position.y - (this.direction.y * (this.moveSpeed / timeDelta));
+  let x = this.position.x - (this.direction.x * (timeDelta * this.moveSpeed));
+  let y = this.position.y - (this.direction.y * (timeDelta * this.moveSpeed));
   //Calculate player outer boundary point
   let boundaryX = x - (this.direction.x * this.radius);
   let boundaryY = y - (this.direction.y * this.radius);
@@ -74,9 +74,9 @@ Player.prototype.moveBack = function (timeDelta) {
 };
 
 Player.prototype.turnLeft = function (timeDelta) {
-  this.direction.rotateByRadians(-this.turnSpeed / timeDelta);
+  this.direction.rotateByRadians(timeDelta * -this.turnSpeed);
 };
 
 Player.prototype.turnRight = function (timeDelta) {
-  this.direction.rotateByRadians(this.turnSpeed / timeDelta);
+  this.direction.rotateByRadians(timeDelta * this.turnSpeed);
 };
