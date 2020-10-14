@@ -39,7 +39,9 @@ function update(frameTime) {
 }
 
 //Renders game screen
-function draw() {
+function draw(frameTime) {
+  let t1 = performance.now();
+
   //Responsive canvas resolution
   ctx.canvas.width = $("#gameDiv").innerWidth() - 30;
   ctx.canvas.height = $("#gameDiv").innerHeight() - 30;
@@ -51,10 +53,13 @@ function draw() {
   //Render player view
   player.drawScene(gameCanvas);
 
+  let time = performance.now() - t1;
+
   //// DEBUG:
-  ctx.fillStyle = "rgb(255,255,255)";
+  ctx.fillStyle = "rgb(255,0,0)";
   ctx.fillText(("Player Position x: " + player.position.x + " Y: " + player.position.y), 25, 25);
   ctx.fillText(("Player Vector x: " + player.direction.x + " Y: " + player.direction.y), 25, 50);
+  ctx.fillText(("Frame draw time: " + time + "ms"), 25, 75);
 }
 
 //Game loop

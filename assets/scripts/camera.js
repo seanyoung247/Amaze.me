@@ -7,6 +7,10 @@ function Camera(pX = 0, pY = 0, dX = 0, dY = 0, fov = 1.57079632679, range = 15)
   this.direction = new Vector2(dX, dY);
   this.fov = fov;
   this.range = range;
+
+  //Temporary texture load
+  this.wallImg = new Image();
+  this.wallImg.src = "assets/images/hedge2.png";
 }
 /*
  * Draws the scene one vertical column at a time.
@@ -36,9 +40,17 @@ Camera.prototype.drawScene = function (surface, map) {
       wallHeight = surface.height / hits[i].length;
       sY = (surface.height - wallHeight) / 2;
 
-      //Temporary flat shading
+      /*//Temporary flat shading
       ctx.fillStyle = "rgb(0,255,0)";
-      ctx.fillRect(column, sY, 1, wallHeight);
+      ctx.fillRect(column, sY, 1, wallHeight);*/
+
+      //Temporary texture drawing
+      //Calculate which pixel column from the texture to draw
+      let texCol = Math.floor(hits[i].offset * this.wallImg.width);
+      ctx.drawImage(this.wallImg,                                 //Source
+                    texCol, 0, 1, this.wallImg.height,            //Source coords
+                    column, ((surface.height/2) - (wallHeight/2)),//Screen X,Y
+                    1, wallHeight);                               //Screen width,height
     }
   }
 };

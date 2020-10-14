@@ -62,13 +62,18 @@ Ray2.prototype.cast = function (map) {
 
       //Has a collision occured?
       if (map.getMapTile(mapPos.x, mapPos.y) > 0) {
-        /* Optimised distance calculation based on code from:
+        /* Calculates distance from origin to intersection
+
+           Optimised distance calculation based on code from:
            https://lodev.org/cgtutor/raycasting.html */
         let len = (mapPos.x - this.origin.x + (1 - rayStep.x) / 2) / this.vector.x;
+        //Calculate the horizontal position on the tile where the ray intersection occured
+        let offset = (mapPos.y + (this.origin.y - Math.floor(this.origin.y))) + len * this.vector.y;
+        offset -= Math.floor(offset);
 
         return new Array(new RayHit(
           map.getMapTile( mapPos.x, mapPos.y),
-                          0, 0, len ));
+                          offset, 0, len ));
       }
     //y direction is closest to next step
     } else {
@@ -77,13 +82,18 @@ Ray2.prototype.cast = function (map) {
       mapPos.y += rayStep.y;
       //Has a collision occured?
       if (map.getMapTile(mapPos.x, mapPos.y) > 0) {
-        /* Optimised distance calculation based on code from:
+        /* Calculates distance from origin to intersection
+
+           Optimised distance calculation based on code from:
            https://lodev.org/cgtutor/raycasting.html */
         let len = (mapPos.y - this.origin.y + (1 - rayStep.y) / 2) / this.vector.y;
+        //Calculate the horizontal position on the tile where the ray intersection occured
+        let offset = (mapPos.x + (this.origin.x - Math.floor(this.origin.x))) + len * this.vector.x;
+        offset -= Math.floor(offset);
 
         return new Array(new RayHit(
           map.getMapTile( mapPos.x, mapPos.y),
-                          0, 1, len ));
+                          offset, 1, len ));
       }
     }
   }
