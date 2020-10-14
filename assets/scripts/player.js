@@ -37,13 +37,13 @@ Player.prototype.drawScene = function (surface) {
 };
 
 Player.prototype.moveTo = function (pX, pY, bX, bY) {
-  //Check for collision when moving in x
+  //Check for wall collision when moving in x
   if (this.map.getTilePassable(Math.floor(bX), Math.floor(this.position.y))) {
     //No collision, move to new position in x
     this.position.x = pX;
     //TODO: Check for object collision
   }
-  //Check for collision when moving in y
+  //Check for wall collision when moving in y
   if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(bY))) {
     //No collision, move to new position in y
     this.position.y = pY;

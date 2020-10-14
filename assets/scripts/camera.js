@@ -51,6 +51,13 @@ Camera.prototype.drawScene = function (surface, map) {
                     texCol, 0, 1, this.wallImg.height,            //Source coords
                     column, ((surface.height/2) - (wallHeight/2)),//Screen X,Y
                     1, wallHeight);                               //Screen width,height
+
+      //Darkens y-facing walls for a faux lighting effect
+      if (hits[i].facing != 0) {
+        ctx.fillStyle = "rgba(0,0,0,0.25)";
+        ctx.fillRect( column, ((surface.height/2) - (wallHeight/2)),
+                      1, wallHeight);
+      }
     }
   }
 };
