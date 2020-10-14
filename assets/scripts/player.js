@@ -40,38 +40,41 @@ Player.prototype.drawScene = function (surface) {
   this.camera.drawScene(surface, this.map);
 };
 
-Player.prototype.moveForward = function (timeDelta) {
-
-  let x = this.position.x + (this.direction.x * (this.moveSpeed / timeDelta));
-  let y = this.position.y + (this.direction.y * (this.moveSpeed / timeDelta));
-  let colX = x + (this.direction.x * this.radius);
-  let colY = y + (this.direction.y * this.radius);
-
+Player.prototype.moveTo = function (pX, pY, bX, bY) {
   //Check for collision when moving in x
-  if (this.map.getTilePassable(Math.floor(colX), Math.floor(this.position.y))) {
-    this.position.x = x;
+  if (this.map.getTilePassable(Math.floor(bX), Math.floor(this.position.y))) {
+    //No collision, move to new position in x
+    this.position.x = pX;
+    //TODO: Check for object collision
   }
   //Check for collision when moving in y
-  if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(colY))) {
-    this.position.y = y;
+  if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(bY))) {
+    //No collision, move to new position in y
+    this.position.y = pY;
+    //TODO: Check for object collision
   }
+}
+
+Player.prototype.moveForward = function (timeDelta) {
+  //Calculate new position
+  let x = this.position.x + (this.direction.x * (this.moveSpeed / timeDelta));
+  let y = this.position.y + (this.direction.y * (this.moveSpeed / timeDelta));
+  //Calculate player outer boundary point
+  let boundaryX = x + (this.direction.x * this.radius);
+  let boundaryY = y + (this.direction.y * this.radius);
+
+  this.moveTo(x, y, boundaryX, boundaryY);
 };
 
 Player.prototype.moveBack = function (timeDelta) {
-
+  //Calculate new position
   let x = this.position.x - (this.direction.x * (this.moveSpeed / timeDelta));
   let y = this.position.y - (this.direction.y * (this.moveSpeed / timeDelta));
-  let colX = x - (this.direction.x * this.radius);
-  let colY = y - (this.direction.y * this.radius);
+  //Calculate player outer boundary point
+  let boundaryX = x - (this.direction.x * this.radius);
+  let boundaryY = y - (this.direction.y * this.radius);
 
-  //Check for collision when moving in x
-  if (this.map.getTilePassable(Math.floor(colX), Math.floor(this.position.y))) {
-    this.position.x = x;
-  }
-  //Check for collision when moving in y
-  if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(colY))) {
-    this.position.y = y;
-  }
+  this.moveTo(x, y, boundaryX, boundaryY);
 };
 
 Player.prototype.turnLeft = function (timeDelta) {
