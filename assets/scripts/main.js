@@ -11,8 +11,8 @@ $( document ).ready(function() {
 
   map = new RayMap2(normalMap);
   player = new Player(map,
-                      1.0,    //Movement speed (world units per-time)
-                      1.5,    //Turning speed (radians per-time)
+                      1.0,    //Movement speed (world units per-unit-time)
+                      1.0,    //Turning speed (radians per-unit-time)
                       0.2,    //Player object radius (world units)
                       1.0,    //Interaction distance (world units)
                       (ctx.canvas.width / ctx.canvas.height)); //FOV in radians
