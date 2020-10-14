@@ -22,6 +22,10 @@ function Player(map, mSpeed, tSpeed, radius, reach, fov) {
   this.camera = new Camera( this.position.x, this.position.y,
                             this.direction.x, this.direction.y,
                             fov);
+
+  //// DEBUG:
+  this.collisionX = false;
+  this.collisionY = false;
 }
 
 Player.prototype.setFOV = function (fov) {
@@ -37,31 +41,37 @@ Player.prototype.drawScene = function (surface) {
 };
 
 Player.prototype.moveForward = function (timeDelta) {
-  //Check for collision
+
   let x = this.position.x + (this.direction.x * (this.moveSpeed / timeDelta));
   let y = this.position.y + (this.direction.y * (this.moveSpeed / timeDelta));
+  let colX = x + (this.direction.x * this.radius);
+  let colY = y + (this.direction.y * this.radius);
 
-  if (this.map.getTilePassable(Math.floor(x - this.radius), Math.floor(this.position.y)) &&
-      this.map.getTilePassable(Math.floor(x + this.radius), Math.floor(this.position.y)))
-        this.position.x = x;
-
-  if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(y - this.radius)) &&
-      this.map.getTilePassable(Math.floor(this.position.x), Math.floor(y + this.radius)))
-        this.position.y = y;
+  //Check for collision when moving in x
+  if (this.map.getTilePassable(Math.floor(colX), Math.floor(this.position.y))) {
+    this.position.x = x;
+  }
+  //Check for collision when moving in y
+  if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(colY))) {
+    this.position.y = y;
+  }
 };
 
 Player.prototype.moveBack = function (timeDelta) {
-  //Check for collision
+
   let x = this.position.x - (this.direction.x * (this.moveSpeed / timeDelta));
   let y = this.position.y - (this.direction.y * (this.moveSpeed / timeDelta));
+  let colX = x - (this.direction.x * this.radius);
+  let colY = y - (this.direction.y * this.radius);
 
-  if (this.map.getTilePassable(Math.floor(x - this.radius), Math.floor(this.position.y)) &&
-      this.map.getTilePassable(Math.floor(x + this.radius), Math.floor(this.position.y)))
-        this.position.x = x;
-
-  if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(y - this.radius)) &&
-      this.map.getTilePassable(Math.floor(this.position.x), Math.floor(y + this.radius)))
-        this.position.y = y;
+  //Check for collision when moving in x
+  if (this.map.getTilePassable(Math.floor(colX), Math.floor(this.position.y))) {
+    this.position.x = x;
+  }
+  //Check for collision when moving in y
+  if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(colY))) {
+    this.position.y = y;
+  }
 };
 
 Player.prototype.turnLeft = function (timeDelta) {
