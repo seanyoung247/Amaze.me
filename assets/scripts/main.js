@@ -16,7 +16,7 @@ $( document ).ready(function() {
                       0.2,    //Player object radius (world units)
                       1.0,    //Interaction distance (world units)
                       (ctx.canvas.width / ctx.canvas.height)); //FOV in radians
-  
+
   window.requestAnimationFrame(loop);
 });
 
@@ -39,7 +39,7 @@ function update(frameTime) {
 }
 
 function drawBackground(ctx) {
-  ctx.fillStyle = "#87CEEB";
+  //Draw sky gradient
   let grad = ctx.createLinearGradient(0,0,0,ctx.canvas.height);
   grad.addColorStop(0, "#3190C5");
   grad.addColorStop(0.5,"#ADD8E6");
@@ -48,8 +48,6 @@ function drawBackground(ctx) {
   //Draw Floor
   ctx.fillStyle = "#76552B";
   ctx.fillRect(0, ctx.canvas.height / 2, ctx.canvas.width, ctx.canvas.height / 2);
-  //Draw walls
-  ctx.fillStyle = "#00FF00";
 }
 
 //Renders game screen
