@@ -70,7 +70,10 @@ Camera.prototype.drawScene = function (surface, map) {
  */
 Camera.prototype.drawObjects = function (surface, map) {
   for (let i = 0; i < map.objects.length; i++) {
-    if (map.objects[i].draw === true) this.drawObject(surface, map.objects[i]);
+    if ((map.objects[i].draw === true) ||
+        (Math.floor(map.objects[i].position.x) === Math.floor(this.position.x) &&
+          Math.floor(map.objects[i].position.y) === Math.floor(this.position.y)))
+      this.drawObject(surface, map.objects[i]);
   }
 };
 
@@ -107,4 +110,5 @@ Camera.prototype.drawObject = function(surface, obj) {
       }
     }
   }
+  obj.draw = false;
 }
