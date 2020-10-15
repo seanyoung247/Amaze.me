@@ -51,7 +51,7 @@ Vector2.prototype.fromRadian = function (radians) {
   this.y = Math.sin(radians);
 };
 /**
- * Rotates this vector by a given vector or angle
+ * Rotates this vector by a given vector or angle (additive)
  */
 Vector2.prototype.rotateByRadians = function (radians) {
   this.rotate(
@@ -65,6 +65,24 @@ Vector2.prototype.rotateByVector = function (vector) {
 Vector2.prototype.rotate = function (x, y) {
   let tX = this.x * x - this.y * y;
   let tY = this.x * y + this.y * x;
+  this.x = tX;
+  this.y = tY;
+}
+/**
+ *  Rotates this vector by a given vector or angle (subtractive)
+ */
+Vector2.prototype.unrotateByRadians = function (radians) {
+  this.unrotate(
+    Math.cos(radians),
+    Math.sin(radians)
+  );
+};
+Vector2.prototype.unrotateByVector = function (vector) {
+  this.unrotate(vector.x, vector.y);
+};
+Vector2.prototype.unrotate = function (x, y) {
+  let tX = x * this.x + y * this.y;
+  let tY = x * this.y - y * this.x;
   this.x = tX;
   this.y = tY;
 }
