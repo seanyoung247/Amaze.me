@@ -16,7 +16,7 @@ $( document ).ready(function() {
                       0.2,    //Player object radius (world units)
                       1.0,    //Interaction distance (world units)
                       (ctx.canvas.width / ctx.canvas.height)); //FOV in radians
-
+  
   window.requestAnimationFrame(loop);
 });
 
@@ -38,6 +38,20 @@ function update(frameTime) {
   }
 }
 
+function drawBackground(ctx) {
+  ctx.fillStyle = "#87CEEB";
+  let grad = ctx.createLinearGradient(0,0,0,ctx.canvas.height);
+  grad.addColorStop(0, "#3190C5");
+  grad.addColorStop(0.5,"#ADD8E6");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height / 2);
+  //Draw Floor
+  ctx.fillStyle = "#76552B";
+  ctx.fillRect(0, ctx.canvas.height / 2, ctx.canvas.width, ctx.canvas.height / 2);
+  //Draw walls
+  ctx.fillStyle = "#00FF00";
+}
+
 //Renders game screen
 function draw(frameTime) {
   let t1 = performance.now();
@@ -46,8 +60,7 @@ function draw(frameTime) {
   ctx.canvas.width = $("#gameDiv").innerWidth() - 30;
   ctx.canvas.height = $("#gameDiv").innerHeight() - 30;
   //Draw background
-  ctx.fillStyle = "rgb(0,0,0)";
-  ctx.fillRect(0,0,ctx.canvas.width, ctx.canvas.height);
+  drawBackground(ctx);
   //Prepare rendering state
   player.setFOV(ctx.canvas.width / ctx.canvas.height);
   //Render player view
