@@ -50,3 +50,32 @@ var normalMap = {
             [7.5,13.5],
             [12.5,13.5] ]
 };
+
+//Base path for images
+var imagePath = "assets/images/";
+
+/*
+ * Defines the walls types that maps can use
+ */
+var wallDefs = [
+   //Hedge
+   {name: "hedge", texture: "hedge2.png", transparent: false},
+   //Brick wall    - Not Yet Implimented
+   //Stone wall    - Not Yet Implimented
+   //Fence         - Not Yet Implimented
+   //Gate
+   {name: "gate", texture: "gate.png", transparent: true}
+];
+
+/*
+ * Defines the sprites that can be placed in maps
+ */
+var spriteDefs = [
+    //Lamp
+    {name: "Lamp", icon:"lampico.png", texture: "lamp.png", frames: 2, scale: 0.66, radius:0.2, blocking: true}
+    //Bottle
+    //Vase
+    //Ball
+    //Can
+    //Cup
+];

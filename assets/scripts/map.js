@@ -32,11 +32,13 @@ function RayMap2(template) {
                                       template.pSpawn[2],   //Vector X
                                       template.pSpawn[3]);  //Vector Y
   //Map object spawn points
-  this.objectList = new Array(template.objects);
+  this.objectSpawns = new Array(template.objects);
   for (let i = 0; i < template.objects; i++) {
-      this.objectList[i] = new MapLocation2(template.oSpawn[i][0],
-                                            template.oSpawn[i][1]);
+      this.objectSpawns[i] = new MapLocation2(template.oSpawn[i][0],
+                                              template.oSpawn[i][1]);
   }
+  //List of objects on the map
+  this.objects = new Array();
 }
 
 /*
@@ -60,5 +62,19 @@ RayMap2.prototype.getTilePassable = function (x, y) {
   } else {
     return false;
   }
-}
+};
+
+/*
+ * Adds an object to the map and returns it's location.
+ * If no spawn points are available it returns null.
+ */
+RayMap2.prototype.addObject = function (obj) {
+  //Is there an available spawn point for this object?
+  if (this.objects.length < this.objectSpawns.length) {
+    this.objects.push(obj);
+    return this.objectSpawns[this.objects.length - 1];
+  }
+  return null;
+};
+
  //More functions here as needed:
