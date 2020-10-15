@@ -8,6 +8,8 @@ AMaze.me requires the player to remember the position of objects in a maze and t
 
 <screenshot of final game screen goes here>
 
+[See live project](https://seanyoung247.github.io/Second-milestone-project/) 
+
 ## UX
 
 Use this section to provide insight into your UX process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
