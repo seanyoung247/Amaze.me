@@ -101,6 +101,9 @@ Ray2.prototype.cast = function (map) {
                           offset, 1, len ));
       }
     }
+    //Have we encountered an object?
+    let obj = map.getObjects(mapPos.x, mapPos.y);
+    if (obj != null) obj.draw = true;
   }
   return new Array();
 };

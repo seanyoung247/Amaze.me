@@ -17,5 +17,9 @@ function GameObject(map, template) {
     this.sprite.src = imagePath + template.texture;
     this.icon = new Image();
     this.icon.src = imagePath + template.icon;
+    this.frames = template.frames;
+    //Indicates whether this object is visible in the viewport
+    //and needs to be drawn to the screen
+    this.draw = false;
   }
 }

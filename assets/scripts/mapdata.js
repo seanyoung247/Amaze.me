@@ -43,7 +43,7 @@ var normalMap = {
   height: 15,
   pSpawn: [10.5,1.5,0,1],
   objects: 6,
-  oSpawn: [ [7.5,1.5],
+  oSpawn: [ [8.5,1.5],
             [9.5,1.5],
             [3.5,3.5],
             [5.5,13.5],

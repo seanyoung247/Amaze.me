@@ -34,6 +34,7 @@ Player.prototype.drawScene = function (surface) {
   this.camera.direction.copy(this.direction);
   //draw the scene
   this.camera.drawScene(surface, this.map);
+  this.camera.drawObjects(surface, this.map);
 };
 
 Player.prototype.moveTo = function (pX, pY, bX, bY) {

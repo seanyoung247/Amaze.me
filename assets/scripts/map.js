@@ -42,10 +42,17 @@ function RayMap2(template) {
 }
 
 /*
+ * Returns true if tile is within map bounds.
+ */
+RayMap2.prototype.inBounds = function (x, y) {
+  return (x >= 0 && y >= 0 && x < this.width && y < this.height);
+};
+
+/*
  * Returns the tile type at x,y
  */
 RayMap2.prototype.getMapTile = function (x, y) {
-  if (x >= 0 && y >= 0 && x < this.width && y < this.height) {
+  if (this.inBounds(x, y)) {
     return this.map[y][x];
   } else {
     //out of bounds just returns empty space.
@@ -76,5 +83,25 @@ RayMap2.prototype.addObject = function (obj) {
   }
   return null;
 };
+
+/*
+ * Returns any object in the tile passed.
+ * This is a fairly brute force approach of checking every object on the map.
+ * It also assumes only one object can be on a tile at a time.
+ */
+RayMap2.prototype.getObjects = function (x, y) {
+  if (this.inBounds(x, y)) {
+    //Iterate through objects and check if they're on this tile.
+    for (let i = 0; i < this.objects.length; i++) {
+      if ( Math.floor(this.objects[i].position.x) === x &&
+           Math.floor(this.objects[i].position.y) === y) {
+        return this.objects[i];
+      }
+    }
+  }
+  return null;
+};
+
+
 
  //More functions here as needed:
