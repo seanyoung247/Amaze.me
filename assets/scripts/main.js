@@ -25,21 +25,22 @@ $( document ).ready(function() {
 //Updates game state
 function update(frameTime) {
   //Player direction
-  if (pressedKeys.left) {
+  if (pressedKeys.left.down) {
     player.turnLeft(frameTime);
   }
-  if (pressedKeys.right) {
+  if (pressedKeys.right.down) {
     player.turnRight(frameTime);
   }
   //Player movement
-  if (pressedKeys.up) {
+  if (pressedKeys.up.down) {
     player.moveForward(frameTime);
   }
-  if (pressedKeys.down) {
+  if (pressedKeys.down.down) {
     player.moveBack(frameTime);
   }
-  if (pressedKeys.interact) {
+  if (pressedKeys.interact.up) {
     player.interact(frameTime);
+    pressedKeys.interact.up = false;
   }
 }
 
@@ -100,11 +101,11 @@ function loop(timeStamp) {
 
 //Input events
 var pressedKeys = {
-  left: false,
-  right: false,
-  up: false,
-  down: false,
-  interact: false
+  left: {down: false, up: false},
+  right: {down: false, up: false},
+  up: {down: false, up: false},
+  down: {down: false, up: false},
+  interact: {down: false, up: false}
 }
 var keyMap = {
   68: "right",      //D
@@ -114,10 +115,12 @@ var keyMap = {
   69: "interact"    //E
 }
 function keyDown(event) {
-  pressedKeys[keyMap[event.keyCode]] = true;
+  pressedKeys[keyMap[event.keyCode]].down = true;
+  pressedKeys[keyMap[event.keyCode]].up = false;
 }
 function keyUp(event) {
-  pressedKeys[keyMap[event.keyCode]] = false;
+  pressedKeys[keyMap[event.keyCode]].down = false;
+  pressedKeys[keyMap[event.keyCode]].up = true;
 }
 window.addEventListener("keydown", keyDown, false);
 window.addEventListener("keyup", keyUp, false);
