@@ -8,42 +8,40 @@ describe("RayMap2", function() {
 
   //Checks the map is created correctly from the template
   describe("creation tests", function() {
-    //Correct width?
-    it ("should return 10", function() {
+    it ("Does the map have the correct tile width?", function() {
       expect(map.width).toBe(10);
     });
-    //Correct Height?
-    it ("should return 10", function() {
+    it ("Does the map have the correct tile height?", function() {
       expect(map.height).toBe(10);
     });
-    //Open location
-    it ("should return 0", function() {
-      expect(map.getMapTile(1,1)).toBe(0);
-    });
-    //Wall location
-    it ("should return 1", function() {
-      expect(map.getMapTile(4,4)).toBe(1);
-    });
-    //Gate location
-    it ("should return 2", function() {
-      expect(map.getMapTile(0,1)).toBe(2);
+    describe("Does the map return the correct tile types?", function() {
+      it ("should return empty", function() {
+        expect(map.getMapTile(1,1)).toBe(0);
+      });
+      it ("should return hedge type", function() {
+        expect(map.getMapTile(4,4)).toBe(1);
+      });
+      it ("should return gate type", function() {
+        expect(map.getMapTile(0,1)).toBe(2);
+      });
     });
   });
-  describe("Out of bounds tests", function() {
-    //Out of bounds request (should return empty (0))
-    it ("should return 0", function() {
-      expect(map.getMapTile(-1,-1)).toBe(0);
+  describe("Map boundary tests", function() {
+    it ("Should return true (in bounds)", function() {
+      expect(map.inBounds(5,5)).toBe(true);
     });
-    //Out of bounds request (should return empty (0))
-    it ("should return 0", function() {
-      expect(map.getMapTile(11,11)).toBe(0);
+    it ("should return false (out of bounds)", function() {
+      expect(map.inBounds(11,11)).toBe(false);
+    });
+    it ("Should return empty tile without error", function() {
+      expect(map.getMapTile(-1,-1)).toBe(0);
     });
   });
   describe("Tile passability test", function() {
-    it ("should return false", function() {
+    it ("Should return passable", function() {
       expect(map.getTilePassable(0,0)).toBe(false);
     });
-    it ("should return true", function() {
+    it ("should return blocked", function() {
       expect(map.getTilePassable(1,1)).toBe(true);
     });
   });
@@ -104,6 +102,23 @@ describe("RayMap2", function() {
       it ("should have y position 3.5", function() {
         expect(map.objectSpawns[3].position.y).toBe(9.5);
       });
+    });
+  });
+  describe("Object list tests", function() {
+    it ("should return no objects", function() {
+      expect(map.getObjects(9.5,1.5)).toBe(null);
+    });
+    it ("should return correct object", function() {
+      new GameObject(map, objectDefs[0]);
+      expect(map.getObjects(1,3).name).toBe("Lamp");
+    });
+    it ("should return no objects in range", function(){
+      new GameObject(map, objectDefs[0]);
+      expect(map.getObjectsInRange(new Point2(0.5,2.5), 1.0)).toBe(null);
+    });
+    it ("should return correct object in range", function(){
+      new GameObject(map, objectDefs[0]);
+      expect(map.getObjectsInRange(new Point2(0.5,2.5), 1.5).name).toBe("Lamp");
     });
   });
 });

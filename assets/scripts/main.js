@@ -17,7 +17,7 @@ $( document ).ready(function() {
                       1.0,    //Interaction distance (world units)
                       (ctx.canvas.width / ctx.canvas.height)); //FOV in radians
 
-  let obj = new GameObject(map, spriteDefs[0]);
+  let obj = new GameObject(map, objectDefs[0]);
 
   window.requestAnimationFrame(loop);
 });

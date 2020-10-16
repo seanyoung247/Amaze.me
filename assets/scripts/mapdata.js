@@ -68,9 +68,9 @@ var wallDefs = [
 ];
 
 /*
- * Defines the sprites that can be placed in maps
+ * Defines the objects that can be placed in maps
  */
-var spriteDefs = [
+var objectDefs = [
     //Lamp
     {name: "Lamp", icon:"lampico.png", texture: "lamp.png", frames: 2, scale: 0.66, radius:0.2, blocking: true}
     //Bottle
