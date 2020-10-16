@@ -70,39 +70,39 @@ describe("RayMap2", function() {
   describe("Object spawn point tests", function() {
     //Correct number of objects spawn points defined?
     it ("should have 4 object spawns", function() {
-      expect(map.objectList.length).toBe(4);
+      expect(map.objectSpawns.length).toBe(4);
     });
     //Checks that each object spawn point has the correct positions
     describe("Object spawn point 1", function() {
       it ("should have x position 1.5", function() {
-        expect(map.objectList[0].position.x).toBe(1.5);
+        expect(map.objectSpawns[0].position.x).toBe(1.5);
       });
       it ("should have y position 3.5", function() {
-        expect(map.objectList[0].position.y).toBe(3.5);
+        expect(map.objectSpawns[0].position.y).toBe(3.5);
       });
     });
     describe("Object spawn point 2", function() {
       it ("should have x position 1.5", function() {
-        expect(map.objectList[1].position.x).toBe(4.5);
+        expect(map.objectSpawns[1].position.x).toBe(4.5);
       });
       it ("should have y position 3.5", function() {
-        expect(map.objectList[1].position.y).toBe(3.5);
+        expect(map.objectSpawns[1].position.y).toBe(3.5);
       });
     });
     describe("Object spawn point 3", function() {
       it ("should have x position 1.5", function() {
-        expect(map.objectList[2].position.x).toBe(4.5);
+        expect(map.objectSpawns[2].position.x).toBe(4.5);
       });
       it ("should have y position 3.5", function() {
-        expect(map.objectList[2].position.y).toBe(5.5);
+        expect(map.objectSpawns[2].position.y).toBe(5.5);
       });
     });
     describe("Object spawn point 4", function() {
       it ("should have x position 1.5", function() {
-        expect(map.objectList[3].position.x).toBe(1.5);
+        expect(map.objectSpawns[3].position.x).toBe(1.5);
       });
       it ("should have y position 3.5", function() {
-        expect(map.objectList[3].position.y).toBe(9.5);
+        expect(map.objectSpawns[3].position.y).toBe(9.5);
       });
     });
   });
