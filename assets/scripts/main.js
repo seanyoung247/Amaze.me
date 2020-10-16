@@ -98,7 +98,7 @@ function drawMiniMap(x, y, ctx, alpha) {
 }
 
 function drawOverlay(ctx) {
-  drawMiniMap(ctx.canvas.width - 200, 50, ctx, 0.35);
+  drawMiniMap(ctx.canvas.width - 175, 25, ctx, 0.35);
 }
 
 //Renders game screen
