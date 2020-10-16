@@ -17,9 +17,26 @@ function GameObject(map, template) {
     this.sprite.src = imagePath + template.texture;
     this.icon = new Image();
     this.icon.src = imagePath + template.icon;
+    //Total frames in sprite image
     this.frames = template.frames;
+    //current frame
+    this.frame = 1;
     //Indicates whether this object is visible in the viewport
     //and needs to be drawn to the screen
     this.draw = false;
   }
 }
+
+GameObject.prototype.frameWidth = function () {
+  return this.sprite.width / this.frames;
+};
+
+GameObject.prototype.frameX = function () {
+  return this.frameWidth() * (this.frame - 1);
+};
+
+GameObject.prototype.interact = function () {
+  //Have we reached the last frame?
+  if (this.frame < this.frames) this.frame++;
+  else this.frame = 1;
+};

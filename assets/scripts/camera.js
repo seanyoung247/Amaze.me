@@ -121,7 +121,7 @@ Camera.prototype.drawObject = function (surface, obj) {
     //Is the current column closer to the camera than existing pixels?
     if (this.depth[screenX + i] > transform.y) {
       //Calculate texture X coordinate
-      tX = Math.floor( (i / spriteWidth) * (obj.sprite.width / obj.frames) );
+      tX = Math.floor( ((i / spriteWidth) * obj.frameWidth()) + obj.frameX());
       //Draw current pixel column
       ctx.drawImage(obj.sprite,
                     tX, 0, 1, obj.sprite.height,
