@@ -38,6 +38,9 @@ function update(frameTime) {
   if (pressedKeys.down) {
     player.moveBack(frameTime);
   }
+  if (pressedKeys.interact) {
+    player.interact(frameTime);
+  }
 }
 
 function drawBackground(ctx) {
@@ -55,7 +58,6 @@ function drawBackground(ctx) {
 //Renders game screen
 function draw(frameTime) {
   let t1 = performance.now();
-
   //Responsive canvas resolution
   ctx.canvas.width = $("#gameDiv").innerWidth() - 30;
   ctx.canvas.height = $("#gameDiv").innerHeight() - 30;
@@ -72,7 +74,8 @@ function draw(frameTime) {
   ctx.fillStyle = "rgb(255,0,0)";
   ctx.fillText(("Player Position x: " + player.position.x + " Y: " + player.position.y), 25, 25);
   ctx.fillText(("Player Vector x: " + player.direction.x + " Y: " + player.direction.y), 25, 50);
-  ctx.fillText(("Frame draw time: " + time + "ms"), 25, 75);
+  ctx.fillText(("Camera FOV: " + Math.RadianToDegrees(player.camera.fov)), 25, 75);
+  ctx.fillText(("Frame draw time: " + time + "ms"), 25, 100);
 }
 
 //Game loop
@@ -104,11 +107,11 @@ var pressedKeys = {
   interact: false
 }
 var keyMap = {
-  68: "right",
-  65: "left",
-  87: "up",
-  83: "down",
-  69: "interact"
+  68: "right",      //D
+  65: "left",       //A
+  87: "up",         //W
+  83: "down",       //S
+  69: "interact"    //E
 }
 function keyDown(event) {
   pressedKeys[keyMap[event.keyCode]] = true;

@@ -1,7 +1,3 @@
-//Returns just the fraction part of the floating point number passed.
-Math.fraction = function (n) {
-  return n - Math.floor(n);
-}
 /*
  * Models a single ray collision
  */
@@ -72,7 +68,6 @@ Ray2.prototype.cast = function (map) {
            https://lodev.org/cgtutor/raycasting.html */
         let len = (mapPos.x - this.origin.x + (1 - rayStep.x) / 2) / this.vector.x;
         //Calculate the horizontal position on the tile where the ray intersection occured
-        //let offset = (mapPos.y + (this.origin.y - Math.floor(this.origin.y))) + len * this.vector.y;
         let offset = (mapPos.y + Math.fraction(this.origin.y)) + len * this.vector.y;
         offset -= Math.floor(offset);
 

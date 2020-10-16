@@ -10,6 +10,14 @@ Point2.prototype.copy = function (point) {
   this.x = point.x;
   this.y = point.y;
 }
+/*
+ * Calculates distance between two points
+ */
+Point2.prototype.distanceToPoint = function (point) {
+  let x = point.x - this.x;
+  let y = point.y - this.y;
+  return Math.sqrt( (x * x) + (y * y) );
+}
 
 /**
  * Models a 2D Vector

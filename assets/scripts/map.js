@@ -102,6 +102,16 @@ RayMap2.prototype.getObjects = function (x, y) {
   return null;
 };
 
-
+/*
+ * Returns any object within a given range of the point passed
+ */
+RayMap2.prototype.getObjectsInRange = function (origin, range) {
+  let distance = 0;
+  for (let i = 0; i < this.objects.length; i++) {
+    distance = origin.distanceToPoint(this.objects[i].position);
+    if (distance <= range) return this.objects[i];
+  }
+  return null;
+}
 
  //More functions here as needed:

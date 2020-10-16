@@ -81,3 +81,11 @@ Player.prototype.turnLeft = function (timeDelta) {
 Player.prototype.turnRight = function (timeDelta) {
   this.direction.rotateByRadians(timeDelta * this.turnSpeed);
 };
+
+Player.prototype.interact = function (timeDelta) {
+  //Is there an object in range to interact with?
+  let obj = this.map.getObjectsInRange(this.position, this.reach);
+  if (obj != null) {
+    console.log("I can interact with this object!");
+  } else console.log("I can't reach!");
+};

@@ -36,7 +36,6 @@ Camera.prototype.drawScene = function (surface, map) {
     ray.vector.y = this.direction.y - offset * -this.direction.x;
     //Cast the ray into the map and log any collisions
     let hits = ray.cast(map);
-
     //For every ray hit, draw the objects
     for (let i = 0; i < hits.length; i++) {
       /* Calculates the wall height and placement based on distance between the
@@ -79,36 +78,55 @@ Camera.prototype.drawObjects = function (surface, map) {
 
 /*
  * Draws a single object sprite to the screen
+ *
+ * -Based on sprite casting code from:
+ *  https://lodev.org/cgtutor/raycasting3.html
  */
-Camera.prototype.drawObject = function(surface, obj) {
-  let offset = new Vector2(
+Camera.prototype.drawObject = function (surface, obj) {
+  //Position relative to the camera
+  let relative = new Point2(
     obj.position.x - this.position.x,
     obj.position.y - this.position.y
   );
-  //Calculate offset between angle to object and view angle
-  let spriteAngle = Math.atan2(offset.y, offset.x) - Math.atan2(this.direction.y, this.direction.x);
-  let distance = Math.sqrt(offset.x * offset.x + offset.y * offset.y) * Math.cos(spriteAngle);
+  //Projection plane (a vector at 90degrees to the camera view vector).
+  //The sprite is aligned to face this plane.
+  let plane = new Vector2(
+    -this.direction.y,
+    this.direction.x
+  );
+  //Perspective/FOV correction
+  plane.setMagnitude(this.fov/2);
+  //Transform world coordinates to screen coordinates
+  let invDet = 1.0 / (plane.x * this.direction.y - this.direction.x * plane.y);
+  let transform = new Point2(
+    invDet * (this.direction.y * relative.x - this.direction.x * relative.y),
+    invDet * (-plane.y * relative.x + plane.x * relative.y) //Screen depth
+  );
 
-  if (distance > 0.1) {
-    let sAspect = (obj.sprite.width / obj.frames) / obj.sprite.height;
-    let fullHeight = surface.height / distance;
-    let hSize = fullHeight * obj.scale;
-    let wSize = hSize * sAspect;
+  //Sprite height
+  let fullHeight = surface.height / transform.y;
+  let spriteHeight = Math.abs(fullHeight * obj.scale);
 
-    let sA = Math.tan(spriteAngle) * (surface.width / 2);
-    let sX = Math.floor(surface.width / 2 + sA - wSize / 2);
-    let sY = Math.floor( ((surface.height - hSize) / 2) + ((fullHeight - hSize) / 2) );
+  //Sprite width
+  let spriteAspect = (obj.sprite.width / obj.frames) / obj.sprite.height;
+  let spriteWidth = spriteHeight * spriteAspect;
 
-    let tX = 0;
+  //Screen position
+  let screenX = Math.floor( (surface.width / 2) * (1 + transform.x / transform.y) - spriteWidth / 2);
+  let screenY = Math.floor( ((surface.height - spriteHeight) / 2) + ((fullHeight - spriteHeight) / 2) );
 
-    for (let i = 0; i <= wSize; i++) {
-      if (this.depth[sX + i] > distance) {
-        tX = Math.floor( (i / wSize) * (obj.sprite.width / obj.frames) );
-        ctx.drawImage(obj.sprite,
-                      tX, 0, 1, obj.sprite.height,
-                      Math.floor(sX + i), Math.floor(sY), 1, hSize);
-      }
+  let tX = 0;
+  //Iterate through each column of sprite pixels
+  for (let i = 0; i <= spriteWidth; i++) {
+    //Is the current column closer to the camera than existing pixels?
+    if (this.depth[screenX + i] > transform.y) {
+      //Calculate texture X coordinate
+      tX = Math.floor( (i / spriteWidth) * (obj.sprite.width / obj.frames) );
+      //Draw current pixel column
+      ctx.drawImage(obj.sprite,
+                    tX, 0, 1, obj.sprite.height,
+                    screenX + i, screenY, 1, spriteHeight);
     }
   }
   obj.draw = false;
-}
+};
