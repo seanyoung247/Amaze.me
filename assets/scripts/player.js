@@ -38,17 +38,23 @@ Player.prototype.drawScene = function (surface) {
 };
 
 Player.prototype.moveTo = function (pX, pY, bX, bY) {
+  let obj = null;
   //Check for wall collision when moving in x
   if (this.map.getTilePassable(Math.floor(bX), Math.floor(this.position.y))) {
-    //No collision, move to new position in x
-    this.position.x = pX;
-    //TODO: Check for object collision
+    //Object collision
+    obj = this.map.getObjectsInRange(new Point2(bX, this.position.y), this.radius);
+    if ( obj === null ) {
+      //No collision, move to new position in x
+      this.position.x = pX;
+    }
   }
   //Check for wall collision when moving in y
   if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(bY))) {
-    //No collision, move to new position in y
-    this.position.y = pY;
-    //TODO: Check for object collision
+    obj = this.map.getObjectsInRange(new Point2(this.position.x, bY), this.radius);
+    if ( obj === null ) {
+      //No collision, move to new position in y
+      this.position.y = pY;
+    }
   }
 }
 
