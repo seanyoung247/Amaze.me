@@ -17,7 +17,7 @@ $( document ).ready(function() {
                       1.0,    //Interaction distance (world units)
                       (ctx.canvas.width / ctx.canvas.height)); //FOV in radians
 
-  let obj = new GameObject(map, objectDefs[0]);
+  new GameObject(map, objectDefs[0]);
 
   window.requestAnimationFrame(loop);
 });
@@ -38,6 +38,7 @@ function update(frameTime) {
   if (pressedKeys.down.down) {
     player.moveBack(frameTime);
   }
+  //Player interaction
   if (pressedKeys.interact.up) {
     player.interact(frameTime);
     pressedKeys.interact.up = false;
@@ -102,10 +103,15 @@ var pressedKeys = {
 }
 var keyMap = {
   68: "right",      //D
+  39: "right",      //Right Arrow
   65: "left",       //A
+  37: "left",       //Left Arrow
   87: "up",         //W
+  38: "up",         //Up Arrow
   83: "down",       //S
-  69: "interact"    //E
+  40: "down",       //Down Arrow
+  69: "interact",   //E
+  32: "interact"    //Spacebar
 }
 function keyDown(event) {
   pressedKeys[keyMap[event.keyCode]].down = true;
