@@ -117,13 +117,6 @@ function draw(frameTime) {
   drawOverlay(ctx);
 
   let time = performance.now() - t1;
-
-  //// DEBUG:
-  ctx.fillStyle = "rgb(255,0,0)";
-  ctx.fillText(("Player Position x: " + player.position.x + " Y: " + player.position.y), 25, 25);
-  ctx.fillText(("Player Vector x: " + player.direction.x + " Y: " + player.direction.y), 25, 50);
-  ctx.fillText(("Camera FOV: " + Math.RadianToDegrees(player.camera.fov)), 25, 75);
-  ctx.fillText(("Frame draw time: " + time + "ms"), 25, 100);
 }
 
 //Game loop
