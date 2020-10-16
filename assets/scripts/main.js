@@ -70,6 +70,15 @@ function drawMiniMap(x, y, ctx, alpha) {
       ctx.fillRect((tX*10) + x, (tY*10) + y, 10, 10);
     }
   }
+  //Draw object positions
+  ctx.fillStyle = "blue";
+  for (let i = 0; i < map.objects.length; i++) {
+    let oX = Math.floor(map.objects[i].position.x * 10) + x;
+    let oY = Math.floor(map.objects[i].position.y * 10) + y;
+    ctx.beginPath();
+    ctx.arc(oX, oY, 3, 0, 2 * Math.PI);
+    ctx.fill();
+  }
   //Draw player position
   ctx.beginPath();
   let pX = Math.floor(player.position.x * 10) + x;
@@ -85,16 +94,6 @@ function drawMiniMap(x, y, ctx, alpha) {
   ctx.moveTo(pX, pY);
   ctx.lineTo(vX, vY);
   ctx.stroke();
-
-  //Draw object positions
-  ctx.fillStyle = "blue";
-  for (let i = 0; i < map.objects.length; i++) {
-    let oX = Math.floor(map.objects[i].position.x * 10) + x;
-    let oY = Math.floor(map.objects[i].position.y * 10) + y;
-    ctx.beginPath();
-    ctx.arc(oX, oY, 3, 0, 2 * Math.PI);
-    ctx.fill();
-  }
 }
 
 function drawOverlay(ctx) {
