@@ -82,18 +82,11 @@ function draw(frameTime) {
 //Game loop
 function loop(timeStamp) {
   var frameTime = timeStamp - lastFrame;
-
-  /*
-   * I've noticed that the magnitude of the direction vector tends to increase
-   * slowly over time. Math throughout collision and movement code assumes the
-   * direction vector is a normalized vector (i.e. has a magnitude of 1.0.
-   * This helps combat that, though it would be more efficient to call this less
-   * frequently than every frame.
-   */
+  //Ensures direction vector remains normalised
   player.direction.normalize();
-
+  //Feeding update frameTime in seconds simplifies math
   update(frameTime / 1000);
-  draw();
+  draw(frameTime);
 
   lastFrame = timeStamp;
   window.requestAnimationFrame(loop);

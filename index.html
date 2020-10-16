@@ -13,31 +13,22 @@
 
     <title>AMaze.Me</title>
   </head>
-  <body class="container-fluid">
-    <!-- Header -->
-    <header class="headerWrapper row">
+  <body>
+    <div id="pageWrapper" class="container-fluid no-gutters">
+      <!-- Header -->
+      <header class="headerWrapper row no-gutters">
+      </header>
+      <!-- /Header -->
 
-    </header>
-    <!-- /Header -->
+      <!-- Body -->
+      <section class="row no-gutters">
+        <div id="gameDiv" class="gameWrapper col-12">
+          <canvas id="gameCanvas"></canvas>
+        </div>
+      </section>
+      <!-- /Body -->
+    </div>
 
-    <!-- Body -->
-    <section class="row">
-      <div id="gameDiv" class="gameWrapper col-9">
-        <canvas id="gameCanvas"></canvas>
-      </div>
-      <div id="statusDiv" class="statusWrapper col-3">
-        <canvas id="statusCanvas"></canvas>
-      </div>
-    </section>
-    <!-- /Body -->
-
-    <!-- Footer -->
-    <footer class="footerWrapper row">
-    </footer>
-    <!-- /Footer -->
-
-    <!-- Info modal -->
-    <!-- Settings modal -->
 
     <!--Bootstrap Javascript -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

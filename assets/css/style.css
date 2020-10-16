@@ -6,28 +6,29 @@ body {
   min-width: 600px;
 }
 
+#pageWrapper {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.row {
+  margin: 0;
+}
+
 .headerWrapper {
   border: 1px solid orange;
   height: 5vh;
 }
 
-.gameWrapper, .statusWrapper {
-  padding: 15px;
-  height: 90vh;
+.gameWrapper {
+  padding-left: 0;
+  padding-right: 0;
+  height: 95vh;
   border: 1px solid red;
 }
 
-#gameCanvas, #statusCanvas {
+#gameCanvas {
   width: 100%;
   height: 100%;
   border: 1px solid blue;
-}
-
-.statusWrapper {
-  border: 1px solid green;
-}
-
-.footerWrapper {
-  border: 1px solid orange;
-  height: 5vh;
 }
