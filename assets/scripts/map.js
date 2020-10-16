@@ -113,5 +113,4 @@ RayMap2.prototype.getObjectsInRange = function (origin, range) {
   }
   return null;
 }
-
  //More functions here as needed:

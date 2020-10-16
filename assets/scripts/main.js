@@ -57,6 +57,50 @@ function drawBackground(ctx) {
   ctx.fillRect(0, ctx.canvas.height / 2, ctx.canvas.width, ctx.canvas.height / 2);
 }
 
+/*
+ * Draws the minimap at the position given on the canvas
+ */
+function drawMiniMap(x, y, ctx, alpha) {
+  //Draw map geometry
+  for (let tY = 0; tY < map.height; tY++) {
+    for (let tX = 0; tX < map.width; tX++) {
+      if (map.map[tY][tX] === 0) ctx.fillStyle = "rgba(0,0,0,"+alpha+")";
+      else ctx.fillStyle = "rgba(0,255,0,"+alpha+")";
+
+      ctx.fillRect((tX*10) + x, (tY*10) + y, 10, 10);
+    }
+  }
+  //Draw player position
+  ctx.beginPath();
+  let pX = Math.floor(player.position.x * 10) + x;
+  let pY = Math.floor(player.position.y * 10) + y;
+  let vX = Math.floor(pX + (player.direction.x * 10));
+  let vY = Math.floor(pY + (player.direction.y * 10));
+  ctx.fillStyle = "red";
+  ctx.arc(pX, pY, 3, 0, 2 * Math.PI);
+  ctx.fill();
+  //Draw player Vector
+  ctx.strokeStyle = "red";
+  ctx.beginPath();
+  ctx.moveTo(pX, pY);
+  ctx.lineTo(vX, vY);
+  ctx.stroke();
+
+  //Draw object positions
+  ctx.fillStyle = "blue";
+  for (let i = 0; i < map.objects.length; i++) {
+    let oX = Math.floor(map.objects[i].position.x * 10) + x;
+    let oY = Math.floor(map.objects[i].position.y * 10) + y;
+    ctx.beginPath();
+    ctx.arc(oX, oY, 3, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+}
+
+function drawOverlay(ctx) {
+  drawMiniMap(ctx.canvas.width - 200, 50, ctx, 0.35);
+}
+
 //Renders game screen
 function draw(frameTime) {
   let t1 = performance.now();
@@ -69,6 +113,8 @@ function draw(frameTime) {
   player.setFOV(ctx.canvas.width / ctx.canvas.height);
   //Render player view
   player.drawScene(gameCanvas);
+
+  drawOverlay(ctx);
 
   let time = performance.now() - t1;
 
