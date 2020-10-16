@@ -37,11 +37,21 @@ Player.prototype.drawScene = function (surface) {
   this.camera.drawObjects(surface, this.map);
 };
 
-Player.prototype.moveTo = function (pX, pY, bX, bY) {
+/*
+ * Performs collision detection and moves the player
+ */
+Player.prototype.move = function (timeDelta, directionX, directionY) {
+  //Calculate new position
+  let pX = this.position.x + (directionX * (timeDelta * this.moveSpeed));
+  let pY = this.position.y + (directionY * (timeDelta * this.moveSpeed));
+  //Calculate player outer boundary point
+  let bX = pX + (directionX * this.radius);
+  let bY = pY + (directionY * this.radius);
+
   let obj = null;
   //Check for wall collision when moving in x
   if (this.map.getTilePassable(Math.floor(bX), Math.floor(this.position.y))) {
-    //Object collision
+    //Check for Object collision in x
     obj = this.map.getObjectsInRange(new Point2(bX, this.position.y), this.radius);
     if ( obj === null ) {
       //No collision, move to new position in x
@@ -50,36 +60,31 @@ Player.prototype.moveTo = function (pX, pY, bX, bY) {
   }
   //Check for wall collision when moving in y
   if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(bY))) {
+    //Check for Object collision in y
     obj = this.map.getObjectsInRange(new Point2(this.position.x, bY), this.radius);
     if ( obj === null ) {
       //No collision, move to new position in y
       this.position.y = pY;
     }
   }
+  //IMPROVEMENT: if collision before move detected, move player out of collision.
+  //IMPROVEMENT: if collision after move detected, move player upto collision point.
 }
 
+/*
+ * These functions moves the player backward and forwards along it's view vector.
+ */
 Player.prototype.moveForward = function (timeDelta) {
-  //Calculate new position
-  let x = this.position.x + (this.direction.x * (timeDelta * this.moveSpeed));
-  let y = this.position.y + (this.direction.y * (timeDelta * this.moveSpeed));
-  //Calculate player outer boundary point
-  let boundaryX = x + (this.direction.x * this.radius);
-  let boundaryY = y + (this.direction.y * this.radius);
-
-  this.moveTo(x, y, boundaryX, boundaryY);
+  this.move(timeDelta, this.direction.x, this.direction.y);
 };
 
 Player.prototype.moveBack = function (timeDelta) {
-  //Calculate new position
-  let x = this.position.x - (this.direction.x * (timeDelta * this.moveSpeed));
-  let y = this.position.y - (this.direction.y * (timeDelta * this.moveSpeed));
-  //Calculate player outer boundary point
-  let boundaryX = x - (this.direction.x * this.radius);
-  let boundaryY = y - (this.direction.y * this.radius);
-
-  this.moveTo(x, y, boundaryX, boundaryY);
+  this.move(timeDelta, -this.direction.x, -this.direction.y);
 };
 
+/*
+ * These functions rotate the player view left and right.
+ */
 Player.prototype.turnLeft = function (timeDelta) {
   this.direction.rotateByRadians(timeDelta * -this.turnSpeed);
 };
