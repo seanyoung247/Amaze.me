@@ -74,13 +74,27 @@ Player.prototype.move = function (timeDelta, directionX, directionY) {
 
 /*
  * These functions moves the player backward and forwards along it's view vector.
+ *  Player movement is actually performed by the move method, but these methods
+ *  aid readability.
  */
 Player.prototype.moveForward = function (timeDelta) {
+  //Move along view vector
   this.move(timeDelta, this.direction.x, this.direction.y);
 };
 
 Player.prototype.moveBack = function (timeDelta) {
+  //Move along negative of move vector
   this.move(timeDelta, -this.direction.x, -this.direction.y);
+};
+
+Player.prototype.moveLeft = function (timeDelta) {
+  //Move along right angle of the view vector
+  this.move(timeDelta, this.direction.y, -this.direction.x);
+};
+
+Player.prototype.moveRight = function (timeDelta) {
+  //Move along right angle of the view vector
+  this.move(timeDelta, -this.direction.y, this.direction.x);
 };
 
 /*
@@ -94,10 +108,16 @@ Player.prototype.turnRight = function (timeDelta) {
   this.direction.rotateByRadians(timeDelta * this.turnSpeed);
 };
 
+/*
+ * Performs player-object interaction.
+ *  NOTE: Probably doesn't need timeDelta but i've added it to remain consistent
+ *        with other functions, and incase it's needed in the future.
+ */
 Player.prototype.interact = function (timeDelta) {
   //Is there an object in range to interact with?
   let obj = this.map.getObjectsInRange(this.position, this.reach);
   if (obj != null) {
+    //TODO: game logic tests to see if we *should* interact with this object.
     obj.interact();
   }
 };

@@ -29,10 +29,10 @@ $( document ).ready(function() {
 //Updates game state
 function update(frameTime) {
   //Player direction
-  if (pressedKeys.left.down) {
+  if (pressedKeys.turnLeft.down) {
     player.turnLeft(frameTime);
   }
-  if (pressedKeys.right.down) {
+  if (pressedKeys.turnRight.down) {
     player.turnRight(frameTime);
   }
   //Player movement
@@ -41,6 +41,12 @@ function update(frameTime) {
   }
   if (pressedKeys.down.down) {
     player.moveBack(frameTime);
+  }
+  if (pressedKeys.left.down) {
+    player.moveLeft(frameTime);
+  }
+  if (pressedKeys.right.down) {
+    player.moveRight(frameTime);
   }
   //Player interaction
   if (pressedKeys.interact.up) {
@@ -141,6 +147,8 @@ function loop(timeStamp) {
 
 //Input events
 var pressedKeys = {
+  turnLeft: {down: false, up: false},
+  turnRight: {down: false, up: false},
   left: {down: false, up: false},
   right: {down: false, up: false},
   up: {down: false, up: false},
@@ -149,10 +157,12 @@ var pressedKeys = {
 }
 //To Do: Make these settable
 var keyMap = {
-  68: "right",      //D
-  39: "right",      //Right Arrow
-  65: "left",       //A
-  37: "left",       //Left Arrow
+  68: "turnRight",  //D
+  39: "turnRight",  //Right Arrow
+  65: "turnLeft",   //A
+  37: "turnLeft",   //Left Arrow
+  90: "left",       //Z
+  88: "right",      //X
   87: "up",         //W
   38: "up",         //Up Arrow
   83: "down",       //S
