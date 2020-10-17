@@ -12,8 +12,8 @@ function Camera(pX = 0, pY = 0, dX = 0, dY = 0, fov = 1.57079632679, range = 15)
   this.depth = new Array();
 
   //Temporary texture load
-  this.wallImg = new Image();
-  this.wallImg.src = "assets/images/hedge.png";
+  /*this.wallImg = new Image();
+  this.wallImg.src = "assets/images/hedge.png";*/
 }
 /*
  * Draws the scene one vertical column at a time.
@@ -25,6 +25,7 @@ Camera.prototype.drawScene = function (surface, map) {
   let offset = 0;
   let wallHeight = 0;
   let screenY = 0;
+  let wall = null;
   let ray = new Ray2(this.position.x, this.position.y, 0, 0, this.range);
   this.depth.length = surface.width;
 
@@ -46,11 +47,12 @@ Camera.prototype.drawScene = function (surface, map) {
       //Store current depth of screen column (used for sprite occlusion)
       this.depth[column] = hits[i].length;
 
-      //Temporary texture drawing
+      //Get required texture from map
+      wall = map.walls[hits[i].type - 1];
       //Calculate which pixel column from the texture to draw
-      let texCol = Math.floor(hits[i].offset * this.wallImg.width);
-      ctx.drawImage(this.wallImg,                                 //Source
-                    texCol, 0, 1, this.wallImg.height,            //Source coords
+      let texCol = Math.floor(hits[i].offset * wall.texture.width);
+      ctx.drawImage(wall.texture,                                 //Source
+                    texCol, 0, 1, wall.texture.height,            //Source coords
                     column, ((surface.height/2) - (wallHeight/2)),//Screen X,Y
                     1, wallHeight);                               //Screen width,height
 
