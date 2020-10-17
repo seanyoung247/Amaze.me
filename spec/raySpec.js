@@ -20,12 +20,12 @@ describe("Ray2", function() {
   });
   describe("ray grid traversal cell tests", function() {
     it("should return type of cell at 2,2", function() {
-      expect(ray.cast(map)[0].type).toBe(1);
+      expect(ray.cast(map)[0].type).toBe(2);
     });
     it("should return type of cell at 1,1", function() {
       ray.vector.x = -1;
       ray.vector.y = 0;
-      expect(ray.cast(map)[0].type).toBe(2);
+      expect(ray.cast(map)[0].type).toBe(1);
     });
   })
 });

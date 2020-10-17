@@ -19,10 +19,10 @@ describe("RayMap2", function() {
         expect(map.getMapTile(1,1)).toBe(0);
       });
       it ("should return hedge type", function() {
-        expect(map.getMapTile(4,4)).toBe(1);
+        expect(map.getMapTile(4,4)).toBe(2);
       });
       it ("should return gate type", function() {
-        expect(map.getMapTile(0,1)).toBe(2);
+        expect(map.getMapTile(0,1)).toBe(1);
       });
     });
   });

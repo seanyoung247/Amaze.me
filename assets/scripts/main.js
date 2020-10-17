@@ -119,6 +119,10 @@ function draw(frameTime) {
   drawOverlay(ctx);
 
   let time = performance.now() - t1;
+
+  ctx.fillStyle = "red";
+  ctx.font = "20px Arial";
+  ctx.fillText( (1000/time) + "FPS", 25, 25 );
 }
 
 //Game loop
