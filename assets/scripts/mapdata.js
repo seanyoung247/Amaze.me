@@ -44,11 +44,11 @@ var normalMap = {
   pSpawn: [10.5,1.5,0,1],
   objects: 6,
   oSpawn: [ [8.5,1.5],
-            [9.5,1.5],
+            [13.5,1.5],
             [3.5,3.5],
-            [5.5,13.5],
-            [7.5,13.5],
-            [12.5,13.5] ]
+            [5.5,12.5],
+            [7.5,12.5],
+            [13.5,13.5] ]
 };
 
 //Base path for images
@@ -80,7 +80,7 @@ var objectDefs = [
     //Ball
     {name: "Ball", icon:"ball_ico.png", texture: "ball.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
     //Can
-    {name: "Can", icon:"can_ico.png", texture: "lamp.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
+    {name: "Can", icon:"can_ico.png", texture: "can.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
     //Cup
     {name: "Cup", icon:"cup_ico.png", texture: "cup.png", frames: 2, scale: 0.66, radius:0.2, blocking: true}
 ];
