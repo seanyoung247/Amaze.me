@@ -9,11 +9,13 @@ function MapLocation2(pX = 0, pY = 0, dX = 0, dY = 0) {
 /*
  * Stores information on a single wall type
  */
-function Wall(name, texture, transparancy) {
-  this.name = name;
+function Wall(template) {
+  this.name = template.name;
   this.texture = new Image();
-  this.texture.src = imagePath + texture;
-  this.transparent = transparancy;
+  this.texture.src = imagePath + template.texture;
+  //Not really needed currently, but could make doors possible in future?
+  this.passable = template.passable;
+  this.transparent = template.transparancy;
 }
 
 /*
@@ -39,9 +41,7 @@ function RayMap2(template, walls) {
   //Wall types
   this.walls = new Array();
   for (let i = 0; i < walls.length; i++) {
-    this.walls.push(new Wall( walls[i].name,
-                              walls[i].texture,
-                              walls[i].transparent));
+    this.walls.push(new Wall(walls[i]));
   }
 
   //Map player spawn point
@@ -82,10 +82,11 @@ RayMap2.prototype.getMapTile = function (x, y) {
  * Returns whether a tile at x,y can be traversed
  */
 RayMap2.prototype.getTilePassable = function (x, y) {
-  if (this.getMapTile(x,y) === 0) {
+  let wallType = this.getMapTile(x,y);
+  if (wallType === 0) {
     return true;
   } else {
-    return false;
+    return this.walls[wallType - 1].passable;
   }
 };
 
@@ -117,6 +118,7 @@ RayMap2.prototype.getObjects = function (x, y) {
       }
     }
   }
+  //If not in bounds or no object return null
   return null;
 };
 
@@ -125,10 +127,32 @@ RayMap2.prototype.getObjects = function (x, y) {
  */
 RayMap2.prototype.getObjectsInRange = function (origin, range) {
   let distance = 0;
+  //No need for bounds check, it doesn't matter if the origin is outside of the map
+  //Check each objects in list
   for (let i = 0; i < this.objects.length; i++) {
+    //Calculate the distance between the origin point and the object
     distance = origin.distanceToPoint(this.objects[i].position);
+    //If the distance lower than the range given, return object
     if (distance <= range) return this.objects[i];
   }
+  //if no object in range return null
   return null;
 }
+
+/*
+ * Returns the wall definition at point passed
+ */
+RayMap2.prototype.getWallType = function (x, y) {
+  let wallType = this.getMapTile(x,y);
+  if (wallType === 0) {
+    return null;  //Empty space has no type
+  } else {
+    return this.walls[wallType - 1];
+  }
+}
+
+
+
+
+
  //More functions here as needed:

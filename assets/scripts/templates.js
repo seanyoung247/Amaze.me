@@ -59,9 +59,9 @@ var imagePath = "assets/images/";
  */
 var wallDefs = [
   //Gate
-  {name: "gate", texture: "gate.png", transparent: true},
+  {name: "gate", texture: "gate.png", passable: false, transparent: true},
   //Hedge
-  {name: "hedge", texture: "hedge.png", transparent: false}
+  {name: "hedge", texture: "hedge.png", passable: false, transparent: false}
   //Brick wall    - Not Yet Implimented
   //Stone wall    - Not Yet Implimented
   //Fence         - Not Yet Implimented
