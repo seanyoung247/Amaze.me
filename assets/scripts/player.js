@@ -53,7 +53,8 @@ Player.prototype.move = function (timeDelta, directionX, directionY) {
   if (this.map.getTilePassable(Math.floor(bX), Math.floor(this.position.y))) {
     //Check for Object collision in x
     obj = this.map.getObjectsInRange(new Point2(bX, this.position.y), this.radius);
-    if ( obj === null ) {
+    //javascript uses lazy evaluation so if obj === null obj.blocking is never evaluated
+    if ( obj === null || !obj.blocking) {
       //No collision, move to new position in x
       this.position.x = pX;
     }
@@ -62,7 +63,7 @@ Player.prototype.move = function (timeDelta, directionX, directionY) {
   if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(bY))) {
     //Check for Object collision in y
     obj = this.map.getObjectsInRange(new Point2(this.position.x, bY), this.radius);
-    if ( obj === null ) {
+    if ( obj === null || !obj.blocking) {
       //No collision, move to new position in y
       this.position.y = pY;
     }
