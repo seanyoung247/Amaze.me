@@ -85,6 +85,7 @@ Camera.prototype.drawObjects = function (surface, map) {
  *  https://lodev.org/cgtutor/raycasting3.html
  */
 Camera.prototype.drawObject = function (surface, obj) {
+  let ctx = surface.getContext("2d");
   //Position relative to the camera
   let relative = new Point2(
     obj.position.x - this.position.x,

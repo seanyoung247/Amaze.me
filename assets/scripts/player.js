@@ -2,7 +2,10 @@
  * Functions as the player's avatar in the game world. Accepts player commands
  * and positions and interacts with world objects to render the scene.
  */
-function Player(map, mSpeed, tSpeed, radius, reach, fov) {
+function Player(owner, map, mSpeed, tSpeed, radius, reach, fov) {
+  //The game controler this player belongs to
+  this.owner = owner
+  
   this.map = map;
   //Read initial position from map
   this.position = new Point2( map.playerSpawn.position.x,
@@ -74,7 +77,7 @@ Player.prototype.move = function (timeDelta, directionX, directionY) {
 
 /*
  * These functions moves the player backward, forwards and at right angles along
- *  it's view vector. Player movement is actually performed by the move method, 
+ *  it's view vector. Player movement is actually performed by the move method,
  *  but these methods aid readability.
  */
 Player.prototype.moveForward = function (timeDelta) {

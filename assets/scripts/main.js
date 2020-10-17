@@ -1,33 +1,17 @@
 //Initial startup
 var lastFrame = 0;
-var map = null;
-var player = null;
-var gameCanvas = null;
-var ctx = null;
+var game = null;
 
 $( document ).ready(function() {
-  gameCanvas = document.getElementById("gameCanvas");
-  ctx = gameCanvas.getContext("2d");
+  game = new GameState(document.getElementById("gameCanvas"), normalMap);
 
-  map = new RayMap2(normalMap, wallDefs);
-  player = new Player(map,
-                      3.0,    //Movement speed (world units per-second)
-                      3.0,    //Turning speed (radians per-second)
-                      0.2,    //Player object radius (world units)
-                      1.0,    //Interaction distance (world units)
-                      (ctx.canvas.width / ctx.canvas.height)); //FOV in radians
-
-  //load as many object definitions on to the map as possbile.
-  for (let i = 0; i < objectDefs.length; i++) {
-    //GameObjects self register during creation
-    new GameObject(map, objectDefs[i]);
-  }
   //Start the game loop
   window.requestAnimationFrame(loop);
 });
 
 //Updates game state
 function update(frameTime) {
+  let player = game.player;
   //Player direction
   if (pressedKeys.turnLeft.down) {
     player.turnLeft(frameTime);
@@ -71,6 +55,8 @@ function drawBackground(ctx) {
  * Draws the minimap at the position given on the canvas
  */
 function drawMiniMap(x, y, ctx, alpha) {
+  let map = game.map;
+  let player = game.player;
   //Draw map geometry
   for (let tY = 0; tY < map.height; tY++) {
     for (let tX = 0; tX < map.width; tX++) {
@@ -112,6 +98,8 @@ function drawOverlay(ctx) {
 
 //Renders game screen
 function draw(frameTime) {
+  let ctx = game.gameContext;
+  let player = game.player;
   let t1 = performance.now();
   //Responsive canvas resolution
   ctx.canvas.width = $("#gameDiv").innerWidth() - 30;
@@ -121,7 +109,7 @@ function draw(frameTime) {
   //Prepare rendering state
   player.setFOV(ctx.canvas.width / ctx.canvas.height);
   //Render player view
-  player.drawScene(gameCanvas);
+  player.drawScene(game.gameCanvas);
 
   drawOverlay(ctx);
 
@@ -134,6 +122,7 @@ function draw(frameTime) {
 
 //Game loop
 function loop(timeStamp) {
+  let player = game.player;
   var frameTime = timeStamp - lastFrame;
   //Ensures direction vector remains normalised
   player.direction.normalize();
