@@ -76,7 +76,7 @@ Ray2.prototype.cast = function (map) {
 
         /*Add the hit to the front of the hit array. This way the returned array
         will be sorted in order of furthest to closest so we can just draw each
-        hit in turn and closer object will appear in front of further ones.*/
+        hit in turn and closer hits will appear in front of further ones.*/
         hits.unshift(new RayHit(
           map.getMapTile( mapPos.x, mapPos.y),
                           offset, 0, len ));
@@ -105,12 +105,13 @@ Ray2.prototype.cast = function (map) {
           map.getMapTile( mapPos.x, mapPos.y),
                           offset, 1, len ));
 
-        if (!map.getWallType(mapPos.x, mapPos.y).transparent) return hits;                      
+        if (!map.getWallType(mapPos.x, mapPos.y).transparent) return hits;
       }
     }
     //Have we encountered an object?
     let obj = map.getObjects(mapPos.x, mapPos.y);
     if (obj != null) obj.draw = true;
   }
+  //Ray has reached it's maximum range without being stopped.
   return hits;
 };
