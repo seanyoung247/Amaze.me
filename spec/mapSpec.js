@@ -3,7 +3,7 @@
   */
 describe("RayMap2", function() {
   beforeEach(function() {
-    map = new RayMap2(easyMap);
+    map = new RayMap2(easyMap, wallDefs);
   })
 
   //Checks the map is created correctly from the template
@@ -18,11 +18,20 @@ describe("RayMap2", function() {
       it ("should return empty", function() {
         expect(map.getMapTile(1,1)).toBe(0);
       });
-      it ("should return hedge type", function() {
+      it ("should return type 2", function() {
         expect(map.getMapTile(4,4)).toBe(2);
       });
-      it ("should return gate type", function() {
+      it ("should return type 1", function() {
         expect(map.getMapTile(0,1)).toBe(1);
+      });
+      it ("should return null", function() {
+        expect(map.getWallType(1,1)).toBe(null);
+      });
+      it ("should return hedge type", function() {
+        expect(map.getWallType(4,4).name).toBe("hedge");
+      });
+      it ("should return gate type", function() {
+        expect(map.getWallType(0,1).name).toBe("gate");
       });
     });
   });

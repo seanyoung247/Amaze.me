@@ -3,7 +3,7 @@
  */
 describe("Ray2", function() {
   beforeEach(function() {
-    map = new RayMap2(easyMap);
+    map = new RayMap2(easyMap, wallDefs);
      //Creates a ray with an origin at 1,1, a 45 degree vector and a 15 cell range
     ray = new Ray2(1.5,1.5,0.70710678118,0.70710678118,15);
   })
