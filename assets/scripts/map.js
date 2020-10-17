@@ -15,7 +15,7 @@ function Wall(template) {
   this.texture.src = imagePath + template.texture;
   //Not really needed currently, but could make doors possible in future?
   this.passable = template.passable;
-  this.transparent = template.transparancy;
+  this.transparent = template.transparent;
 }
 
 /*
