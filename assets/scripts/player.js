@@ -73,9 +73,9 @@ Player.prototype.move = function (timeDelta, directionX, directionY) {
 }
 
 /*
- * These functions moves the player backward and forwards along it's view vector.
- *  Player movement is actually performed by the move method, but these methods
- *  aid readability.
+ * These functions moves the player backward, forwards and at right angles along
+ *  it's view vector. Player movement is actually performed by the move method, 
+ *  but these methods aid readability.
  */
 Player.prototype.moveForward = function (timeDelta) {
   //Move along view vector
