@@ -31,10 +31,13 @@ Ray2.prototype.cast = function (map) {
     Math.abs(1 / this.vector.y)
   );
   let stepDist = new Vector2(0,0);
+  //The current precise position of the ray head during traversal
   let mapPos = new Point2(
      Math.floor(this.origin.x),
      Math.floor(this.origin.y)
   );
+  //Returns the list of collisions this ray encountered while traversing the map
+  let hits = new Array();
 
   /* We want to move in whole grid numbers, so we need to convert float vector
       values into single tile steps */
@@ -71,9 +74,16 @@ Ray2.prototype.cast = function (map) {
         let offset = (mapPos.y + Math.fraction(this.origin.y)) + len * this.vector.y;
         offset -= Math.floor(offset);
 
-        return new Array(new RayHit(
+        /*Add the hit to the front of the hit array. This way the returned array
+        will be sorted in order of furthest to closest so we can just draw each
+        hit in turn and closer object will appear in front of further ones.*/
+        hits.unshift(new RayHit(
           map.getMapTile( mapPos.x, mapPos.y),
                           offset, 0, len ));
+
+        /*If the encountered tile is "transparent" the ray can continue
+        Otherwise the ray is stopped and we can return.*/
+        if (!map.getWallType(mapPos.x, mapPos.y).transparent) return hits;
       }
     //y direction is closest to next step
     } else {
@@ -91,14 +101,16 @@ Ray2.prototype.cast = function (map) {
         let offset = (mapPos.x + Math.fraction(this.origin.x)) + len * this.vector.x;
         offset -= Math.floor(offset);
 
-        return new Array(new RayHit(
+        hits.unshift(new RayHit(
           map.getMapTile( mapPos.x, mapPos.y),
                           offset, 1, len ));
+
+        if (!map.getWallType(mapPos.x, mapPos.y).transparent) return hits;                      
       }
     }
     //Have we encountered an object?
     let obj = map.getObjects(mapPos.x, mapPos.y);
     if (obj != null) obj.draw = true;
   }
-  return new Array();
+  return hits;
 };
