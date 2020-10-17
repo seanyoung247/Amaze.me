@@ -104,3 +104,56 @@ GameState.prototype.update = function (frameTime) {
     }
   }
 }
+
+/*
+ * Drawing functions
+ */
+GameState.prototype.drawOverlay = function () {
+  this.drawMiniMap(this.gameCanvas.width - 175, 25, 0.35);
+}
+
+GameState.prototype.drawMiniMap = function(x, y, alpha) {
+  //Only draw the map if we're not playing in hard difficulty
+  if ( !(this.state === gamestates.PLAYING && this.difficulty === gamedifficulty.HARD) ) {
+    let ctx = this.gameContext;
+    let map = this.map;
+    let player = this.player;
+
+    //Draw map geometry
+    for (let tY = 0; tY < map.height; tY++) {
+      for (let tX = 0; tX < map.width; tX++) {
+        if (map.map[tY][tX] === 0) ctx.fillStyle = "rgba(0,0,0,"+alpha+")";
+        else ctx.fillStyle = "rgba(0,255,0,"+alpha+")";
+
+        ctx.fillRect((tX*10) + x, (tY*10) + y, 10, 10);
+      }
+    }
+
+    //Only Draw object positions when playing on easy
+    if ((this.state != gamestates.PLAYING) || (this.difficulty === gamedifficulty.EASY)) {
+      ctx.fillStyle = "blue";
+      for (let i = 0; i < map.objects.length; i++) {
+        let oX = Math.floor(map.objects[i].position.x * 10) + x;
+        let oY = Math.floor(map.objects[i].position.y * 10) + y;
+        ctx.beginPath();
+        ctx.arc(oX, oY, 3, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+    }
+    //Draw player position
+    ctx.beginPath();
+    let pX = Math.floor(player.position.x * 10) + x;
+    let pY = Math.floor(player.position.y * 10) + y;
+    let vX = Math.floor(pX + (player.direction.x * 10));
+    let vY = Math.floor(pY + (player.direction.y * 10));
+    ctx.fillStyle = "red";
+    ctx.arc(pX, pY, 3, 0, 2 * Math.PI);
+    ctx.fill();
+    //Draw player Vector
+    ctx.strokeStyle = "red";
+    ctx.beginPath();
+    ctx.moveTo(pX, pY);
+    ctx.lineTo(vX, vY);
+    ctx.stroke();
+  }
+}
