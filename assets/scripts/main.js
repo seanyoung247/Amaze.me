@@ -5,39 +5,15 @@ var game = null;
 $( document ).ready(function() {
   game = new GameState(document.getElementById("gameCanvas"), normalMap);
 
+  //Pause control not yet implimented...
+  game.state = gamestates.PLAYING;
+
   //Start the game loop
   window.requestAnimationFrame(loop);
 });
 
-//Updates game state
-function update(frameTime) {
-  let player = game.player;
-  //Player direction
-  if (pressedKeys.turnLeft.down) {
-    player.turnLeft(frameTime);
-  }
-  if (pressedKeys.turnRight.down) {
-    player.turnRight(frameTime);
-  }
-  //Player movement
-  if (pressedKeys.up.down) {
-    player.moveForward(frameTime);
-  }
-  if (pressedKeys.down.down) {
-    player.moveBack(frameTime);
-  }
-  if (pressedKeys.left.down) {
-    player.moveLeft(frameTime);
-  }
-  if (pressedKeys.right.down) {
-    player.moveRight(frameTime);
-  }
-  //Player interaction
-  if (pressedKeys.interact.up) {
-    player.interact(frameTime);
-    pressedKeys.interact.up = false;
-  }
-}
+
+
 
 function drawBackground(ctx) {
   //Draw sky gradient
@@ -127,7 +103,7 @@ function loop(timeStamp) {
   //Ensures direction vector remains normalised
   player.direction.normalize();
   //Feeding update frameTime in seconds simplifies math
-  update(frameTime / 1000);
+  game.update(frameTime / 1000);
   draw(frameTime);
 
   lastFrame = timeStamp;
@@ -135,15 +111,6 @@ function loop(timeStamp) {
 }
 
 //Input events
-var pressedKeys = {
-  turnLeft: {down: false, up: false},
-  turnRight: {down: false, up: false},
-  left: {down: false, up: false},
-  right: {down: false, up: false},
-  up: {down: false, up: false},
-  down: {down: false, up: false},
-  interact: {down: false, up: false}
-}
 //To Do: Make these settable
 var keyMap = {
   68: "turnRight",  //D
@@ -160,12 +127,12 @@ var keyMap = {
   32: "interact"    //Spacebar
 }
 function keyDown(event) {
-  pressedKeys[keyMap[event.keyCode]].down = true;
-  pressedKeys[keyMap[event.keyCode]].up = false;
+  game.inputMap[keyMap[event.keyCode]].down = true;
+  game.inputMap[keyMap[event.keyCode]].up = false;
 }
 function keyUp(event) {
-  pressedKeys[keyMap[event.keyCode]].down = false;
-  pressedKeys[keyMap[event.keyCode]].up = true;
+  game.inputMap[keyMap[event.keyCode]].down = false;
+  game.inputMap[keyMap[event.keyCode]].up = true;
 }
 window.addEventListener("keydown", keyDown, false);
 window.addEventListener("keyup", keyUp, false);
