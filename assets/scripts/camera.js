@@ -13,7 +13,7 @@ function Camera(pX = 0, pY = 0, dX = 0, dY = 0, fov = 1.57079632679, range = 15)
 
   //Temporary texture load
   this.wallImg = new Image();
-  this.wallImg.src = "assets/images/hedge2.png";
+  this.wallImg.src = "assets/images/hedge.png";
 }
 /*
  * Draws the scene one vertical column at a time.

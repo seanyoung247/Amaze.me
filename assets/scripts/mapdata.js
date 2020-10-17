@@ -59,7 +59,7 @@ var imagePath = "assets/images/";
  */
 var wallDefs = [
    //Hedge
-   {name: "hedge", texture: "hedge2.png", transparent: false},
+   {name: "hedge", texture: "hedge.png", transparent: false},
    //Brick wall    - Not Yet Implimented
    //Stone wall    - Not Yet Implimented
    //Fence         - Not Yet Implimented
@@ -72,10 +72,15 @@ var wallDefs = [
  */
 var objectDefs = [
     //Lamp
-    {name: "Lamp", icon:"lampico.png", texture: "lamp.png", frames: 2, scale: 0.66, radius:0.2, blocking: true}
+    {name: "Lamp", icon:"lamp_ico.png", texture: "lamp.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
     //Bottle
+    {name: "Bottle", icon:"bottle_ico.png", texture: "bottle.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
     //Vase
+    {name: "Vase", icon:"vase_ico.png", texture: "vase.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
     //Ball
+    {name: "Ball", icon:"ball_ico.png", texture: "ball.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
     //Can
+    {name: "Can", icon:"can_ico.png", texture: "lamp.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
     //Cup
+    {name: "Cup", icon:"cup_ico.png", texture: "cup.png", frames: 2, scale: 0.66, radius:0.2, blocking: true}
 ];
