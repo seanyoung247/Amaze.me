@@ -47,30 +47,26 @@ describe("RayMap2", function() {
     });
   });
   describe("Tile passability test", function() {
-    it ("Should return passable", function() {
+    it ("Tile should be passable", function() {
       expect(map.getTilePassable(0,0)).toBe(false);
     });
-    it ("should return blocked", function() {
+    it ("Tile should be impassable", function() {
       expect(map.getTilePassable(1,1)).toBe(true);
     });
   });
   describe("Player Spawn point tests", function() {
     //Position Checks
     describe("player spawn position", function() {
-      it ("player x position should be 1.5", function() {
-        expect(map.playerSpawn.position.x).toBe(1.5);
-      });
-      it ("player y positon should be 1.5", function() {
-        expect(map.playerSpawn.position.y).toBe(1.5);
+      it ("player spawn position should be correct", function() {
+        expect(map.playerSpawn.position.x===1.5 &&
+                map.playerSpawn.position.y === 1.5).toBe(true);
       });
     });
     //Vector checks
     describe("player spawn vector", function() {
       it ("player x vector should be 1", function() {
-        expect(map.playerSpawn.vector.x).toBe(1);
-      });
-      it ("player y vector should be 0", function() {
-        expect(map.playerSpawn.vector.y).toBe(0);
+        expect(map.playerSpawn.vector.x === 1 &&
+                map.playerSpawn.vector.y === 0).toBe(true);
       });
     });
   });
@@ -81,35 +77,27 @@ describe("RayMap2", function() {
     });
     //Checks that each object spawn point has the correct positions
     describe("Object spawn point 1", function() {
-      it ("should have x position 1.5", function() {
-        expect(map.objectSpawns[0].position.x).toBe(1.5);
-      });
-      it ("should have y position 3.5", function() {
-        expect(map.objectSpawns[0].position.y).toBe(3.5);
+      it ("should have correct position", function() {
+        expect(map.objectSpawns[0].position.x === 1.5 &&
+                map.objectSpawns[0].position.y === 3.5).toBe(true);
       });
     });
     describe("Object spawn point 2", function() {
-      it ("should have x position 1.5", function() {
-        expect(map.objectSpawns[1].position.x).toBe(4.5);
-      });
-      it ("should have y position 3.5", function() {
-        expect(map.objectSpawns[1].position.y).toBe(3.5);
+      it ("should have correct position", function() {
+        expect(map.objectSpawns[1].position.x === 4.5 &&
+                map.objectSpawns[1].position.y === 3.5).toBe(true);
       });
     });
     describe("Object spawn point 3", function() {
-      it ("should have x position 1.5", function() {
-        expect(map.objectSpawns[2].position.x).toBe(4.5);
-      });
-      it ("should have y position 3.5", function() {
-        expect(map.objectSpawns[2].position.y).toBe(5.5);
+      it ("should have correct position", function() {
+        expect(map.objectSpawns[2].position.x === 4.5 &&
+                map.objectSpawns[2].position.y === 5.5).toBe(true);
       });
     });
     describe("Object spawn point 4", function() {
-      it ("should have x position 1.5", function() {
-        expect(map.objectSpawns[3].position.x).toBe(1.5);
-      });
-      it ("should have y position 3.5", function() {
-        expect(map.objectSpawns[3].position.y).toBe(9.5);
+      it ("should have correct position", function() {
+        expect(map.objectSpawns[3].position.x === 1.5 &&
+                map.objectSpawns[3].position.y === 9.5).toBe(true);
       });
     });
   });
