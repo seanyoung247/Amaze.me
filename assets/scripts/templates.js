@@ -41,7 +41,7 @@ var normalMap = {
           [2,2,2,2,2,2,2,2,2,2,2,2,2,1,2] ],
   width: 15,
   height: 15,
-  pSpawn: [8.0,8.0,0,1],
+  pSpawn: [8.0,8.0,0.785398,0.785398],
   objects: 6,
   oSpawn: [ [8.5,1.5],
             [13.5,1.5],
@@ -58,29 +58,29 @@ var imagePath = "assets/images/";
  * Defines the walls types that maps can use
  */
 var wallDefs = [
-   //Hedge
-   {name: "hedge", texture: "hedge.png", transparent: false},
-   //Brick wall    - Not Yet Implimented
-   //Stone wall    - Not Yet Implimented
-   //Fence         - Not Yet Implimented
-   //Gate
-   {name: "gate", texture: "gate.png", transparent: true}
+  //Gate
+  {name: "gate", texture: "gate.png", transparent: true},
+  //Hedge
+  {name: "hedge", texture: "hedge.png", transparent: false}
+  //Brick wall    - Not Yet Implimented
+  //Stone wall    - Not Yet Implimented
+  //Fence         - Not Yet Implimented
 ];
 
 /*
  * Defines the objects that can be placed in maps
  */
 var objectDefs = [
-    //Lamp
-    {name: "Lamp", icon:"lamp_ico.png", texture: "lamp.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
-    //Bottle
-    {name: "Bottle", icon:"bottle_ico.png", texture: "bottle.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
-    //Vase
-    {name: "Vase", icon:"vase_ico.png", texture: "vase.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
-    //Ball
-    {name: "Ball", icon:"ball_ico.png", texture: "ball.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
-    //Can
-    {name: "Can", icon:"can_ico.png", texture: "can.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
-    //Cup
-    {name: "Cup", icon:"cup_ico.png", texture: "cup.png", frames: 2, scale: 0.66, radius:0.2, blocking: true}
+  //Lamp
+  {name: "Lamp", icon:"lamp_ico.png", texture: "lamp.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
+  //Bottle
+  {name: "Bottle", icon:"bottle_ico.png", texture: "bottle.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
+  //Vase
+  {name: "Vase", icon:"vase_ico.png", texture: "vase.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
+  //Ball
+  {name: "Ball", icon:"ball_ico.png", texture: "ball.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
+  //Can
+  {name: "Can", icon:"can_ico.png", texture: "can.png", frames: 2, scale: 0.66, radius:0.2, blocking: true},
+  //Cup
+  {name: "Cup", icon:"cup_ico.png", texture: "cup.png", frames: 2, scale: 0.66, radius:0.2, blocking: true}
 ];

@@ -9,7 +9,7 @@ $( document ).ready(function() {
   gameCanvas = document.getElementById("gameCanvas");
   ctx = gameCanvas.getContext("2d");
 
-  map = new RayMap2(normalMap);
+  map = new RayMap2(normalMap, wallDefs);
   player = new Player(map,
                       3.0,    //Movement speed (world units per-second)
                       3.0,    //Turning speed (radians per-second)
@@ -17,11 +17,12 @@ $( document ).ready(function() {
                       1.0,    //Interaction distance (world units)
                       (ctx.canvas.width / ctx.canvas.height)); //FOV in radians
 
-  //load as many object definitions as possbile.
+  //load as many object definitions on to the map as possbile.
   for (let i = 0; i < objectDefs.length; i++) {
+    //GameObjects self register during creation
     new GameObject(map, objectDefs[i]);
   }
-
+  //Start the game loop
   window.requestAnimationFrame(loop);
 });
 
@@ -146,6 +147,7 @@ var pressedKeys = {
   down: {down: false, up: false},
   interact: {down: false, up: false}
 }
+//To Do: Make these settable
 var keyMap = {
   68: "right",      //D
   39: "right",      //Right Arrow

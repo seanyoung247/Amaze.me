@@ -7,10 +7,20 @@ function MapLocation2(pX = 0, pY = 0, dX = 0, dY = 0) {
 }
 
 /*
+ * Stores information on a single wall type
+ */
+function Wall(name, texture, transparancy) {
+  this.name = name;
+  this.texture = new Image();
+  this.texture.src = imagePath + texture;
+  this.transparent = transparancy;
+}
+
+/*
  * Models a 2d map that can be raytraced.
  * Generates the map data from a template passed.
  */
-function RayMap2(template) {
+function RayMap2(template, walls) {
   //Map geometry
   this.width = template.width;
   this.height = template.height;
@@ -24,6 +34,14 @@ function RayMap2(template) {
     for (let x = 0; x < this.width; x++) {
       this.map[y][x] = template.map[y][x];
     }
+  }
+
+  //Wall types
+  this.walls = new Array();
+  for (let i = 0; i < walls.length; i++) {
+    this.walls.push(new Wall( walls[i].name,
+                              walls[i].texture,
+                              walls[i].transparent));
   }
 
   //Map player spawn point
