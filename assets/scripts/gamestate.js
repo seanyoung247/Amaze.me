@@ -55,19 +55,36 @@ function GameState(gameCanvas, mapTemplate) {
     //Game Controls
     pause: {down: false, up: false}
   };
-  //Maps whether various game hint messages should be shown
+  //Map of in game hint messages
   this.messageMap = {
-    wrongObject:  { name: "wrongObject", show: false,
+    wrongObject:  { //ID and current visiblity state
+                    name: "wrongObject", show: false,
+                    //When message was shown and time out in ms
                     start: 0, time: 2000,
-                    message: "This is not the object you are looking for!" },
+                    //Message
+                    message: "This is not the object you are looking for!",
+                    //Gameplay hint
+                    hint: " " },
+
     notPlaying:   { name: "notPlaying", show: false,
                     start: 0, time: 2000,
-                    message: "The game hasn't started yet!" },
+                    message: "The game hasn't started yet!",
+                    hint: " "  },
+
     canInteract:  { name: "canInteract", show: false,
                     start: 0, time: 2000,
-                    message: "You can grab this object!" }
+                    message: "You can grab this object!",
+                    hint: " "  },
     //more here as needed
   };
+  this.currentMessage = null;
+  //Styling parameters for various game elements
+  this.styling = {
+    titleFont: "75px Permanent Marker", titleColor: "red",
+    largeFont: "50px Permanent Marker", largeColor: "red",
+    messageFont: "25px Permanent Marker", messageColor: "red",
+    hintFont: "15px Permanent Marker", hintColor: "red",
+  }
 
   this.setupGame(mapTemplate);
 }
@@ -91,7 +108,7 @@ GameState.prototype.setupGame = function (mapTemplate) {
       //GameObjects self register during creation
       new GameObject(this.map, objectDefs[i]);
     }
-    
+
     this.setupGoals();
 }
 
@@ -167,6 +184,11 @@ GameState.prototype.goalCheck = function (obj) {
 GameState.prototype.showHintMessage = function (message) {
   this.messageMap[message].show = true;
   this.messageMap[message].start = performance.now();
+  //Ensure only one hint message is set as visible at a time.
+  if (this.currentMessage != null)
+    this.messageMap[this.currentMessage].show = false;
+
+  this.currentMessage = message;
 }
 
 /*
@@ -222,6 +244,11 @@ GameState.prototype.togglePause = function() {
 /*
  * Drawing functions
  */
+
+/*
+ * These functions start and ends the game frame. Logs frame time for metrics
+ * and frame rate independent animation.
+ */
 GameState.prototype.frameStart = function (time) {
   this.thisFrameTime = time - this.lastFrameTime;
   return this.thisFrameTime;
@@ -230,6 +257,9 @@ GameState.prototype.frameEnd = function (time) {
   this.lastFrameTime = time;
 };
 
+/*
+ * Draws the "3d" world
+ */
 GameState.prototype.drawScene = function (time) {
   //Prepare rendering state
   this.player.setFOV(this.gameCanvas.width / this.gameCanvas.height);
@@ -237,6 +267,45 @@ GameState.prototype.drawScene = function (time) {
   this.player.drawScene(this.gameCanvas);
 };
 
+/*
+ * Draws a single hint message
+ */
+GameState.prototype.drawHintMessages = function (ctx) {
+  let txtMetric;
+  let x = 0, y = 0;
+
+  for (const property in this.messageMap) {
+    //Is this message being shown?
+    if (this.messageMap[property].show) {
+      //Calculate time when message expires
+      let t = this.messageMap[property].start + this.messageMap[property].time;
+      //Has message expired?
+      if (t > performance.now()) {
+        //Message
+        ctx.font = this.styling.messageFont;
+        ctx.fillStyle = this.styling.messageColor;
+
+        txtMetric = ctx.measureText(this.messageMap[property].message);
+        ctx.fillText(this.messageMap[property].message,
+                    (this.gameCanvas.width / 2) - (txtMetric.width / 2),
+                    (this.gameCanvas.height / 2));
+
+        //Hint
+
+      } else {
+        //message has expired
+        this.messageMap[property].show = false;
+        this.currentMessage = null;
+      }
+      //only one message should be shown at a time
+      break;
+    }
+  }
+}
+
+/*
+ * Draws 2D overlay elements. Minimap, messages, game text etc.
+ */
 GameState.prototype.drawOverlay = function (time) {
   let ctx = this.gameContext;
   let message = "";
@@ -247,43 +316,36 @@ GameState.prototype.drawOverlay = function (time) {
   //State specific messages
   switch (this.state) {
     case gamestates.PAUSED:
-      ctx.font = "50px Permanent Marker";
+      ctx.font = this.styling.messageFont;
+      ctx.fillStyle = this.styling.messageColor;
 
       message = "PAUSED!";
       txtWidth = ctx.measureText(message).width;
 
       ctx.fillText(message, (this.gameCanvas.width / 2) - (txtWidth / 2), (this.gameCanvas.height / 2));
       break;
+
     case gamestates.TRAINING:
-      ctx.font = "25px Permanent Marker";
+      ctx.font = this.styling.messageFont;
+      ctx.fillStyle = this.styling.messageColor;
+
       ctx.fillText("Explore the maze", 25, 25);
       break;
+
     case gamestates.PLAYING:
+      //Current goal?
+      //Current game time?
       break;
   }
 
   //Messaging
-  for (const property in this.messageMap) {
-    //Is this message being shown?
-    if (this.messageMap[property].show) {
-      //Calculate time when message expires
-      let t = this.messageMap[property].start + this.messageMap[property].time;
-      //Has message expired?
-      if (t > performance.now()) {
-        ctx.font = "25px Permanent Marker";
-        txtWidth = ctx.measureText(this.messageMap[property].message).width;
-        ctx.fillText(this.messageMap[property].message,
-                    (this.gameCanvas.width / 2) - (txtWidth / 2),
-                    (this.gameCanvas.height / 2));
-      } else {
-        //message has expired
-        this.messageMap[property].show = false;
-        this.messageMap[property].elapse = 0;
-      }
-    }
-  }
+  this.drawHintMessages(ctx);
 };
 
+/*
+ * Draws the minimap
+ * IMPROVMENT: Get color values from settings rather than hard coded.
+ */
 GameState.prototype.drawMiniMap = function(x, y, alpha) {
   //Only draw the map if we're not playing in hard difficulty
   if ( !(this.state === gamestates.PLAYING && this.difficulty === gamedifficulty.HARD) ) {
