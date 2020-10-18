@@ -11,7 +11,10 @@ $( document ).ready(function() {
   //Game difficulty control not implimented yet...
   game.difficulty = gamedifficulty.EASY;
 
-  //game.playStart();
+  game.playStart();
+
+  window.addEventListener("keydown", function(event) {game.keyDown(event);}, false);
+  window.addEventListener("keyup", function(event) {game.keyUp(event);}, false);
 
   //Start the game loop
   window.requestAnimationFrame(loop);
@@ -62,31 +65,3 @@ function loop(timeStamp) {
 
   window.requestAnimationFrame(loop);
 }
-
-//Input events
-//To Do: Make these settable
-var keyMap = {
-  68: "turnRight",  //D
-  39: "turnRight",  //Right Arrow
-  65: "turnLeft",   //A
-  37: "turnLeft",   //Left Arrow
-  90: "left",       //Z
-  88: "right",      //X
-  87: "up",         //W
-  38: "up",         //Up Arrow
-  83: "down",       //S
-  40: "down",       //Down Arrow
-  69: "interact",   //E
-  32: "interact",   //Spacebar
-  80: "pause"       //P
-}
-function keyDown(event) {
-  game.inputMap[keyMap[event.keyCode]].down = true;
-  game.inputMap[keyMap[event.keyCode]].up = false;
-}
-function keyUp(event) {
-  game.inputMap[keyMap[event.keyCode]].down = false;
-  game.inputMap[keyMap[event.keyCode]].up = true;
-}
-window.addEventListener("keydown", keyDown, false);
-window.addEventListener("keyup", keyUp, false);

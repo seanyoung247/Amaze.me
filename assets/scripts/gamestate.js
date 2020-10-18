@@ -40,7 +40,7 @@ function GameState(gameCanvas, mapTemplate) {
   this.lastState = gamestates.TRAINING;
   //Default to easy difficulty.
   this.difficulty = gamedifficulty.EASY;
-  //Control input map
+  //Maps current user commands
   this.inputMap = {
     //Look controls
     turnLeft: {down: false, up: false},
@@ -53,8 +53,12 @@ function GameState(gameCanvas, mapTemplate) {
     //Object interaction controls
     interact: {down: false, up: false},
     //Game Controls
-    pause: {down: false, up: false}
+    pause: {down: false, up: false},
   };
+  //Create key map
+  this.keyMap = new Map();
+  this.setupDefaultKeys();
+
   //Map of in game hint messages
   this.messageMap = {
     wrongObject:  { //ID and current visiblity state
@@ -71,10 +75,6 @@ function GameState(gameCanvas, mapTemplate) {
                     message: "The game hasn't started yet!",
                     hint: "Click play at the top of the screne to start game."  },
 
-    canInteract:  { name: "canInteract", show: false,
-                    start: 0, time: 2000,
-                    message: "You can grab this object!",
-                    hint: "Press 'e' or spacebar to pickup."  },
     //more here as needed
   };
   this.currentMessage = null;
@@ -110,6 +110,45 @@ GameState.prototype.setupGame = function (mapTemplate) {
     }
 
     this.setupGoals();
+}
+
+/*
+ * Creates the default keybindings
+ */
+GameState.prototype.setupDefaultKeys = function() {
+  //WSAD movement
+  this.keyMap.set("KeyW", "up");
+  this.keyMap.set("KeyS", "down");
+  this.keyMap.set("KeyZ", "left");
+  this.keyMap.set("KeyX", "right");
+  this.keyMap.set("KeyA", "turnLeft");
+  this.keyMap.set("KeyD", "turnRight");
+  //Arrow key movement
+  this.keyMap.set("ArrowUp", "up");
+  this.keyMap.set("ArrowDown", "down");
+  this.keyMap.set("ArrowLeft", "turnLeft");
+  this.keyMap.set("ArrowRight", "turnRight");
+  //Interaction
+  this.keyMap.set("KeyE", "interact");
+  this.keyMap.set("Space", "interact");
+  //Game state
+  this.keyMap.set("KeyP", "pause");
+}
+
+GameState.prototype.keyDown = function(event) {
+  let key = this.keyMap.get(event.code);
+  if (key) {
+    this.inputMap[key].down = true;
+    this.inputMap[key].up = false;
+  }
+}
+
+GameState.prototype.keyUp = function(event) {
+  let key = this.keyMap.get(event.code);
+  if (key) {
+    this.inputMap[key].down = false;
+    this.inputMap[key].up = true;
+  }
 }
 
 /*
@@ -182,20 +221,23 @@ GameState.prototype.goalCheck = function (obj) {
  * Sets whether a hint message should be shown
  */
 GameState.prototype.showHintMessage = function (message) {
-  this.messageMap[message].show = true;
-  this.messageMap[message].start = performance.now();
-  //Ensure only one hint message is set as visible at a time.
-  if (this.currentMessage != null)
-    this.messageMap[this.currentMessage].show = false;
 
-  this.currentMessage = message;
+  if (message != this.currentMessage) {
+    this.messageMap[message].show = true;
+    this.messageMap[message].start = performance.now();
+    //Ensure only one hint message is set as visible at a time.
+    if (this.currentMessage != null)
+      this.messageMap[this.currentMessage].show = false;
+
+    this.currentMessage = message;
+  }
 }
 
 /*
  * Update step of the game cycle. Updates the game and game object state
  */
 GameState.prototype.update = function (frameTime) {
-  //If not paused or complete, react to user input and run game state
+  //If not paused or complete, react to user commands and run game state
   if (this.state != gamestates.PAUSED && this.state != gamestates.WON) {
     //User input handling
     if (this.inputMap.turnLeft.down) {
@@ -223,9 +265,6 @@ GameState.prototype.update = function (frameTime) {
       this.player.interact(frameTime);
       this.inputMap.interact.up = false;
     }
-
-    //General game state
-    
   }
 
   //Keyboard pause control
