@@ -132,12 +132,12 @@ BoundingBox.prototype.inBounds = function (x, y) {
 function Clock(time) {
   this.time = time;
 }
-Clock.prototype.hours() {
+Clock.prototype.hours = function () {
   return Math.floor( (time / 3600000) % 24);
 };
-Clock.prototype.minutes() {
+Clock.prototype.minutes = function () {
   return Math.floor( (time / 60000) % 60 );
 };
-Clock.prototype.seconds() {
+Clock.prototype.seconds = function () {
   return Math.floor( (1000) % 60 );
 };
