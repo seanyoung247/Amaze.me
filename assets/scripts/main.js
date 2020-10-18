@@ -11,7 +11,7 @@ $( document ).ready(function() {
   //Game difficulty control not implimented yet...
   game.difficulty = gamedifficulty.EASY;
 
-  game.playStart();
+//  game.playStart();
 
   window.addEventListener("keydown", function(event) {game.keyDown(event);}, false);
   window.addEventListener("keyup", function(event) {game.keyUp(event);}, false);

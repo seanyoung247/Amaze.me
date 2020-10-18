@@ -72,19 +72,19 @@ function GameState(gameCanvas, mapTemplate) {
                     hint: "" },
 
     notPlaying:   { name: "notPlaying", show: false,
-                    start: 0, time: 2000,
+                    start: 0, time: 4000,
                     message: "The game hasn't started yet!",
-                    hint: "Click play at the top of the screne to start game."  },
+                    hint: "Click play at the top of the screen to start game."  },
 
     //more here as needed
   };
   this.currentMessage = null;
   //Styling parameters for various game elements
   this.styling = {
-    titleFont: "75px Permanent Marker", titleColor: "red",
-    largeFont: "50px Permanent Marker", largeColor: "red",
-    messageFont: "25px Permanent Marker", messageColor: "red",
-    hintFont: "15px Permanent Marker", hintColor: "red",
+    titleFont: "75px Permanent Marker", titleColor: "white",
+    largeFont: "50px Permanent Marker", largeColor: "white",
+    messageFont: "25px Permanent Marker", messageColor: "white",
+    hintFont: "15px Permanent Marker", hintColor: "white",
   }
 
   this.setupGame(mapTemplate);
@@ -193,7 +193,7 @@ GameState.prototype.togglePause = function() {
   if (this.state === gamestates.PAUSED) {
     this.state = this.lastState;
     //If playing we need to adjust the start time to account for time paused
-    if (this.state = gamestates.PLAYING) {
+    if (this.state === gamestates.PLAYING) {
       this.playStartTime += performance.now() - this.pauseStartTime;
     }
   } else {
@@ -296,8 +296,6 @@ GameState.prototype.update = function (frameTime) {
   }
 };
 
-
-
 /*
  * Drawing functions
  */
@@ -324,6 +322,11 @@ GameState.prototype.drawScene = function (time) {
   this.player.drawScene(this.gameCanvas);
 };
 
+GameState.prototype.drawOutlineText = function (ctx, text, x, y) {
+  ctx.fillText(text, x, y);
+  ctx.strokeText(text, x, y);
+};
+
 /*
  * Draws a single hint message
  */
@@ -341,13 +344,30 @@ GameState.prototype.drawHintMessages = function (ctx) {
         //Message
         ctx.font = this.styling.messageFont;
         ctx.fillStyle = this.styling.messageColor;
+        ctx.strokeStyle = "black";
 
         txtMetric = ctx.measureText(this.messageMap[property].message);
-        ctx.fillText(this.messageMap[property].message,
-                    (this.gameCanvas.width / 2) - (txtMetric.width / 2),
-                    (this.gameCanvas.height / 2));
+        //Calculate text x,y to centre text on screen
+        x = (this.gameCanvas.width / 2) - (txtMetric.width / 2);
+        y = (this.gameCanvas.height / 2) -
+              ((txtMetric.actualBoundingBoxAscent +
+                txtMetric.actualBoundingBoxDescent) / 2);
+
+        this.drawOutlineText(ctx, this.messageMap[property].message, x, y);
 
         //Hint
+        //Move y down below previous text
+        y += ((txtMetric.actualBoundingBoxAscent +
+                txtMetric.actualBoundingBoxDescent));
+
+        ctx.font = this.styling.hintFont;
+        ctx.fillStyle = this.styling.hintColor;
+
+        txtMetric = ctx.measureText(this.messageMap[property].hint);
+        //Centre hint horizontally
+        x = (this.gameCanvas.width / 2) - (txtMetric.width / 2);
+
+        this.drawOutlineText(ctx, this.messageMap[property].hint, x, y);
 
       } else {
         //message has expired
@@ -365,7 +385,6 @@ GameState.prototype.drawHintMessages = function (ctx) {
  */
 GameState.prototype.drawOverlay = function (time) {
   let ctx = this.gameContext;
-  let message = "";
   let txtWidth = 0;
 
   this.drawMiniMap(this.gameCanvas.width - 175, 25, 0.35);
@@ -373,20 +392,23 @@ GameState.prototype.drawOverlay = function (time) {
   //State specific messages
   switch (this.state) {
     case gamestates.PAUSED:
-      ctx.font = this.styling.messageFont;
-      ctx.fillStyle = this.styling.messageColor;
+      ctx.font = this.styling.largeFont;
+      ctx.fillStyle = this.styling.largeColor;
 
-      message = "PAUSED!";
-      txtWidth = ctx.measureText(message).width;
+      ctx.strokeStyle = "black";
 
-      ctx.fillText(message, (this.gameCanvas.width / 2) - (txtWidth / 2), (this.gameCanvas.height / 2));
+      txtWidth = ctx.measureText("PAUSED!").width;
+      this.drawOutlineText(ctx, "PAUSED!",
+                          (this.gameCanvas.width / 2) - (txtWidth / 2),
+                          (this.gameCanvas.height / 2));
       break;
 
     case gamestates.TRAINING:
       ctx.font = this.styling.messageFont;
       ctx.fillStyle = this.styling.messageColor;
+      ctx.strokeStyle = "black";
 
-      ctx.fillText("Explore the maze", 25, 25);
+      this.drawOutlineText(ctx, "Explore the maze", 25, 25);
       break;
 
     case gamestates.PLAYING:
