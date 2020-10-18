@@ -27,9 +27,14 @@ body {
 /*
  * Menu Styles
  */
+.navWrapper {
+  position: absolute;
+  z-index: 999;
+}
 /*
  * Game Splashscreen styles
  */
+
 /*
  * Game page and canvas styles
  */
