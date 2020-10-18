@@ -57,12 +57,15 @@ function GameState(gameCanvas, mapTemplate) {
   };
   //Maps whether various game hint messages should be shown
   this.messageMap = {
-    wrongObject:  {show: false, start: 0, time: 2000,
-                  message: "This is not the object you are looking for!" },
-    notPlaying:   {show: false, start: 0, time: 2000,
-                  message: "The game hasn't started yet!" },
-    canInteract:  {show: false, start: 0, time: 2000,
-                  message: "You can grab this object!" }
+    wrongObject:  { name: "wrongObject", show: false,
+                    start: 0, time: 2000,
+                    message: "This is not the object you are looking for!" },
+    notPlaying:   { name: "notPlaying", show: false,
+                    start: 0, time: 2000,
+                    message: "The game hasn't started yet!" },
+    canInteract:  { name: "canInteract", show: false,
+                    start: 0, time: 2000,
+                    message: "You can grab this object!" }
     //more here as needed
   };
 
@@ -88,7 +91,7 @@ GameState.prototype.setupGame = function (mapTemplate) {
       //GameObjects self register during creation
       new GameObject(this.map, objectDefs[i]);
     }
-
+    
     this.setupGoals();
 }
 
@@ -132,13 +135,16 @@ GameState.prototype.playEnd = function() {
 
 /*
  * Called when the player requests an object interaction.
+ * Sets up game state based on victory conditions. If the player has satisfied
+ * the current goal condition, moves to the next goal. If the current goal was
+ * the final goal, sets victory condition and win state.
  */
 GameState.prototype.goalCheck = function (obj) {
-  //Are we currently in the playing state
+  //Are we currently in the playing state?
   if (this.state === gamestates.PLAYING) {
     //Is this the current goal object?
     if (obj === this.goalList[this.currentGoal]) {
-      //This is the current goal object. Move to next goal.
+      //This is the current goal object. Move to the next goal.
       this.currentGoal++;
       //Is this the final goal object?
       if (this.currentGoal >= this.goalList.length) this.playEnd();
@@ -146,11 +152,11 @@ GameState.prototype.goalCheck = function (obj) {
       return true;
     } else {
       //Tell the player this is the wrong object
-      this.showHintMessage("wrongObject");
+      this.showHintMessage(this.messageMap.wrongObject.name);
     }
   } else {
     //Tell the player the game hasn't started yet
-    this.showHintMessage("notPlaying");
+    this.showHintMessage(this.messageMap.notPlaying.name);
   }
   return false;
 }
