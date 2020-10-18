@@ -33,6 +33,7 @@ function GameState(gameCanvas, mapTemplate) {
   this.winTime = 0;
 
   this.goalList = null;
+  this.currentGoal = 0;
 
   //Default to paused state.
   this.state = gamestates.PAUSED;
@@ -57,7 +58,7 @@ function GameState(gameCanvas, mapTemplate) {
   //Maps whether various game messages should be shown
   this.messageMap = {
     noInteract: { show: false, start: 0, elapsed: 0, time: 2000,
-                  message: "This is not the object you're looking for!" }
+                  message: "This is not the object you are looking for!" }
   };
 
   this.setupGame(mapTemplate);
@@ -124,6 +125,7 @@ GameState.prototype.playStart = function() {
 GameState.prototype.playEnd = function() {
   this.winTime = performance.now() - this.playStartTime;
   this.state = gamestates.WON;
+  console.log(this.winTime);
 };
 
 /*
@@ -131,8 +133,18 @@ GameState.prototype.playEnd = function() {
  */
 GameState.prototype.goalCheck = function (obj) {
   //Are we currently in the playing state
-  //Is this the current goal object?
-  //Is this the final goal object?
+  if (this.state === gamestates.PLAYING) {
+    //Is this the current goal object?
+    if (obj === this.goalList[this.currentGoal]) {
+      //This is the current goal object. Move to next goal.
+      this.currentGoal++;
+      //Is this the final goal object?
+      if (this.currentGoal >= this.goalList.length) this.playEnd();
+      //Valid object interaction
+      return true;
+    }
+  }
+  return false;
 }
 
 /*
@@ -140,7 +152,7 @@ GameState.prototype.goalCheck = function (obj) {
  */
 GameState.prototype.update = function (frameTime) {
   //If not paused or complete, react to user input and run game state
-  if (this.state != gamestates.PAUSED || this.state != gamestates.WON) {
+  if (this.state != gamestates.PAUSED && this.state != gamestates.WON) {
     //User input handling
     if (this.inputMap.turnLeft.down) {
       this.player.turnLeft(frameTime);
@@ -164,19 +176,9 @@ GameState.prototype.update = function (frameTime) {
     }
 
     if (this.inputMap.interact.up) {
-      //Player can only interact with objects while playing
-      if (this.state === gamestates.PLAYING) {
-        this.player.interact(frameTime);
-        this.inputMap.interact.up = false;
-      } else {
-        this.messageMap.noInteract.show = true;
-        this.messageMap.noInteract.start = frameTime;
-      }
-
+      this.player.interact(frameTime);
       this.inputMap.interact.up = false;
     }
-
-    //Gamestate update
   }
 
   //Keyboard pause control
@@ -312,8 +314,8 @@ GameState.prototype.drawMiniMap = function(x, y, alpha) {
     ctx.beginPath();
     let pX = Math.floor(player.position.x * 10) + x;
     let pY = Math.floor(player.position.y * 10) + y;
-    let vX = Math.floor(pX + (player.direction.x * 10));
-    let vY = Math.floor(pY + (player.direction.y * 10));
+    let vX = Math.floor(pX + (player.direction.x * 8));
+    let vY = Math.floor(pY + (player.direction.y * 8));
     ctx.fillStyle = "red";
     ctx.arc(pX, pY, 3, 0, 2 * Math.PI);
     ctx.fill();

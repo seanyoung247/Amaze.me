@@ -5,7 +5,7 @@
 function Player(owner, map, mSpeed, tSpeed, radius, reach, fov) {
   //The game controler this player belongs to
   this.owner = owner
-  
+
   this.map = map;
   //Read initial position from map
   this.position = new Point2( map.playerSpawn.position.x,
@@ -121,6 +121,6 @@ Player.prototype.interact = function (timeDelta) {
   let obj = this.map.getObjectsInRange(this.position, this.reach);
   if (obj != null) {
     //TODO: game logic tests to see if we *should* interact with this object.
-    obj.interact();
+    if (this.owner.goalCheck(obj)) obj.interact();
   }
 };
