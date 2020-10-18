@@ -30,6 +30,7 @@ function GameState(gameCanvas, mapTemplate) {
   this.thisFrameTime = 0;
 
   this.playStartTime = 0;
+  this.pauseStartTime = 0;
   this.winTime = 0;
 
   this.goalList = null;
@@ -113,6 +114,10 @@ GameState.prototype.setupGame = function (mapTemplate) {
 }
 
 /*
+ * Keyboard input
+ */
+
+/*
  * Creates the default keybindings
  */
 GameState.prototype.setupDefaultKeys = function() {
@@ -179,6 +184,23 @@ GameState.prototype.setupGoals = function() {
 GameState.prototype.playStart = function() {
   this.playStartTime = performance.now();
   this.state = gamestates.PLAYING;
+};
+
+ /*
+  * Pauses and unpauses
+  */
+GameState.prototype.togglePause = function() {
+  if (this.state === gamestates.PAUSED) {
+    this.state = this.lastState;
+    //If playing we need to adjust the start time to account for time paused
+    if (this.state = gamestates.PLAYING) {
+      this.playStartTime += performance.now() - this.pauseStartTime;
+    }
+  } else {
+    this.lastState = this.state;
+    this.state = gamestates.PAUSED;
+    this.pauseStartTime = performance.now();
+  }
 };
 
 /*
@@ -274,14 +296,7 @@ GameState.prototype.update = function (frameTime) {
   }
 };
 
-GameState.prototype.togglePause = function() {
-  if (this.state === gamestates.PAUSED) {
-    this.state = this.lastState;
-  } else {
-    this.lastState = this.state;
-    this.state = gamestates.PAUSED;
-  }
-};
+
 
 /*
  * Drawing functions
