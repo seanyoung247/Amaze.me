@@ -64,17 +64,17 @@ function GameState(gameCanvas, mapTemplate) {
                     //Message
                     message: "This is not the object you are looking for!",
                     //Gameplay hint
-                    hint: " " },
+                    hint: "" },
 
     notPlaying:   { name: "notPlaying", show: false,
                     start: 0, time: 2000,
                     message: "The game hasn't started yet!",
-                    hint: " "  },
+                    hint: "Click play at the top of the screne to start game."  },
 
     canInteract:  { name: "canInteract", show: false,
                     start: 0, time: 2000,
                     message: "You can grab this object!",
-                    hint: " "  },
+                    hint: "Press 'e' or spacebar to pickup."  },
     //more here as needed
   };
   this.currentMessage = null;
@@ -223,6 +223,9 @@ GameState.prototype.update = function (frameTime) {
       this.player.interact(frameTime);
       this.inputMap.interact.up = false;
     }
+
+    //General game state
+    
   }
 
   //Keyboard pause control
