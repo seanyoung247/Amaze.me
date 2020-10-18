@@ -26,6 +26,7 @@ function GameState(gameCanvas, mapTemplate) {
   this.map = null;
   this.player = null;
   this.lastFrameTime = 0;
+  this.thisFrameTime = 0;
 
   //Default to paused state.
   this.state = gamestates.PAUSED;
@@ -108,9 +109,24 @@ GameState.prototype.update = function (frameTime) {
 /*
  * Drawing functions
  */
+GameState.prototype.frameStart = function (time) {
+  this.thisFrameTime = time - this.lastFrameTime;
+  return this.thisFrameTime;
+};
+GameState.prototype.frameEnd = function (time) {
+  this.lastFrameTime = time;
+};
+
+GameState.prototype.drawScene = function () {
+  //Prepare rendering state
+  this.player.setFOV(this.gameCanvas.width / this.gameCanvas.height);
+  //Render player view
+  this.player.drawScene(this.gameCanvas);
+};
+
 GameState.prototype.drawOverlay = function () {
   this.drawMiniMap(this.gameCanvas.width - 175, 25, 0.35);
-}
+};
 
 GameState.prototype.drawMiniMap = function(x, y, alpha) {
   //Only draw the map if we're not playing in hard difficulty
@@ -156,4 +172,4 @@ GameState.prototype.drawMiniMap = function(x, y, alpha) {
     ctx.lineTo(vX, vY);
     ctx.stroke();
   }
-}
+};

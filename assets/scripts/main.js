@@ -6,10 +6,10 @@ $( document ).ready(function() {
   game = new GameState(document.getElementById("gameCanvas"), normalMap);
 
   //Pause control not yet implimented...
-  game.state = gamestates.TRAINING;
+  game.state = gamestates.PLAYING;
 
   //Game difficulty control not implimented yet...
-  game.difficulty = gamedifficulty.HARD;
+  game.difficulty = gamedifficulty.EASY;
 
   //Start the game loop
   window.requestAnimationFrame(loop);
@@ -37,11 +37,8 @@ function draw(frameTime) {
   ctx.canvas.height = $("#gameDiv").innerHeight() - 30;
   //Draw background
   drawBackground(ctx);
-  //Prepare rendering state
-  player.setFOV(ctx.canvas.width / ctx.canvas.height);
-  //Render player view
-  player.drawScene(game.gameCanvas);
 
+  game.drawScene();
   game.drawOverlay();
 
   let time = performance.now() - t1;
@@ -50,14 +47,17 @@ function draw(frameTime) {
 //Game loop
 function loop(timeStamp) {
   let player = game.player;
-  var frameTime = timeStamp - lastFrame;
+
+  let frameTime = game.frameStart(timeStamp);
+
   //Ensures direction vector remains normalised
   player.direction.normalize();
   //Feeding update frameTime in seconds simplifies math
   game.update(frameTime / 1000);
   draw(frameTime);
 
-  lastFrame = timeStamp;
+  game.frameEnd(timeStamp);
+  
   window.requestAnimationFrame(loop);
 }
 
