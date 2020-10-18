@@ -74,7 +74,7 @@ function GameState(gameCanvas, mapTemplate) {
     notPlaying:   { name: "notPlaying", show: false,
                     start: 0, time: 4000,
                     message: "The game hasn't started yet!",
-                    hint: "Click play at the top of the screen to start game."  },
+                    hint: "Select play at the top of the screen to start game."  },
 
     //more here as needed
   };
