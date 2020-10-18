@@ -125,3 +125,19 @@ BoundingBox.prototype.inBounds = function (x, y) {
     return true;
   } else return false;
 };
+
+/*
+ * Encapsulates time functions
+ */
+function Clock(time) {
+  this.time = time;
+}
+Clock.prototype.hours() {
+  return Math.floor( (time / 3600000) % 24);
+};
+Clock.prototype.minutes() {
+  return Math.floor( (time / 60000) % 60 );
+};
+Clock.prototype.seconds() {
+  return Math.floor( (1000) % 60 );
+};
