@@ -32,6 +32,8 @@ function GameState(gameCanvas, mapTemplate) {
   this.playStartTime = 0;
   this.winTime = 0;
 
+  this.goalList = null;
+
   //Default to paused state.
   this.state = gamestates.PAUSED;
   this.lastState = gamestates.TRAINING;
@@ -80,14 +82,32 @@ GameState.prototype.setupGame = function (mapTemplate) {
       //GameObjects self register during creation
       new GameObject(this.map, objectDefs[i]);
     }
+
+    this.setupGoals();
 }
+
+/*
+ * Clears all objects and resets the game state
+ */
+GameState.prototype.reset = function() {
+
+};
 
 /*
  * Populates the goals array with available objects in random order
  */
 GameState.prototype.setupGoals = function() {
-  //Copy the map's object list
+  //Copy objects list from map
+  this.goalList = this.map.objects.slice();
   //Randomly reorder list
+  this.goalList = shuffle(this.goalList);
+
+  //DEBUG:
+  console.log(this.goalList.length);
+  console.log(this.map.objects.length);
+  for (let i = 0; i < this.goalList.length; i++) {
+    console.log(this.goalList[i].name);
+  }
 };
 
 /*
