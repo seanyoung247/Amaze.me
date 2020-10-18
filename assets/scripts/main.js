@@ -6,7 +6,7 @@ $( document ).ready(function() {
   game = new GameState(document.getElementById("gameCanvas"), normalMap);
 
   //Pause control not yet implimented...
-  game.state = gamestates.PLAYING;
+  game.state = gamestates.TRAINING;
 
   //Game difficulty control not implimented yet...
   game.difficulty = gamedifficulty.EASY;
@@ -38,8 +38,8 @@ function draw(frameTime) {
   //Draw background
   drawBackground(ctx);
 
-  game.drawScene();
-  game.drawOverlay();
+  game.drawScene(frameTime);
+  game.drawOverlay(frameTime);
 
   let time = performance.now() - t1;
 }
@@ -57,7 +57,7 @@ function loop(timeStamp) {
   draw(frameTime);
 
   game.frameEnd(timeStamp);
-  
+
   window.requestAnimationFrame(loop);
 }
 
@@ -75,7 +75,8 @@ var keyMap = {
   83: "down",       //S
   40: "down",       //Down Arrow
   69: "interact",   //E
-  32: "interact"    //Spacebar
+  32: "interact",   //Spacebar
+  80: "pause"       //P
 }
 function keyDown(event) {
   game.inputMap[keyMap[event.keyCode]].down = true;

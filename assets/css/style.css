@@ -1,3 +1,6 @@
+/*Font used for game messages*/
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
 body, html {
     height: 100vh;
 }

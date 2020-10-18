@@ -7,7 +7,8 @@
 const gamestates = {
   PAUSED: "paused",
   TRAINING: "training",
-  PLAYING:  "playing"
+  PLAYING: "playing",
+  WON: "won"
 }
 const gamedifficulty = {
   EASY: "easy",       //Minimap and objects visible during play.
@@ -28,20 +29,34 @@ function GameState(gameCanvas, mapTemplate) {
   this.lastFrameTime = 0;
   this.thisFrameTime = 0;
 
+  this.playStartTime = 0;
+  this.winTime = 0;
+
   //Default to paused state.
   this.state = gamestates.PAUSED;
+  this.lastState = gamestates.TRAINING;
   //Default to easy difficulty.
   this.difficulty = gamedifficulty.EASY;
-
+  //Control input map
   this.inputMap = {
+    //Look controls
     turnLeft: {down: false, up: false},
     turnRight: {down: false, up: false},
+    //Move controls
     left: {down: false, up: false},
     right: {down: false, up: false},
     up: {down: false, up: false},
     down: {down: false, up: false},
-    interact: {down: false, up: false}
-  }
+    //Object interaction controls
+    interact: {down: false, up: false},
+    //Game Controls
+    pause: {down: false, up: false}
+  };
+  //Maps whether various game messages should be shown
+  this.messageMap = {
+    noInteract: { show: false, start: 0, elapsed: 0, time: 2000,
+                  message: "This is not the object you're looking for!" }
+  };
 
   this.setupGame(mapTemplate);
 }
@@ -68,12 +83,45 @@ GameState.prototype.setupGame = function (mapTemplate) {
 }
 
 /*
+ * Populates the goals array with available objects in random order
+ */
+GameState.prototype.setupGoals = function() {
+  //Copy the map's object list
+  //Randomly reorder list
+};
+
+/*
+ * Prefered method of setting the game into the playing state
+ */
+GameState.prototype.playStart = function() {
+  this.playStartTime = performance.now();
+  this.state = gamestates.PLAYING;
+};
+
+/*
+ * Called when victory condition detected
+ */
+GameState.prototype.playEnd = function() {
+  this.winTime = performance.now() - this.playStartTime;
+  this.state = gamestates.WON;
+};
+
+/*
+ * Called when the player requests an object interaction.
+ */
+GameState.prototype.goalCheck = function (obj) {
+  //Are we currently in the playing state
+  //Is this the current goal object?
+  //Is this the final goal object?
+}
+
+/*
  * Update step of the game cycle. Updates the game and game object state
  */
 GameState.prototype.update = function (frameTime) {
-  //If not paused, react to user input
-  if (this.state != gamestates.PAUSED) {
-
+  //If not paused or complete, react to user input and run game state
+  if (this.state != gamestates.PAUSED || this.state != gamestates.WON) {
+    //User input handling
     if (this.inputMap.turnLeft.down) {
       this.player.turnLeft(frameTime);
     }
@@ -95,16 +143,37 @@ GameState.prototype.update = function (frameTime) {
       this.player.moveRight(frameTime);
     }
 
-    //Player can only interact with objects while playing
-    if (this.state === gamestates.PLAYING) {
-      //Player interaction
-      if (this.inputMap.interact.up) {
+    if (this.inputMap.interact.up) {
+      //Player can only interact with objects while playing
+      if (this.state === gamestates.PLAYING) {
         this.player.interact(frameTime);
         this.inputMap.interact.up = false;
+      } else {
+        this.messageMap.noInteract.show = true;
+        this.messageMap.noInteract.start = frameTime;
       }
+
+      this.inputMap.interact.up = false;
     }
+
+    //Gamestate update
   }
-}
+
+  //Keyboard pause control
+  if (this.inputMap.pause.up) {
+    this.togglePause();
+    this.inputMap.pause.up = false;
+  }
+};
+
+GameState.prototype.togglePause = function() {
+  if (this.state === gamestates.PAUSED) {
+    this.state = this.lastState;
+  } else {
+    this.lastState = this.state;
+    this.state = gamestates.PAUSED;
+  }
+};
 
 /*
  * Drawing functions
@@ -117,15 +186,78 @@ GameState.prototype.frameEnd = function (time) {
   this.lastFrameTime = time;
 };
 
-GameState.prototype.drawScene = function () {
+GameState.prototype.drawScene = function (time) {
   //Prepare rendering state
   this.player.setFOV(this.gameCanvas.width / this.gameCanvas.height);
   //Render player view
   this.player.drawScene(this.gameCanvas);
 };
 
-GameState.prototype.drawOverlay = function () {
+GameState.prototype.drawOverlay = function (time) {
+  let ctx = this.gameContext;
+  let message = "";
+  let txtWidth = 0;
+
   this.drawMiniMap(this.gameCanvas.width - 175, 25, 0.35);
+
+  //State specific messages
+  switch (this.state) {
+    case gamestates.PAUSED:
+      ctx.font = "50px Permanent Marker";
+
+      message = "PAUSED!";
+      txtWidth = ctx.measureText(message).width;
+
+      ctx.fillText(message, (this.gameCanvas.width / 2) - (txtWidth / 2), (this.gameCanvas.height / 2));
+      break;
+    case gamestates.TRAINING:
+      ctx.font = "25px Permanent Marker";
+      ctx.fillText("Learn the maze", 25, 25);
+      break;
+    case gamestates.PLAYING:
+      break;
+  }
+
+  //Messaging
+  if (this.messageMap.noInteract.show) {
+    let t = this.messageMap.noInteract.start + this.messageMap.noInteract.time;
+    this.messageMap.noInteract.elapsed += time;
+
+    if (t > this.messageMap.noInteract.elapsed) {
+      //Draw text
+      ctx.font = "25px Permanent Marker";
+      txtWidth = ctx.measureText(this.messageMap.noInteract.message).width;
+      ctx.fillText(this.messageMap.noInteract.message,
+                  (this.gameCanvas.width / 2) - (txtWidth / 2),
+                  (this.gameCanvas.height / 2));
+
+    } else {
+      this.messageMap.noInteract.show = false;
+      this.messageMap.noInteract.elapsed = 0;
+    }
+  }
+
+  for (let i = 0; i < this.messageMap.length; i++) {
+    if (this.messageMap[i].show) {
+      let t = this.messageMap[i].start + this.messageMap[i].time;
+      this.messageMap[i].elapsed += time;
+
+      if (t > this.messageMap[i].elapsed) {
+        //Draw text
+        ctx.font = "25px Permanent Marker";
+        txtWidth = ctx.measureText(this.messageMap[i].message).width;
+        ctx.fillText(this.messageMap[i].message,
+                    (this.gameCanvas.width / 2) - (txtWidth / 2),
+                    (this.gameCanvas.height / 2));
+
+      } else {
+        this.messageMap[i].show = false;
+        this.messageMap[i].elapsed = 0;
+      }
+    }
+  }
+
+
 };
 
 GameState.prototype.drawMiniMap = function(x, y, alpha) {
