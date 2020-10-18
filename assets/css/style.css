@@ -1,9 +1,12 @@
 /*Font used for game messages*/
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+/*Main font*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 /*Makes the page full browser height*/
 body, html {
     height: 100vh;
+    font-family: 'Roboto', sans-serif;
 }
 body {
   min-width: 600px;
@@ -22,7 +25,8 @@ body {
  */
 /*Header gets 5% of the screen, game 95%*/
 .headerWrapper {
-  height: 5vh;
+  padding: 0;
+  height: 45px;
 }
 /*
  * Menu Styles
@@ -30,10 +34,32 @@ body {
 .navWrapper {
   position: absolute;
   z-index: 999;
+  padding: 0;
+  width: 100vw;
+}
+.navbar {
+  text-align: center;
+}
+.navbar-collapse {
+  background-color: white;
+  width: 80vw;
+  margin: auto;
+  float: none;
 }
 /*
  * Game Splashscreen styles
  */
+.splashform {
+  display: inline-block;
+  text-align: center;
+  padding: 15px;
+}
+
+h1 {
+  color: red;
+}
+p {
+}
 
 /*
  * Game page and canvas styles
@@ -41,7 +67,8 @@ body {
 .gameWrapper {
   padding-left: 0;
   padding-right: 0;
-  height: 95vh;
+  /*Make the game screen take up the whole screen - header height*/
+  height: calc(100vh - 45px);
 }
 /*Ensures game canvas takes full height*/
 #gameCanvas {
