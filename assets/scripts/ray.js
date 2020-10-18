@@ -20,7 +20,7 @@ function Ray2(oX = 0, oY = 0, vX = 0, vY = 0, range = 15) {
 
 /*
  * Traces the path of this ray through the map, logging any collisions as
- * they occur, and then returned as an array of RayHit objects (not yet implimented).
+ * they occur, and then returned as an array of RayHit objects.
  *
  * Ray cast algorithm is based on the DDA grid traversal algorithm.
  */

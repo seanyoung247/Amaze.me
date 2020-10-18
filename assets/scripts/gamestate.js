@@ -128,7 +128,6 @@ GameState.prototype.playStart = function() {
 GameState.prototype.playEnd = function() {
   this.winTime = performance.now() - this.playStartTime;
   this.state = gamestates.WON;
-  console.log(this.winTime);
 };
 
 /*
@@ -251,7 +250,7 @@ GameState.prototype.drawOverlay = function (time) {
       break;
     case gamestates.TRAINING:
       ctx.font = "25px Permanent Marker";
-      ctx.fillText("Learn the maze", 25, 25);
+      ctx.fillText("Explore the maze", 25, 25);
       break;
     case gamestates.PLAYING:
       break;

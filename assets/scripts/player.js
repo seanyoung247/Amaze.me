@@ -119,8 +119,8 @@ Player.prototype.turnRight = function (timeDelta) {
 Player.prototype.interact = function (timeDelta) {
   //Is there an object in range to interact with?
   let obj = this.map.getObjectsInRange(this.position, this.reach);
-  if (obj != null) {
-    //TODO: game logic tests to see if we *should* interact with this object.
-    if (this.owner.goalCheck(obj)) obj.interact();
-  }
+  
+  if (obj != null)
+    if (this.owner.goalCheck(obj))
+      obj.interact();
 };

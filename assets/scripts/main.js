@@ -11,7 +11,7 @@ $( document ).ready(function() {
   //Game difficulty control not implimented yet...
   game.difficulty = gamedifficulty.EASY;
 
-  game.playStart();
+  //game.playStart();
 
   //Start the game loop
   window.requestAnimationFrame(loop);
