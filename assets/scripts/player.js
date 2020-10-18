@@ -115,7 +115,7 @@ Player.prototype.turnRight = function (timeDelta) {
 /*
  * Performs player-object interaction.
  *  NOTE: Probably doesn't need timeDelta but i've added it to remain consistent
- *        with other functions, and incase it's needed in the future.
+ *        with other functions, and in case it's needed in the future.
  */
 Player.prototype.interact = function (timeDelta) {
   //Is there an object in range to interact with?
@@ -125,3 +125,11 @@ Player.prototype.interact = function (timeDelta) {
     if (this.owner.goalCheck(obj))
       obj.interact();
 };
+
+/*
+ * Returns true if player is within interaction distance of an object
+ */
+Player.prototype.nearObject = function () {
+  if (this.map.getObjectsInRange(this.position, this.reach)) return true;
+  return false;
+}
