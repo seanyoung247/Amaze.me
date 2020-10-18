@@ -55,10 +55,15 @@ function GameState(gameCanvas, mapTemplate) {
     //Game Controls
     pause: {down: false, up: false}
   };
-  //Maps whether various game messages should be shown
+  //Maps whether various game hint messages should be shown
   this.messageMap = {
-    noInteract: { show: false, start: 0, elapsed: 0, time: 2000,
-                  message: "This is not the object you are looking for!" }
+    wrongObject:  {show: false, start: 0, time: 2000,
+                  message: "This is not the object you are looking for!" },
+    notPlaying:   {show: false, start: 0, time: 2000,
+                  message: "The game hasn't started yet!" },
+    canInteract:  {show: false, start: 0, time: 2000,
+                  message: "You can grab this object!" }
+    //more here as needed
   };
 
   this.setupGame(mapTemplate);
@@ -104,8 +109,6 @@ GameState.prototype.setupGoals = function() {
   this.goalList = shuffle(this.goalList);
 
   //DEBUG:
-  console.log(this.goalList.length);
-  console.log(this.map.objects.length);
   for (let i = 0; i < this.goalList.length; i++) {
     console.log(this.goalList[i].name);
   }
@@ -142,9 +145,23 @@ GameState.prototype.goalCheck = function (obj) {
       if (this.currentGoal >= this.goalList.length) this.playEnd();
       //Valid object interaction
       return true;
+    } else {
+      //Tell the player this is the wrong object
+      this.showHintMessage("wrongObject");
     }
+  } else {
+    //Tell the player the game hasn't started yet
+    this.showHintMessage("notPlaying");
   }
   return false;
+}
+
+/*
+ * Sets whether a hint message should be shown
+ */
+GameState.prototype.showHintMessage = function (message) {
+  this.messageMap[message].show = true;
+  this.messageMap[message].start = performance.now();
 }
 
 /*
@@ -241,45 +258,25 @@ GameState.prototype.drawOverlay = function (time) {
   }
 
   //Messaging
-  if (this.messageMap.noInteract.show) {
-    let t = this.messageMap.noInteract.start + this.messageMap.noInteract.time;
-    this.messageMap.noInteract.elapsed += time;
-
-    if (t > this.messageMap.noInteract.elapsed) {
-      //Draw text
-      ctx.font = "25px Permanent Marker";
-      txtWidth = ctx.measureText(this.messageMap.noInteract.message).width;
-      ctx.fillText(this.messageMap.noInteract.message,
-                  (this.gameCanvas.width / 2) - (txtWidth / 2),
-                  (this.gameCanvas.height / 2));
-
-    } else {
-      this.messageMap.noInteract.show = false;
-      this.messageMap.noInteract.elapsed = 0;
-    }
-  }
-
-  for (let i = 0; i < this.messageMap.length; i++) {
-    if (this.messageMap[i].show) {
-      let t = this.messageMap[i].start + this.messageMap[i].time;
-      this.messageMap[i].elapsed += time;
-
-      if (t > this.messageMap[i].elapsed) {
-        //Draw text
+  for (const property in this.messageMap) {
+    //Is this message being shown?
+    if (this.messageMap[property].show) {
+      //Calculate time when message expires
+      let t = this.messageMap[property].start + this.messageMap[property].time;
+      //Has message expired?
+      if (t > performance.now()) {
         ctx.font = "25px Permanent Marker";
-        txtWidth = ctx.measureText(this.messageMap[i].message).width;
-        ctx.fillText(this.messageMap[i].message,
+        txtWidth = ctx.measureText(this.messageMap[property].message).width;
+        ctx.fillText(this.messageMap[property].message,
                     (this.gameCanvas.width / 2) - (txtWidth / 2),
                     (this.gameCanvas.height / 2));
-
       } else {
-        this.messageMap[i].show = false;
-        this.messageMap[i].elapsed = 0;
+        //message has expired
+        this.messageMap[property].show = false;
+        this.messageMap[property].elapse = 0;
       }
     }
   }
-
-
 };
 
 GameState.prototype.drawMiniMap = function(x, y, alpha) {
