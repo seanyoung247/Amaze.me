@@ -322,6 +322,23 @@ GameState.prototype.drawScene = function (time) {
   this.player.drawScene(this.gameCanvas);
 };
 
+/*
+ * Calculates the x position to render the text passed centered horizontally
+ */
+GameState.prototype.centerTextHorizontal = function (ctx, text) {
+  txtMetric = ctx.measureText(text);
+  return ((this.gameCanvas.width / 2) - (txtMetric.width / 2));
+};
+/*
+ * Calculates the y position to render the text passed centered vertically
+ */
+GameState.prototype.centerTextVertical = function (ctx, text) {
+  txtMetric = ctx.measureText(text);
+  return ((this.gameCanvas.height / 2) -
+          ((txtMetric.actualBoundingBoxAscent +
+          txtMetric.actualBoundingBoxDescent) / 2));
+};
+
 GameState.prototype.drawOutlineText = function (ctx, text, x, y) {
   ctx.fillText(text, x, y);
   ctx.strokeText(text, x, y);
@@ -346,26 +363,21 @@ GameState.prototype.drawHintMessages = function (ctx) {
         ctx.fillStyle = this.styling.messageColor;
         ctx.strokeStyle = "black";
 
-        txtMetric = ctx.measureText(this.messageMap[property].message);
         //Calculate text x,y to centre text on screen
-        x = (this.gameCanvas.width / 2) - (txtMetric.width / 2);
-        y = (this.gameCanvas.height / 2) -
-              ((txtMetric.actualBoundingBoxAscent +
-                txtMetric.actualBoundingBoxDescent) / 2);
+        x = this.centerTextHorizontal(ctx, this.messageMap[property].message);
+        y = this.centerTextVertical(ctx, this.messageMap[property].message);
 
         this.drawOutlineText(ctx, this.messageMap[property].message, x, y);
 
         //Hint
         //Move y down below previous text
-        y += ((txtMetric.actualBoundingBoxAscent +
-                txtMetric.actualBoundingBoxDescent));
+        y += Math.abs(y - (this.gameCanvas.height / 2)) * 2;
 
         ctx.font = this.styling.hintFont;
         ctx.fillStyle = this.styling.hintColor;
 
-        txtMetric = ctx.measureText(this.messageMap[property].hint);
         //Centre hint horizontally
-        x = (this.gameCanvas.width / 2) - (txtMetric.width / 2);
+        x = this.centerTextHorizontal(ctx, this.messageMap[property].hint);
 
         this.drawOutlineText(ctx, this.messageMap[property].hint, x, y);
 
@@ -386,6 +398,7 @@ GameState.prototype.drawHintMessages = function (ctx) {
 GameState.prototype.drawOverlay = function (time) {
   let ctx = this.gameContext;
   let txtWidth = 0;
+  let x = 0, y = 0;
 
   this.drawMiniMap(this.gameCanvas.width - 175, 25, 0.35);
 
@@ -412,8 +425,20 @@ GameState.prototype.drawOverlay = function (time) {
       break;
 
     case gamestates.PLAYING:
-      //Current goal?
-      //Current game time?
+      //Draw icon of current goal
+      ctx.drawImage(this.goalList[this.currentGoal].icon, 25, 25);
+      break;
+
+    case gamestates.WON:
+      ctx.font = this.styling.largeFont;
+      ctx.fillStyle = this.styling.largeColor;
+      ctx.strokeStyle = "black";
+
+      //Calculate text x,y to centre text on screen
+      x = this.centerTextHorizontal(ctx, "You've won!");
+      y = this.centerTextVertical(ctx, "You've won!");
+
+      this.drawOutlineText(ctx, "You've won!", x, y);
       break;
   }
 
