@@ -56,7 +56,7 @@ Player.prototype.move = function (timeDelta, directionX, directionY) {
   if (this.map.getTilePassable(Math.floor(bX), Math.floor(this.position.y))) {
     //Check for Object collision in x
     obj = this.map.getObjectsInRange(new Point2(bX, this.position.y), this.radius);
-    //javascript uses lazy evaluation so if obj === null obj.blocking is never evaluated
+    //If no object or if object doesn't collide
     if ( obj === null || !obj.blocking) {
       //No collision, move to new position in x
       this.position.x = pX;
@@ -66,6 +66,7 @@ Player.prototype.move = function (timeDelta, directionX, directionY) {
   if (this.map.getTilePassable(Math.floor(this.position.x), Math.floor(bY))) {
     //Check for Object collision in y
     obj = this.map.getObjectsInRange(new Point2(this.position.x, bY), this.radius);
+    //If no object or if object doesn't collide
     if ( obj === null || !obj.blocking) {
       //No collision, move to new position in y
       this.position.y = pY;
@@ -76,7 +77,7 @@ Player.prototype.move = function (timeDelta, directionX, directionY) {
 }
 
 /*
- * These functions moves the player backward, forwards and at right angles along
+ * These functions move the player backward, forwards and at right angles along
  *  it's view vector. Player movement is actually performed by the move method,
  *  but these methods aid readability.
  */
@@ -91,12 +92,12 @@ Player.prototype.moveBack = function (timeDelta) {
 };
 
 Player.prototype.moveLeft = function (timeDelta) {
-  //Move along right angle of the view vector
+  //Move along negative right angle of the view vector
   this.move(timeDelta, this.direction.y, -this.direction.x);
 };
 
 Player.prototype.moveRight = function (timeDelta) {
-  //Move along right angle of the view vector
+  //Move along positive right angle of the view vector
   this.move(timeDelta, -this.direction.y, this.direction.x);
 };
 
@@ -119,7 +120,7 @@ Player.prototype.turnRight = function (timeDelta) {
 Player.prototype.interact = function (timeDelta) {
   //Is there an object in range to interact with?
   let obj = this.map.getObjectsInRange(this.position, this.reach);
-  
+
   if (obj != null)
     if (this.owner.goalCheck(obj))
       obj.interact();
