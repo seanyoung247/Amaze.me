@@ -63,17 +63,22 @@ function loop(timeStamp) {
   window.requestAnimationFrame(loop);
 }
 
+function hideSplashScreen() {
+  $( "#menuBtn").trigger("click");
+}
 //UI event handlers
 function playButtonClicked() {
   //If playing already we need to reset the game
   if (game.playing()) game.reset();
 
+  hideSplashScreen();
   game.playStart();
 }
 function learnButtonClicked() {
   //If playing already we need to reset the game
   if (game.playing()) game.reset();
 
+  hideSplashScreen();
   game.state = gamestates.TRAINING;
 }
 function pauseButtonClicked() {
