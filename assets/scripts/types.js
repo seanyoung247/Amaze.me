@@ -133,11 +133,11 @@ function Clock(time) {
   this.time = time;
 }
 Clock.prototype.hours = function () {
-  return Math.floor( (time / 3600000) % 24);
+  return Math.floor( (this.time  / 3600000) % 24);
 };
 Clock.prototype.minutes = function () {
-  return Math.floor( (time / 60000) % 60 );
+  return Math.floor( (this.time / 60000) % 60 );
 };
 Clock.prototype.seconds = function () {
-  return Math.floor( (1000) % 60 );
+  return Math.floor( (this.time / 1000) % 60 );
 };
