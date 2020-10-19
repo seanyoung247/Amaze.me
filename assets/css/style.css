@@ -1,7 +1,10 @@
 /*Font used for game messages*/
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+/*Font used for the title bar game clock*/
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');
 /*Main font*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 
 /*Makes the page full browser height*/
 body, html {
@@ -23,7 +26,6 @@ body {
 /*
  * Header styles
  */
-/*Header gets 5% of the screen, game 95%*/
 .headerWrapper {
   padding: 0;
   height: 45px;
@@ -31,16 +33,36 @@ body {
   background-color: #555;
   color: white;
 
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid #DDD;
 }
 .gameclock {
   margin-left: auto;
   padding-right: 20px;
-  padding-top: 10px;
+  padding-top: 5px;
+
+  font-family: 'ZCOOL QingKe HuangYou', cursive;
+  font-size: 20px;
 }
 /*
  * Menu Styles
  */
+#menuBtn {
+  padding: 0 0 8px;
+}
+.nav-menu-icon {
+  width: 25px;
+  height: 25px;
+}
+
+/* Themes the hamburger icon SVG */
+.nav-menu_icon_line {
+  fill: none;
+  stroke: white;
+  stroke-linecap: square; /*round*/ /*square*/
+  stroke-miterlimit: 10;
+  stroke-width: 100px;
+}
+
 .navWrapper {
   position: absolute;
   z-index: 999;
@@ -58,7 +80,9 @@ body {
   background-color: #555;/* #993333;*/
   color: white;
 
-  border: 1px solid #222;
+  border-left: 1px solid #DDD;
+  border-right: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
 }
 /*
  * Game Splashscreen styles
@@ -76,9 +100,20 @@ body {
 }
 .game-btn {
   width: 100px;
+  margin: 0 5px 0;
 }
 h1.splashtext {
+  padding-bottom: 2px;
   border-bottom: 1px solid white;
+}
+.btn-group.btn-group-toggle .btn {
+  width: 75px;
+}
+#difficultycontrols {
+  padding: 10px 0 10px;
+}
+#gamecontrols {
+  padding-top: 10px;
 }
 /*
  * Game page and canvas styles
