@@ -49,6 +49,7 @@ function draw(frameTime) {
 //Game loop
 function loop(timeStamp) {
   let player = game.player;
+  let clock;
 
   let frameTime = game.frameStart(timeStamp);
 
@@ -57,6 +58,12 @@ function loop(timeStamp) {
   //Feeding update frameTime in seconds simplifies math
   game.update(frameTime / 1000);
   draw(frameTime);
+
+  if (game.playing()) {
+    clock = game.gameClock;
+    $( "#clock" ).text(clock.minutes() + ":" +
+                        String(clock.seconds()).padStart(2, '0'));
+  }
 
   game.frameEnd(timeStamp);
 
