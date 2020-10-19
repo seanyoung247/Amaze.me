@@ -188,12 +188,6 @@ GameState.prototype.setupGoals = function() {
   this.goalList = this.map.objects.slice();
   //Randomly reorder list
   this.goalList = shuffle(this.goalList);
-
-  //DEBUG:
-  for (let i = 0; i < this.goalList.length; i++) {
-    console.log(this.goalList[i].name);
-  }
-
   this.currentGoal = 0;
 };
 
