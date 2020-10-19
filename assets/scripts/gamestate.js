@@ -174,10 +174,10 @@ GameState.prototype.reset = function() {
 };
 
 GameState.prototype.resetPlayerPosition = function() {
-  player.position.x = map.playerSpawn.position.x;
-  player.position.y = map.playerSpawn.position.y;
-  player.direction.x = map.playerSpawn.vector.x;
-  player.direction.y = map.playerSpawn.vector.y;
+  this.player.position.x = this.map.playerSpawn.position.x;
+  this.player.position.y = this.map.playerSpawn.position.y;
+  this.player.direction.x = this.map.playerSpawn.vector.x;
+  this.player.direction.y = this.map.playerSpawn.vector.y;
 }
 
 /*
@@ -205,6 +205,7 @@ GameState.prototype.playStart = function() {
   if (this.state != gamestates.PLAYING) {
     this.playStartTime = performance.now();
     this.state = gamestates.PLAYING;
+    this.resetPlayerPosition();
   }
 };
 
