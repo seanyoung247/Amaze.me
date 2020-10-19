@@ -506,7 +506,7 @@ GameState.prototype.drawOverlay = function (time) {
       this.drawOutlineText(ctx, message, x, y);
 
       message = "Your time was: " + this.gameClock.minutes()
-                  + ":" + this.gameClock.seconds();
+                  + ":" + String(this.gameClock.seconds()).padStart(2, '0');
 
       x = this.centerTextHorizontal(ctx, message);
       y += Math.abs(y - (this.gameCanvas.height / 2)) * 2;

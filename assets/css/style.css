@@ -27,6 +27,11 @@ body {
 .headerWrapper {
   padding: 0;
   height: 45px;
+
+  background-color: #555;
+  color: white;
+
+  border-bottom: 1px solid #222;
 }
 .gameclock {
   margin-left: auto;
@@ -46,10 +51,14 @@ body {
   text-align: center;
 }
 .navbar-collapse {
-  background-color: white;
   width: 80vw;
   margin: auto;
   float: none;
+
+  background-color: #555;/* #993333;*/
+  color: white;
+
+  border: 1px solid #222;
 }
 /*
  * Game Splashscreen styles
@@ -67,6 +76,9 @@ body {
 }
 .game-btn {
   width: 100px;
+}
+h1.splashtext {
+  border-bottom: 1px solid white;
 }
 /*
  * Game page and canvas styles
