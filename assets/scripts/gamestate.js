@@ -33,6 +33,8 @@ function GameState(gameCanvas, mapTemplate) {
   this.pauseStartTime = 0;
   this.winTime = 0;
 
+  this.gameClock = new Clock(0);
+
   this.goalList = null;
   this.currentGoal = 0;
 
@@ -240,6 +242,7 @@ GameState.prototype.playEnd = function() {
   if (this.state === gamestates.PLAYING) {
     this.winTime = performance.now() - this.playStartTime;
     this.state = gamestates.WON;
+    this.gameClock.time = this.winTime;
   }
 };
 
@@ -340,6 +343,10 @@ GameState.prototype.update = function (frameTime) {
       this.player.interact(frameTime);
       this.inputMap.interact.up = false;
     }
+  }
+
+  if (this.state === gamestates.PLAYING) {
+    this.gameClock.time = performance.now() - this.playStartTime;
   }
 
   //Keyboard pause control
@@ -450,7 +457,7 @@ GameState.prototype.drawHintMessages = function (ctx) {
  */
 GameState.prototype.drawOverlay = function (time) {
   let ctx = this.gameContext;
-  let txtWidth = 0;
+  let message = "";
   let x = 0, y = 0;
 
   this.drawMiniMap(this.gameCanvas.width - 175, 25, 0.35);
@@ -463,10 +470,10 @@ GameState.prototype.drawOverlay = function (time) {
 
       ctx.strokeStyle = "black";
 
-      txtWidth = ctx.measureText("PAUSED!").width;
-      this.drawOutlineText(ctx, "PAUSED!",
-                          (this.gameCanvas.width / 2) - (txtWidth / 2),
-                          (this.gameCanvas.height / 2));
+      message = "PAUSED!";
+      x = this.centerTextHorizontal(ctx, message);
+      y = this.centerTextVertical(ctx, message);
+      this.drawOutlineText(ctx, message, x, y);
       break;
 
     case gamestates.TRAINING:
@@ -480,6 +487,15 @@ GameState.prototype.drawOverlay = function (time) {
     case gamestates.PLAYING:
       //Draw icon of current goal
       ctx.drawImage(this.goalList[this.currentGoal].icon, 25, 25);
+
+      //Goal name
+      ctx.font = this.styling.hintFont;
+      ctx.fillStyle = this.styling.hintColor;
+      ctx.strokeStyle = "black";
+
+      message = "Pick up the " + this.goalList[this.currentGoal].name;
+      this.drawOutlineText(ctx, message, 25, 100);
+
       break;
 
     case gamestates.WON:
@@ -487,11 +503,19 @@ GameState.prototype.drawOverlay = function (time) {
       ctx.fillStyle = this.styling.largeColor;
       ctx.strokeStyle = "black";
 
+      message = "You completed the maze!";
       //Calculate text x,y to centre text on screen
-      x = this.centerTextHorizontal(ctx, "You've won!");
-      y = this.centerTextVertical(ctx, "You've won!");
+      x = this.centerTextHorizontal(ctx, message);
+      y = this.centerTextVertical(ctx, message);
 
-      this.drawOutlineText(ctx, "You've won!", x, y);
+      this.drawOutlineText(ctx, message, x, y);
+
+      message = "Your time was: " + this.gameClock.minutes()
+                  + ":" + this.gameClock.seconds();
+
+      x = this.centerTextHorizontal(ctx, message);
+      y += Math.abs(y - (this.gameCanvas.height / 2)) * 2;
+      this.drawOutlineText(ctx, message, x, y);
       break;
   }
 
