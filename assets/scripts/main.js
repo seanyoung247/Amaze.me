@@ -1,20 +1,17 @@
 //Initial startup
-var lastFrame = 0;
 var game = null;
 
 $( document ).ready(function() {
   game = new GameState(document.getElementById("gameCanvas"), normalMap);
 
-  //Pause control not yet implimented...
-  game.state = gamestates.TRAINING;
-
-  //Game difficulty control not implimented yet...
-  game.difficulty = gamedifficulty.EASY;
-
-//  game.playStart();
-
-  window.addEventListener("keydown", function(event) {game.keyDown(event);}, false);
-  window.addEventListener("keyup", function(event) {game.keyUp(event);}, false);
+  //Attach event listeners
+  //Keyboard
+  $(window).keydown(function(event) {game.keyDown(event);});
+  $(window).keyup(function(event) {game.keyUp(event);});
+  //UI
+  $( "#learnBtn" ).click(learnButtonClicked);
+  $( "#playBtn" ).click(playButtonClicked);
+  $( "#menuBtn").click(menuButtonClicked);
 
   //Start the game loop
   window.requestAnimationFrame(loop);
@@ -64,4 +61,30 @@ function loop(timeStamp) {
   game.frameEnd(timeStamp);
 
   window.requestAnimationFrame(loop);
+}
+
+//UI event handlers
+function playButtonClicked() {
+  //If playing already we need to reset the game
+  if (game.playing()) game.reset();
+
+  game.playStart();
+}
+function learnButtonClicked() {
+  //If playing already we need to reset the game
+  if (game.playing()) game.reset();
+
+  game.state = gamestates.TRAINING;
+}
+function pauseButtonClicked() {
+  game.togglePause();
+}
+function menuButtonClicked() {
+  /* If the splashscreen is visible when the button is pressed,
+     it's about to be hidden so we need to unpause the game. */
+  if ($( "#splashscreen" ).is(":visible")) {
+    game.unpause();
+  } else {
+    game.pause();
+  }
 }

@@ -74,7 +74,7 @@ function GameState(gameCanvas, mapTemplate) {
     notPlaying:   { name: "notPlaying", show: false,
                     start: 0, time: 4000,
                     message: "The game hasn't started yet!",
-                    hint: "Select play at the top of the screen to start game."  },
+                    hint: "Select play from the menu to start game"},
 
     //more here as needed
   };
@@ -160,8 +160,23 @@ GameState.prototype.keyUp = function(event) {
  * Clears all objects and resets the game state
  */
 GameState.prototype.reset = function() {
+  this.setupGame(normalMap);
+  this.currentMessage = null;
 
+  this.playStartTime = 0;
+  this.pauseStartTime = 0;
+  this.winTime = 0;
+
+  this.state = gamestates.PAUSED;
+  this.lastState = gamestates.TRAINING;
 };
+
+GameState.prototype.resetPlayerPosition = function() {
+  player.position.x = map.playerSpawn.position.x;
+  player.position.y = map.playerSpawn.position.y;
+  player.direction.x = map.playerSpawn.vector.x;
+  player.direction.y = map.playerSpawn.vector.y;
+}
 
 /*
  * Populates the goals array with available objects in random order
@@ -176,40 +191,74 @@ GameState.prototype.setupGoals = function() {
   for (let i = 0; i < this.goalList.length; i++) {
     console.log(this.goalList[i].name);
   }
+
+  this.currentGoal = 0;
 };
 
 /*
  * Prefered method of setting the game into the playing state
  */
 GameState.prototype.playStart = function() {
-  this.playStartTime = performance.now();
-  this.state = gamestates.PLAYING;
+  //Can't start playing if already playing
+  if (this.state != gamestates.PLAYING) {
+    this.playStartTime = performance.now();
+    this.state = gamestates.PLAYING;
+  }
 };
 
  /*
   * Pauses and unpauses
   */
 GameState.prototype.togglePause = function() {
+  if (this.state === gamestates.PAUSED) this.unpause();
+  else this.pause();
+};
+
+GameState.prototype.unpause = function () {
   if (this.state === gamestates.PAUSED) {
     this.state = this.lastState;
     //If playing we need to adjust the start time to account for time paused
     if (this.state === gamestates.PLAYING) {
       this.playStartTime += performance.now() - this.pauseStartTime;
     }
-  } else {
+  }
+}
+
+GameState.prototype.pause = function () {
+  if (this.state != gamestates.PAUSED && this.state != gamestates.WON) {
     this.lastState = this.state;
     this.state = gamestates.PAUSED;
     this.pauseStartTime = performance.now();
   }
-};
+}
 
 /*
  * Called when victory condition detected
  */
 GameState.prototype.playEnd = function() {
-  this.winTime = performance.now() - this.playStartTime;
-  this.state = gamestates.WON;
+  //Can't win if not playing...
+  if (this.state === gamestates.PLAYING) {
+    this.winTime = performance.now() - this.playStartTime;
+    this.state = gamestates.WON;
+  }
 };
+
+/*
+ * Returns true if in the middle of a game (even if paused)
+ */
+GameState.prototype.playing = function () {
+  switch (this.state) {
+    case gamestates.PLAYING:
+      return true;
+    case gamestates.TRAINING:
+      return false;
+    case gamestates.PAUSED:
+      if (this.lastState === gamestates.PLAYING) return true;
+      else return false;
+    case gamestates.WON:
+      return true;
+  }
+}
 
 /*
  * Called when the player requests an object interaction.
@@ -225,7 +274,11 @@ GameState.prototype.goalCheck = function (obj) {
       //This is the current goal object. Move to the next goal.
       this.currentGoal++;
       //Is this the final goal object?
-      if (this.currentGoal >= this.goalList.length) this.playEnd();
+      if (this.currentGoal >= this.goalList.length)
+      {
+        this.currentGoal = this.goalList.length - 1;
+        this.playEnd();
+      }
       //Valid object interaction
       return true;
     } else {

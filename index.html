@@ -17,28 +17,39 @@
 
         <div class="navWrapper">
           <nav class="navbar">
-            <a href="#" class="navbar-toggler" data-toggle="collapse" data-target="#splashscreen" aria-controls="splashscreen" aria-expanded="false" aria-label="Toggle navigation">
+            <a href="#" id="menuBtn" class="navbar-toggler" data-toggle="collapse" data-target="#splashscreen" aria-controls="splashscreen" aria-expanded="false" aria-label="Toggle navigation">
               Menu
             </a>
             <div class="collapse navbar-collapse show" id="splashscreen">
-              <h1>Objective</h1>
-              <p> Collect the objects in the maze in the correct order
-                  as quickly as possible. </p>
-              <h1>How to play</h1>
-              <p> Move forward by pressing 'W' or the up arrow key and
-                  backwards by pressing 'S' or down arrow key. </p>
-              <p> Turn left with 'A' and right with 'D' or the arrow keys.</p>
-              <p> To pickup objects press 'E' or the spacebar. </p>
-              <p> Select "Learn" to move around the maze and learn it's
-                  layout. When you're ready select "Play" and try and get
-                  the fastest time. </p>
+              <h1 class="splashtext">Objective</h1>
+              <p class="splashtext">
+                Collect the objects in the maze in the correct order
+                as quickly as possible.
+              </p>
+              <h1 class="splashtext">How to play</h1>
+              <p class="splashtext">
+                Move forward by pressing 'W' or the up arrow key and backwards
+                by pressing 'S' or down arrow key.
+              </p>
+              <p class="splashtext">
+                Turn left with 'A' and right with 'D' or the arrow keys.
+              </p>
+              <p class="splashtext">
+                To pickup objects press 'E' or the spacebar.
+              </p>
+              <p class="splashtext">
+                Select "Learn" to move around the maze and learn it's layout.
+              </p>
+              <p class="splashtext">
+                When you're ready select "Play" and try and get the fastest time.
+              </p>
 
               <!-- using a form here stops the nav
                     dropdown closing automatically -->
               <form class="splashform">
 
-                <button id="learnBtn" class="btn btn-secondary">Learn</button>
-                <button id="playBtn" class="btn btn-secondary">Play</button>
+                <button id="learnBtn" class="btn btn-secondary game-btn" type="button">Learn</button>
+                <button id="playBtn" class="btn btn-secondary game-btn" type="button">Play</button>
 
               </form>
             </div>

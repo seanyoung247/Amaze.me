@@ -49,18 +49,20 @@ body {
 /*
  * Game Splashscreen styles
  */
+#splashscreen {
+  padding: 15px;
+}
 .splashform {
   display: inline-block;
   text-align: center;
   padding: 15px;
 }
-
-h1 {
-  color: red;
+.splashtext {
+  margin-bottom: 5px;
 }
-p {
+.game-btn {
+  width: 100px;
 }
-
 /*
  * Game page and canvas styles
  */
