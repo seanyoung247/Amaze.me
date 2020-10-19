@@ -28,6 +28,11 @@ body {
   padding: 0;
   height: 45px;
 }
+.gameclock {
+  margin-left: auto;
+  padding-right: 20px;
+  padding-top: 10px;
+}
 /*
  * Menu Styles
  */
