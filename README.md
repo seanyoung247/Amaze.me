@@ -10,14 +10,64 @@ AMaze.me requires the player to remember the position of objects in a maze and t
 
 [See live project](https://seanyoung247.github.io/Second-milestone-project/) 
 
-## UX
+## UX (User Experience)
 
-Use this section to provide insight into your UX process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
+### Project Goals
 
-In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
-- As a user type, I want to perform an action, so that I can achieve a goal.
+The project goal is to produce a game that helps improve memory while being fun to play.
 
-This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
+### User Stories
+
+- As a **player** I want a **clear explanation** of how to play the game.
+- As a **player**, I want an obvious way to **adjust the game** to my level of expertise.
+- As a **player**, I want to be able to **learn the game** before I play.
+- As a **player**, I want **clear** **feedback** on my goals while I play.
+- As a **player**, I want **clear feedback** on my progress while I play.
+- As a **player**, I want to get **clear feedback** when I win.
+
+## Design
+
+### Fonts
+
+All fonts are sourced from [google fonts](https://fonts.google.com/).
+
+[Roboto](https://fonts.google.com/specimen/Roboto) is used for site UI and text because it is a simple easy to read font.
+
+[Orbitron](https://fonts.google.com/specimen/Orbitron) is used for the in game title bar clock. This was chosen as it is easy to read and is reminiscent of a digital clock. Only the numbers and ':' character are imported as it is only used for the clock.
+
+[Permanent Marker](https://fonts.google.com/specimen/Permanent+Marker) is used for game generated messages because it is a visually interesting font that lends itself to the "hand drawn" aesthetic of the game.
+
+### Colours
+
+A simple monochromatic colour scheme was chosen for the site UI. This was chosen as it provides strong contrast for interface elements while also being unobtrusive during gameplay.
+
+![pallet](assets/images/pallet.png)
+
+* Dark grey (#555555) - UI Background
+* Light grey (#DDDDDD) - UI Highlights
+* White (#FFFFFF) - Text colour
+
+### Original layout
+
+![game-screen - old](assets/wireframes/game-screen-old.png)
+
+### Final layout
+
+![splashscreen](C:\Users\seany\OneDrive\Documents\GitHub\Second-milestone-project\assets\wireframes\splashscreen.png)
+
+![gamescreen](C:\Users\seany\OneDrive\Documents\GitHub\Second-milestone-project\assets\wireframes\gamescreen.png)
+
+### 
+
+
+
+
+
+
+
+
+
+
 
 ## Features
 
