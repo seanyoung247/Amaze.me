@@ -10,6 +10,14 @@ AMaze.me requires the player to remember the position of objects in a maze and t
 
 [See live project](https://seanyoung247.github.io/Second-milestone-project/) 
 
+
+
+## Contents
+
+
+
+
+
 ## UX (User Experience)
 
 ### Project Goals
@@ -47,31 +55,23 @@ A simple monochromatic colour scheme was chosen for the site UI. This was chosen
 * Light grey (#DDDDDD) - UI Highlights
 * White (#FFFFFF) - Text colour
 
-### Original layout
+### Layout
+
+Site mock-ups were designed in Balsamiq. These were used to guide the layout of the page and UI. A simple and fluid layout was used to smoothly support various different screen sizes and layouts with minimal design changes for different screen sizes.
+
+#### Original layout
 
 The original layout was two columns with a header and menu bar. The left hand column took most of the screen for the main game canvas with the right hand column showing game messages, current play goal and minimap.
 
 [Original layout](assets/wireframes/gamescreen-old.png)
 
-### Final layout
+#### Final layout
 
 [Splash screen](assets/wireframes/splashscreen.png)
 
 [Game screen](assets/wireframes/gamescreen.png)
 
 The final layout differs from the original design. The two column layout was changed to a simple single column layout with most of the second column's content moved to in game overlays. This change made the game more responsive to different screen sizes while aiding immersion while playing.
-
-### 
-
-
-
-
-
-
-
-
-
-
 
 ## Features
 
@@ -86,21 +86,43 @@ For some/all of your features, you may choose to reference the specific project 
 In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
 
 ### Features Left to Implement
-- Another feature idea
 
-## Technologies Used
+There are a number of features that would add to the project and aid in fulfilling user requirements:
 
-In this section, you should mention all of the languages, frameworks, libraries, and any other tools that you have used to construct this project. For each, provide its name, a link to its official site and a short sentence of why it was used.
+- Touch controls for phone and tablet play
+- Mouse look
+- User settings
+  - Control settings
+  - Colour schemes
+  - Game texture themes
+- Alternative game maps
+- Persistent storage
+  - User settings
+  - Leaderboards/high scores
+- Sound effects
+- Streamlined sprite rendering
+
+## Technologies
+
+### Languages
+
+### Libraries
 
 - [JQuery](https://jquery.com)
     - The project uses **JQuery** to simplify DOM manipulation.
+- [Bootstrap](https://getbootstrap.com/)
+    - The project uses bootstrap to aid in responsive design.
+- [Popper](https://popper.js.org/)
+    - Included as a requirement of bootstrap. Used in dropdown splash screen menu.
 
 ### Editors:
 
-- Typora
+- [Typora](https://typora.io/)
   - Typora was used to simplify creation of the README.md file.
-- Atom
+- [Atom](https://atom.io/)
   - Atom was used to write HTML and Javascript code.
+
+### Tools:
 
 
 ## Testing
