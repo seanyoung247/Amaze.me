@@ -1,8 +1,8 @@
-/*Font used for game messages*/
+/*Font used for game messages - Permanent Marker*/
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
-/*Font used for the title bar game clock*/
-@import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');
-/*Main font*/
+/*Font used for the title bar game clock - Orbitron*/
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap&text=:1234567890');
+/*Main font - Roboto*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 
@@ -10,10 +10,11 @@
 body, html {
     height: 100vh;
     font-family: 'Roboto', sans-serif;
+    overflow: hidden;
 }
-body {
+/*body {
   min-width: 600px;
-}
+}*/
 /*Game canvas should take up full width with no gaps*/
 #pageWrapper {
   padding-left: 0;
@@ -40,7 +41,7 @@ body {
   padding-right: 20px;
   padding-top: 5px;
 
-  font-family: 'ZCOOL QingKe HuangYou', cursive;
+  font-family: 'Orbitron', sans-serif;
   font-size: 20px;
 }
 /*
@@ -77,7 +78,7 @@ body {
   margin: auto;
   float: none;
 
-  background-color: #555;/* #993333;*/
+  background-color: #555;
   color: white;
 
   border-left: 1px solid #DDD;
@@ -89,6 +90,13 @@ body {
  */
 #splashscreen {
   padding: 15px;
+
+  /* Prevents the splashcreen from extending the page
+    beyond the bottom of the screen, while also allowing
+    scrolling of just the splashscreen */
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .splashform {
   display: inline-block;
@@ -104,10 +112,10 @@ body {
 }
 h1.splashtext {
   padding-bottom: 2px;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #DDD;
 }
 .splashseparator {
-  border-top: 1px solid white;
+  border-top: 1px solid #DDD;
 }
 .btn-group.btn-group-toggle .btn {
   width: 75px;

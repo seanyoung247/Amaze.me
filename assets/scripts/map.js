@@ -150,9 +150,4 @@ RayMap2.prototype.getWallType = function (x, y) {
     return this.walls[wallType - 1];
   }
 }
-
-
-
-
-
  //More functions here as needed:
