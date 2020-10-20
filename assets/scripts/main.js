@@ -1,5 +1,15 @@
 //Initial startup
 var game = null;
+var joy = null;
+
+/*
+ * Basic touch functionality
+ */
+/*function isTouchDevice() {
+  return (('ontouchstart' in window)
+      || (navigator.maxTouchPoints > 0)
+      || (navigator.msMaxTouchPoints > 0));
+}*/
 
 $( document ).ready(function() {
   game = new GameState(document.getElementById("gameCanvas"), normalMap);
@@ -8,6 +18,7 @@ $( document ).ready(function() {
   //Keyboard
   $(window).keydown(function(event) {game.keyDown(event);});
   $(window).keyup(function(event) {game.keyUp(event);});
+
   //UI
   $( "#optEasy" ).click( function() {
     difficultySelector(gamedifficulty.EASY);
@@ -22,6 +33,13 @@ $( document ).ready(function() {
   $( "#learnBtn" ).click(learnButtonClicked);
   $( "#playBtn" ).click(playButtonClicked);
   $( "#menuBtn" ).click(menuButtonClicked);
+
+  //Is touch supported?
+  /*if (isTouchDevice()) {
+    $( "#gameCanvas" ).on("")
+  }*/
+
+  joy = new JoyStick("joyDiv");
 
   //Start the game loop
   window.requestAnimationFrame(loop);
@@ -67,6 +85,13 @@ function loop(timeStamp) {
   player.direction.normalize();
   //Feeding update frameTime in seconds simplifies math
   game.update(frameTime / 1000);
+
+  console.log(joy.GetPosX());
+  console.log(joy.GetPosY());
+  console.log(joy.GetDir());
+  console.log(joy.GetX());
+  console.log(joy.GetY());
+
   draw(frameTime);
 
   if (game.playing()) {

@@ -140,3 +140,8 @@ h1.splashtext {
   width: 100%;
   height: 100%;
 }
+
+#joyDiv {
+  position: absolute;
+  top: 150px;
+}

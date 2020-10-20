@@ -117,8 +117,8 @@ GameState.prototype.setupGame = function (mapTemplate) {
 
 /*
  * Keyboard input
+ *  IMPROVEMENT: Move user input to a dedicated generalised class
  */
-
 /*
  * Creates the default keybindings
  */
@@ -141,7 +141,7 @@ GameState.prototype.setupDefaultKeys = function() {
   //Game state
   this.keyMap.set("KeyP", "pause");
 }
-
+//Handles window keydown event
 GameState.prototype.keyDown = function(event) {
   let key = this.keyMap.get(event.code);
   if (key) {
@@ -149,14 +149,14 @@ GameState.prototype.keyDown = function(event) {
     this.inputMap[key].up = false;
   }
 }
-
+//Handles window keyup event
 GameState.prototype.keyUp = function(event) {
   let key = this.keyMap.get(event.code);
   if (key) {
     this.inputMap[key].down = false;
     this.inputMap[key].up = true;
   }
-}
+};
 
 /*
  * Clears all objects and resets the game state
@@ -174,6 +174,7 @@ GameState.prototype.reset = function() {
 };
 
 GameState.prototype.resetPlayerPosition = function() {
+  //This should be performed by the player class...
   this.player.position.x = this.map.playerSpawn.position.x;
   this.player.position.y = this.map.playerSpawn.position.y;
   this.player.direction.x = this.map.playerSpawn.vector.x;
@@ -188,6 +189,7 @@ GameState.prototype.setupGoals = function() {
   this.goalList = this.map.objects.slice();
   //Randomly reorder list
   this.goalList = shuffle(this.goalList);
+  //Make sure we're starting at the first goal...
   this.currentGoal = 0;
 };
 
@@ -197,20 +199,23 @@ GameState.prototype.setupGoals = function() {
 GameState.prototype.playStart = function() {
   //Can't start playing if already playing
   if (this.state != gamestates.PLAYING) {
+    //Log the play start time
     this.playStartTime = performance.now();
+    //Set us to playing
     this.state = gamestates.PLAYING;
+    //Ensure the player is starts at the player spawn point
     this.resetPlayerPosition();
   }
 };
 
  /*
-  * Pauses and unpauses
+  * Toggles the pause condition
   */
 GameState.prototype.togglePause = function() {
   if (this.state === gamestates.PAUSED) this.unpause();
   else this.pause();
 };
-
+//If paused unpauses the game
 GameState.prototype.unpause = function () {
   if (this.state === gamestates.PAUSED) {
     this.state = this.lastState;
@@ -220,7 +225,7 @@ GameState.prototype.unpause = function () {
     }
   }
 }
-
+//Pauses the game if it's not already paused or win condition
 GameState.prototype.pause = function () {
   if (this.state != gamestates.PAUSED && this.state != gamestates.WON) {
     this.lastState = this.state;
@@ -245,6 +250,7 @@ GameState.prototype.playEnd = function() {
  * Returns true if in the middle of a game (even if paused)
  */
 GameState.prototype.playing = function () {
+  //Pretty inelegant - needs improvement
   switch (this.state) {
     case gamestates.PLAYING:
       return true;
@@ -274,6 +280,10 @@ GameState.prototype.goalCheck = function (obj) {
       //Is this the final goal object?
       if (this.currentGoal >= this.goalList.length)
       {
+        /*Ensures currentGoal never points beyond end of goalList.
+          Fixes a bug on play restart where draw refresh could cause
+          a race condition where window draw could begin before
+          currentGoal was reset.*/
         this.currentGoal = this.goalList.length - 1;
         this.playEnd();
       }
@@ -353,6 +363,8 @@ GameState.prototype.update = function (frameTime) {
 
 /*
  * Drawing functions
+ *  IMPROVEMENT: Many of these methods would probably be better
+ *               off as a generalised helper class
  */
 
 /*
