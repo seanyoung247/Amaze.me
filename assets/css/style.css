@@ -146,8 +146,8 @@ h1.splashtext {
   z-index: 1;
   /*Position on the right hand side half way down the screen*/
   top: 100%;
-  left: 100%;
-  transform: translate(-110%, -110%);
+  left: 50%;
+  transform: translate(-50%, -100%);
   /*Hidden by default*/
   visibility: hidden;
 
