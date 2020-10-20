@@ -6,7 +6,7 @@ AMaze.me is a memory game designed to help improve spatial memory. The idea was 
 
 AMaze.me requires the player to remember the position of objects in a maze and the route to get to them. They are presented with a random order in which to collect these objects, and judged on time, with the object being to improve their timings. The object is to improve memory while having fun.
 
-![screenshot](C:\Users\seany\OneDrive\Documents\GitHub\Second-milestone-project\assets\images\screenshot.png)
+![screenshot](/assets/images/screenshot.png)
 
 [See live project](https://seanyoung247.github.io/Second-milestone-project/) 
 
