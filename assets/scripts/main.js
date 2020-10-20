@@ -1,7 +1,5 @@
 //Initial startup
 var game = null;
-var joy = null;
-
 /*
  * Basic touch functionality
  */
@@ -38,8 +36,6 @@ $( document ).ready(function() {
   /*if (isTouchDevice()) {
     $( "#gameCanvas" ).on("")
   }*/
-
-  joy = new JoyStick("joyDiv");
 
   //Start the game loop
   window.requestAnimationFrame(loop);
@@ -85,13 +81,6 @@ function loop(timeStamp) {
   player.direction.normalize();
   //Feeding update frameTime in seconds simplifies math
   game.update(frameTime / 1000);
-
-  console.log(joy.GetPosX());
-  console.log(joy.GetPosY());
-  console.log(joy.GetDir());
-  console.log(joy.GetX());
-  console.log(joy.GetY());
-
   draw(frameTime);
 
   if (game.playing()) {
