@@ -9,9 +9,19 @@ $( document ).ready(function() {
   $(window).keydown(function(event) {game.keyDown(event);});
   $(window).keyup(function(event) {game.keyUp(event);});
   //UI
+  $( "#optEasy" ).click( function() {
+    difficultySelector(gamedifficulty.EASY);
+  });
+  $( "#optNormal" ).click( function() {
+    difficultySelector(gamedifficulty.NORMAL);
+  });
+  $( "#optHard" ).click( function() {
+    difficultySelector(gamedifficulty.HARD);
+  });
+
   $( "#learnBtn" ).click(learnButtonClicked);
   $( "#playBtn" ).click(playButtonClicked);
-  $( "#menuBtn").click(menuButtonClicked);
+  $( "#menuBtn" ).click(menuButtonClicked);
 
   //Start the game loop
   window.requestAnimationFrame(loop);
@@ -74,6 +84,15 @@ function hideSplashScreen() {
   $( "#menuBtn").trigger("click");
 }
 //UI event handlers
+function difficultySelector(difficulty) {
+  //Is the new difficulty different to the current one?
+  if (difficulty != game.difficulty) {
+    //If playing already we need to reset the game
+    if (game.playing()) game.reset();
+    //Set new difficulty
+    game.difficulty = difficulty;
+  }
+}
 function playButtonClicked() {
   //If playing already we need to reset the game
   if (game.playing()) game.reset();
