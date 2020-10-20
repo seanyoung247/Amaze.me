@@ -3,11 +3,11 @@ var game = null;
 /*
  * Basic touch functionality
  */
-/*function isTouchDevice() {
+function isTouchDevice() {
   return (('ontouchstart' in window)
       || (navigator.maxTouchPoints > 0)
       || (navigator.msMaxTouchPoints > 0));
-}*/
+}
 
 $( document ).ready(function() {
   game = new GameState(document.getElementById("gameCanvas"), normalMap);
@@ -33,9 +33,56 @@ $( document ).ready(function() {
   $( "#menuBtn" ).click(menuButtonClicked);
 
   //Is touch supported?
-  /*if (isTouchDevice()) {
-    $( "#gameCanvas" ).on("")
-  }*/
+  if (isTouchDevice()) {
+    //Show touch Controls
+    $( "#touchControls" ).css("visibility", "visible");
+    //Attach touch event functions.
+    //Turn left
+    $( "#Touch-Left" ).on("touchstart", function() {
+      game.inputMap.turnLeft.down = true;
+      game.inputMap.turnLeft.up = false;
+    });
+    $( "#Touch-Left" ).on("touchend", function() {
+      game.inputMap.turnLeft.down = false;
+      game.inputMap.turnLeft.up = true;
+    });
+    //Turn Right
+    $( "#Touch-Right" ).on("touchstart", function() {
+      game.inputMap.turnRight.down = true;
+      game.inputMap.turnRight.up = false;
+    });
+    $( "#Touch-Right" ).on("touchend", function() {
+      game.inputMap.turnRight.down = false;
+      game.inputMap.turnRight.up = true;
+    });
+    //Move forward
+    $( "#Touch-Up" ).on("touchstart", function() {
+      game.inputMap.up.down = true;
+      game.inputMap.up.up = false;
+    });
+    $( "#Touch-Up" ).on("touchend", function() {
+      game.inputMap.up.down = false;
+      game.inputMap.up.up = true;
+    });
+    //Move Back
+    $( "#Touch-Down" ).on("touchstart", function() {
+      game.inputMap.down.down = true;
+      game.inputMap.down.up = false;
+    });
+    $( "#Touch-Down" ).on("touchend", function() {
+      game.inputMap.down.down = false;
+      game.inputMap.down.up = true;
+    });
+    //Use-
+    $( "#Touch-Centre" ).on("touchstart", function() {
+      game.inputMap.interact.down = true;
+      game.inputMap.interact.up = false;
+    });
+    $( "#Touch-Centre" ).on("touchend", function() {
+      game.inputMap.interact.down = false;
+      game.inputMap.interact.up = true;
+    });
+  }
 
   //Start the game loop
   window.requestAnimationFrame(loop);

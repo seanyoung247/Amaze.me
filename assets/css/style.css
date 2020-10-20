@@ -145,13 +145,15 @@ h1.splashtext {
   position: absolute;
   z-index: 1;
   /*Position on the right hand side half way down the screen*/
-  top: 50%;
+  top: 100%;
   left: 100%;
-  transform: translate(-110%, -50%);
+  transform: translate(-110%, -110%);
+  /*Hidden by default*/
+  visibility: hidden;
 
   width: 15em;
   height: 15em;
 }
 .touch-icon {
-  fill: rgba(255,255,255,0.5);
+  fill: rgba(255,255,255,0.35);
 }
