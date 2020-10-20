@@ -49,13 +49,17 @@ A simple monochromatic colour scheme was chosen for the site UI. This was chosen
 
 ### Original layout
 
-![game-screen - old](assets/wireframes/game-screen-old.png)
+The original layout was two columns with a header and menu bar. The left hand column took most of the screen for the main game canvas with the right hand column showing game messages, current play goal and minimap.
+
+[Original layout](assets/wireframes/gamescreen-old.png)
 
 ### Final layout
 
-![splashscreen](C:\Users\seany\OneDrive\Documents\GitHub\Second-milestone-project\assets\wireframes\splashscreen.png)
+[Splash screen](assets/wireframes/splashscreen.png)
 
-![gamescreen](C:\Users\seany\OneDrive\Documents\GitHub\Second-milestone-project\assets\wireframes\gamescreen.png)
+[Game screen](assets/wireframes/gamescreen.png)
+
+The final layout differs from the original design. The two column layout was changed to a simple single column layout with most of the second column's content moved to in game overlays. This change made the game more responsive to different screen sizes while aiding immersion while playing.
 
 ### 
 
