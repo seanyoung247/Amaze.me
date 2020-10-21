@@ -75,21 +75,14 @@ The final layout differs from the original design. The two column layout was cha
 
 ## Features
 
-In this section, you should go over the different parts of your project, and describe each in a sentence or so.
-
 ### Existing Features
-- Feature 1 - allows users X to achieve Y, by having them fill out Z
-- ...
-
-For some/all of your features, you may choose to reference the specific project files that implement them, although this is entirely optional.
-
-In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
+- 
 
 ### Features Left to Implement
 
 There are a number of features that would add to the project and aid in fulfilling user requirements:
 
-- Touch controls for phone and tablet play
+- Better touch controls and mobile support
 - Mouse look
 - User settings
   - Control settings
@@ -104,7 +97,43 @@ There are a number of features that would add to the project and aid in fulfilli
 
 ## Technologies
 
+### Engine architecture
+
+The site is based around a "2.5D" raycasting engine. 2D data is used to build up an apparent 3D scene by "casting" rays into a 2D map for each column of pixels, logging points of collision with objects and walls, and using the distance to generate pixel heights that give an apparent appearance of depth. This is an old technique for 3D computer games, with the first example, [Maze War](https://en.wikipedia.org/wiki/Maze_War) dating to 1973! It was also used for the Id studios game "[Wolfenstien3D](https://en.wikipedia.org/wiki/Wolfenstein_3D)" that is credited with starting the first person shooter genre in 1992.
+
+The engine code is contained within a number of JavaScript files:
+
+- helpers.js
+  - Defines a few helper functions used by other components.
+- types.js
+  - Defines a number of basic types used through out the engine, such as vectors and points.
+- templates.js
+  - Defines templates for maps and asset definitions (such as texture information).
+- map.js
+  - Defines a 2D map that maintains passable and impassable regions and a list of interactive objects.
+- ray.js
+  - Defines a ray that can propagate across a map and detect walls and objects.
+- camera.js
+  - The main rendering object. Defines a "camera" that can cast rays in to the map and use ray information to build up a 3D scene. Also has code for placing 2D "billboards" or "sprites" for object rendering.
+- object.js
+  - Defines a simple object that is resident on a map and can be interacted with by the player.
+- player.js
+  - Defines the users "avatar". Accepts user input to update the camera position and field of view to render the correct scene. Also manages player-object interaction and player movement collision detection.
+- gamestate.js
+  - Controls the game and game state. Manages play progress and detects victory condition. Creates game objects and manages the draw cycle.
+- main.js
+  - Entry point. Sets up UI event bindings and runs the game loop.
+
 ### Languages
+
+- [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
+  - Used as the markup language for the site layout.
+- [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS)
+  - Used to style and colour HTML and dynamic elements.
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+  - Used to create and manipulate the site's dynamic elements. 
+- [SVG](https://developer.mozilla.org/en-US/docs/Glossary/SVG)
+  - Used to define a number of the sites icons and graphical elements.
 
 ### Libraries
 
@@ -124,8 +153,23 @@ There are a number of features that would add to the project and aid in fulfilli
 
 ### Tools:
 
+- [Git](https://git-scm.com/)
+  - Used for version control (via github desktop).
+- [Github desktop](https://desktop.github.com/)
+  - Used to push updates and synchronise local code with the remote repository.
+- [Github](https://github.com/)
+  - Used to store the project repository and deploy the site via github pages.
+- [Adobe Photoshop](https://www.adobe.com/products/photoshop.html)
+  - Used to create some of the texture files used on the site.
+- [Adobe Illustrator](https://www.adobe.com/products/illustrator.html)
+  - Used to create some of the sprite images and icons used on the site.
+
 
 ## Testing
+
+
+
+
 
 In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
 
@@ -145,7 +189,15 @@ You should also mention in this section any interesting bugs or problems you dis
 
 If this section grows too long, you may want to split it off into a separate file and link to it from here.
 
+
+
+
+
 ## Deployment
+
+
+
+
 
 This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
 
@@ -155,6 +207,10 @@ In particular, you should provide all details of the differences between the dep
 - Separate git branch?
 
 In addition, if it is not obvious, you should also describe how to run your code locally.
+
+
+
+
 
 
 ## Credits
