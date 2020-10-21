@@ -55,6 +55,8 @@ A simple monochromatic colour scheme was chosen for the site UI. This was chosen
 * Light grey (#DDDDDD) - UI Highlights
 * White (#FFFFFF) - Text colour
 
+Further the engine uses some other CSS colours to draw a basic "skybox". The ground colour is #76552B while the sky is a gradient blending from #3190C5 to #ADD8E6.
+
 ### Layout
 
 Site mock-ups were designed in Balsamiq. These were used to guide the layout of the page and UI. A simple and fluid layout was used to smoothly support various different screen sizes and layouts with minimal design changes for different screen sizes.
@@ -75,8 +77,20 @@ The final layout differs from the original design. The two column layout was cha
 
 ## Features
 
+The game is currently primarily aimed at desktop usage with keyboard input. Ultimately the ability for users to define custom controls will be added, but this feature is not yet implemented. The controls are:
+
+W and S for moving forward and backward. A and D for turning left and right. The Arrow keys double as alternatives to these. Z and X can also be used to side step or "strafe". Objects can be picked up by pressing the E key or space bar. The game can be paused by either opening the main menu/splashscreen or pressing P.
+
+There are some basic touch inputs and the site has been verified to work on mobile devices. 
+
 ### Existing Features
-- 
+
+- On load the user is presented with a splash screen.
+  - This screen has clear instructions for playing the game.
+  - There are obvious controls for difficulty level and starting the game in learn and play mode.
+- The game presents feedback to the user during play.
+- The game presents clear instructions about the current goal during play.
+- The game presents a message with the total game time when the maze is completed.
 
 ### Features Left to Implement
 
