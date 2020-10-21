@@ -85,6 +85,7 @@ body, html {
   border-right: 1px solid #DDD;
   border-bottom: 1px solid #DDD;
 }
+
 /*
  * Game Splashscreen styles
  */
@@ -98,6 +99,11 @@ body, html {
   overflow-y: auto;
   overflow-x: hidden;
 }
+/*Hides the vertical scrollbar on fold-in/out*/
+#splashscreen.collapsing {
+  overflow-y: hidden;
+}
+
 .splashform {
   display: inline-block;
   text-align: center;
