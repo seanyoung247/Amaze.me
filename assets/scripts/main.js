@@ -38,65 +38,65 @@ $( document ).ready(function() {
     $( "#touchControls" ).css("visibility", "visible");
     //Attach touch event functions.
     //Turn left
-    $( "#Touch-Left" ).on("touchstart", function() {
+    $( "#Touch-Left" ).on("touchstart", function(e) {
       game.inputMap.turnLeft.down = true;
       game.inputMap.turnLeft.up = false;
       e.preventDefault();
       e.stopPropagation();
     });
-    $( "#Touch-Left" ).on("touchend", function() {
+    $( "#Touch-Left" ).on("touchcancel touchend", function(e) {
       game.inputMap.turnLeft.down = false;
       game.inputMap.turnLeft.up = true;
       e.preventDefault();
       e.stopPropagation();
     });
     //Turn Right
-    $( "#Touch-Right" ).on("touchstart", function() {
+    $( "#Touch-Right" ).on("touchstart", function(e) {
       game.inputMap.turnRight.down = true;
       game.inputMap.turnRight.up = false;
       e.preventDefault();
       e.stopPropagation();
     });
-    $( "#Touch-Right" ).on("touchend", function() {
+    $( "#Touch-Right" ).on("touchcancel touchend", function(e) {
       game.inputMap.turnRight.down = false;
       game.inputMap.turnRight.up = true;
       e.preventDefault();
       e.stopPropagation();
     });
     //Move forward
-    $( "#Touch-Up" ).on("touchstart", function() {
+    $( "#Touch-Up" ).on("touchstart", function(e) {
       game.inputMap.up.down = true;
       game.inputMap.up.up = false;
       e.preventDefault();
       e.stopPropagation();
     });
-    $( "#Touch-Up" ).on("touchend", function() {
+    $( "#Touch-Up" ).on("touchcancel touchend", function(e) {
       game.inputMap.up.down = false;
       game.inputMap.up.up = true;
       e.preventDefault();
       e.stopPropagation();
     });
     //Move Back
-    $( "#Touch-Down" ).on("touchstart", function() {
+    $( "#Touch-Down" ).on("touchstart", function(e) {
       game.inputMap.down.down = true;
       game.inputMap.down.up = false;
       e.preventDefault();
       e.stopPropagation();
     });
-    $( "#Touch-Down" ).on("touchend", function() {
+    $( "#Touch-Down" ).on("touchcancel touchend", function(e) {
       game.inputMap.down.down = false;
       game.inputMap.down.up = true;
       e.preventDefault();
       e.stopPropagation();
     });
     //Use-
-    $( "#Touch-Centre" ).on("touchstart", function() {
+    $( "#Touch-Centre" ).on("touchstart", function(e) {
       game.inputMap.interact.down = true;
       game.inputMap.interact.up = false;
       e.preventDefault();
       e.stopPropagation();
     });
-    $( "#Touch-Centre" ).on("touchend", function() {
+    $( "#Touch-Centre" ).on("touchend", function(e) {
       game.inputMap.interact.down = false;
       game.inputMap.interact.up = true;
       e.preventDefault();
