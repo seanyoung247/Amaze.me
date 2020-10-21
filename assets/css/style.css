@@ -8,9 +8,9 @@
 
 /*Makes the page full browser height*/
 body, html {
-    height: 100vh;
-    font-family: 'Roboto', sans-serif;
-    overflow: hidden;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
 }
 /*body {
   min-width: 600px;

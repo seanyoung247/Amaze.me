@@ -38,49 +38,69 @@ $( document ).ready(function() {
     $( "#touchControls" ).css("visibility", "visible");
     //Attach touch event functions.
     //Turn left
-    $( "#Touch-Left" ).on("mousedown touchstart", function() {
+    $( "#Touch-Left" ).on("touchstart", function() {
       game.inputMap.turnLeft.down = true;
       game.inputMap.turnLeft.up = false;
+      e.preventDefault();
+      e.stopPropagation();
     });
-    $( "#Touch-Left" ).on("mouseup touchend", function() {
+    $( "#Touch-Left" ).on("touchend", function() {
       game.inputMap.turnLeft.down = false;
       game.inputMap.turnLeft.up = true;
+      e.preventDefault();
+      e.stopPropagation();
     });
     //Turn Right
-    $( "#Touch-Right" ).on("mousedown touchstart", function() {
+    $( "#Touch-Right" ).on("touchstart", function() {
       game.inputMap.turnRight.down = true;
       game.inputMap.turnRight.up = false;
+      e.preventDefault();
+      e.stopPropagation();
     });
-    $( "#Touch-Right" ).on("mouseup touchend", function() {
+    $( "#Touch-Right" ).on("touchend", function() {
       game.inputMap.turnRight.down = false;
       game.inputMap.turnRight.up = true;
+      e.preventDefault();
+      e.stopPropagation();
     });
     //Move forward
-    $( "#Touch-Up" ).on("mousedown touchstart", function() {
+    $( "#Touch-Up" ).on("touchstart", function() {
       game.inputMap.up.down = true;
       game.inputMap.up.up = false;
+      e.preventDefault();
+      e.stopPropagation();
     });
-    $( "#Touch-Up" ).on("mouseup touchend", function() {
+    $( "#Touch-Up" ).on("touchend", function() {
       game.inputMap.up.down = false;
       game.inputMap.up.up = true;
+      e.preventDefault();
+      e.stopPropagation();
     });
     //Move Back
-    $( "#Touch-Down" ).on("mousedown touchstart", function() {
+    $( "#Touch-Down" ).on("touchstart", function() {
       game.inputMap.down.down = true;
       game.inputMap.down.up = false;
+      e.preventDefault();
+      e.stopPropagation();
     });
-    $( "#Touch-Down" ).on("mouseup touchend", function() {
+    $( "#Touch-Down" ).on("touchend", function() {
       game.inputMap.down.down = false;
       game.inputMap.down.up = true;
+      e.preventDefault();
+      e.stopPropagation();
     });
     //Use-
-    $( "#Touch-Centre" ).on("mousedown touchstart", function() {
+    $( "#Touch-Centre" ).on("touchstart", function() {
       game.inputMap.interact.down = true;
       game.inputMap.interact.up = false;
+      e.preventDefault();
+      e.stopPropagation();
     });
-    $( "#Touch-Centre" ).on("mouseup touchend", function() {
+    $( "#Touch-Centre" ).on("touchend", function() {
       game.inputMap.interact.down = false;
       game.inputMap.interact.up = true;
+      e.preventDefault();
+      e.stopPropagation();
     });
   }
 
