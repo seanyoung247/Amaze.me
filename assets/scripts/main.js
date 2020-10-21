@@ -36,80 +36,16 @@ $( document ).ready(function() {
 
   //Is touch supported?
   if (isTouchDevice()) {
-    //Show touch Controls
-/*    $( "#touchControls" ).css("visibility", "visible");
-    //Attach touch event functions.
-    //Turn left
-    $( "#Touch-Left" ).on("touchstart", function(e) {
-      game.inputMap.turnLeft.down = true;
-      game.inputMap.turnLeft.up = false;
-      e.preventDefault();
-      e.stopPropagation();
-    });
-    $( "#Touch-Left" ).on("touchcancel touchend", function(e) {
-      game.inputMap.turnLeft.down = false;
-      game.inputMap.turnLeft.up = true;
-      e.preventDefault();
-      e.stopPropagation();
-    });
-    //Turn Right
-    $( "#Touch-Right" ).on("touchstart", function(e) {
-      game.inputMap.turnRight.down = true;
-      game.inputMap.turnRight.up = false;
-      e.preventDefault();
-      e.stopPropagation();
-    });
-    $( "#Touch-Right" ).on("touchcancel touchend", function(e) {
-      game.inputMap.turnRight.down = false;
-      game.inputMap.turnRight.up = true;
-      e.preventDefault();
-      e.stopPropagation();
-    });
-    //Move forward
-    $( "#Touch-Up" ).on("touchstart", function(e) {
-      game.inputMap.up.down = true;
-      game.inputMap.up.up = false;
-      e.preventDefault();
-      e.stopPropagation();
-    });
-    $( "#Touch-Up" ).on("touchcancel touchend", function(e) {
-      game.inputMap.up.down = false;
-      game.inputMap.up.up = true;
-      e.preventDefault();
-      e.stopPropagation();
-    });
-    //Move Back
-    $( "#Touch-Down" ).on("touchstart", function(e) {
-      game.inputMap.down.down = true;
-      game.inputMap.down.up = false;
-      e.preventDefault();
-      e.stopPropagation();
-    });
-    $( "#Touch-Down" ).on("touchcancel touchend", function(e) {
-      game.inputMap.down.down = false;
-      game.inputMap.down.up = true;
-      e.preventDefault();
-      e.stopPropagation();
-    });
-    //Use-
-    $( "#Touch-Centre" ).on("touchstart", function(e) {
-      game.inputMap.interact.down = true;
-      game.inputMap.interact.up = false;
-      e.preventDefault();
-      e.stopPropagation();
-    });
-    $( "#Touch-Centre" ).on("touchend", function(e) {
-      game.inputMap.interact.down = false;
-      game.inputMap.interact.up = true;
-      e.preventDefault();
-      e.stopPropagation();
-    });*/
-
     joystick = new VirtualJoystick({
-				container	    : document.getElementById('gameDiv'),
-				mouseSupport	: true,
-        strokeStyle   : "rgba(255,255,255,0.5)",
+		  container	    : document.getElementById('gameDiv'),
+		  mouseSupport	: true,
+      stickRadius   : 150,
+      strokeStyle   : "rgba(255,255,255,0.5)",
 		});
+    joystick.addEventListener('touchEnd', function(event){
+      game.inputMap.interact.up = true;
+      game.inputMap.interact.down = false;
+		})
   }
 
   //Start the game loop
@@ -167,7 +103,7 @@ function loop(timeStamp) {
   player.direction.normalize();
   //Feeding update frameTime in seconds simplifies math
   game.update(frameTime / 1000);
-  doTouch();
+  if (isTouchDevice) doTouch();
   draw(frameTime);
 
   if (game.playing()) {
