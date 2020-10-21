@@ -1,5 +1,6 @@
 //Initial startup
 var game = null;
+var joystick = null;
 /*
  * Basic touch functionality
  */
@@ -10,7 +11,8 @@ function isTouchDevice() {
 }
 
 $( document ).ready(function() {
-  game = new GameState(document.getElementById("gameCanvas"), normalMap);
+  let canvas = document.getElementById("gameCanvas");
+  game = new GameState(canvas, normalMap);
 
   //Attach event listeners
   //Keyboard
@@ -35,7 +37,7 @@ $( document ).ready(function() {
   //Is touch supported?
   if (isTouchDevice()) {
     //Show touch Controls
-    $( "#touchControls" ).css("visibility", "visible");
+/*    $( "#touchControls" ).css("visibility", "visible");
     //Attach touch event functions.
     //Turn left
     $( "#Touch-Left" ).on("touchstart", function(e) {
@@ -101,12 +103,29 @@ $( document ).ready(function() {
       game.inputMap.interact.up = true;
       e.preventDefault();
       e.stopPropagation();
-    });
+    });*/
+
+    joystick = new VirtualJoystick({
+				container	    : document.getElementById('gameDiv'),
+				mouseSupport	: true,
+        strokeStyle   : "rgba(255,255,255,0.5)",
+		});
   }
 
   //Start the game loop
   window.requestAnimationFrame(loop);
 });
+
+function doTouch() {
+  game.inputMap.up.down = joystick.up();
+  game.inputMap.up.up = !joystick.up();
+  game.inputMap.down.down = joystick.down();
+  game.inputMap.down.up = !joystick.down();
+  game.inputMap.turnLeft.down = joystick.left();
+  game.inputMap.turnLeft.up = !joystick.left();
+  game.inputMap.turnRight.down = joystick.right();
+  game.inputMap.turnRight.up = !joystick.right();
+}
 
 function drawBackground(ctx) {
   //Draw sky gradient
@@ -148,6 +167,7 @@ function loop(timeStamp) {
   player.direction.normalize();
   //Feeding update frameTime in seconds simplifies math
   game.update(frameTime / 1000);
+  doTouch();
   draw(frameTime);
 
   if (game.playing()) {
