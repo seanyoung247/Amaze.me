@@ -99,7 +99,7 @@ There are a number of features that would add to the project and aid in fulfilli
 
 ### Engine architecture
 
-The site is based around a "2.5D" raycasting engine. 2D data is used to build up an apparent 3D scene by "casting" rays into a 2D map for each column of pixels, logging points of collision with objects and walls, and using the distance to generate pixel heights that give an apparent appearance of depth. This is an old technique for 3D computer games, with the first example, [Maze War](https://en.wikipedia.org/wiki/Maze_War) dating to 1973! It was also used for the Id studios game "[Wolfenstien3D](https://en.wikipedia.org/wiki/Wolfenstein_3D)" that is credited with starting the first person shooter genre in 1992.
+The site is based around a ["2.5D"](https://en.wikipedia.org/wiki/2.5D) software rendering [raycasting engine](https://en.wikipedia.org/wiki/Ray_casting). 2D data is used to build up an apparent 3D scene by "casting" rays into a 2D map for each column of pixels, logging points of collision with objects and walls, and using the distance to generate pixel heights that give an apparent appearance of depth. This is an old technique for 3D computer games, with the first example, [Maze War](https://en.wikipedia.org/wiki/Maze_War) dating to 1973! It was also used for the Id studios game "[Wolfenstien3D](https://en.wikipedia.org/wiki/Wolfenstein_3D)" that is credited with starting the first person shooter genre in 1992.
 
 The engine code is contained within a number of JavaScript files:
 
@@ -114,7 +114,7 @@ The engine code is contained within a number of JavaScript files:
 - ray.js
   - Defines a ray that can propagate across a map and detect walls and objects.
 - camera.js
-  - The main rendering object. Defines a "camera" that can cast rays in to the map and use ray information to build up a 3D scene. Also has code for placing 2D "billboards" or "sprites" for object rendering.
+  - The main rendering object. Defines a "camera" that can cast rays in to the map and use the ray collision information to build up a 3D scene. Also has code for placing 2D "billboards" or "sprites" for object rendering.
 - object.js
   - Defines a simple object that is resident on a map and can be interacted with by the player.
 - player.js
@@ -215,12 +215,12 @@ In addition, if it is not obvious, you should also describe how to run your code
 
 ## Credits
 
-### Content
-- The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
-
 ### Media
-- The photos used in this site were obtained from ...
+- Object sprites (Ball, Bottle, Can, Cup Lamp, Vase, and Pedestal) are original works by Sean Young.
+- The Gate Texture was drawn in Adobe Illustrator from reference photographs.
+- The Hedge texture is based on licence free images from [Brusheezy](https://www.brusheezy.com/textures/20185-seamless-green-grass-textures) and heavily edited in Adobe Photoshop.
 
 ### Acknowledgements
 
-- I received inspiration for this project from X
+- https://lodev.org/ was invaluable for coding the core engine. The optimised ray-distance equation (replacing Euclidean distance) is from the [raycasting](https://lodev.org/cgtutor/raycasting.html) tutorial. The sprite rendering algorithm is a JavaScript reimplementation of the algorithm found in [lodev](https://lodev.org/cgtutor/raycasting3.html) as well, as my own implementation had issues with "spherical aberration".
+
