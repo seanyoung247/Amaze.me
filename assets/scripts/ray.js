@@ -23,6 +23,7 @@ function Ray2(oX = 0, oY = 0, vX = 0, vY = 0, range = 15) {
  * they occur, and then returned as an array of RayHit objects.
  *
  * Ray cast algorithm is based on the DDA grid traversal algorithm.
+ *  Replacing the DDA with Brensham's line algorithm *may* improve performance.
  */
 Ray2.prototype.cast = function (map) {
   let rayStep = new Vector2(0,0);

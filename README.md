@@ -157,6 +157,8 @@ The engine code is contained within a number of JavaScript files:
     - The project uses bootstrap to aid in responsive design.
 - [Popper](https://popper.js.org/)
     - Included as a requirement of bootstrap. Used in dropdown splash screen menu.
+- [Virtual Joystick](https://github.com/jeromeetienne/virtualjoystick.js)
+    - A relatively lightweight touch joystick used for user interaction on touch screens. Licenced under the [MIT Licence](assets/scripts/MIT-LICENSE.txt).
 
 ### Editors:
 
