@@ -44,6 +44,11 @@
                 To pickup objects press 'E' or the spacebar.
               </p>
               <p class="splashtext">
+                For touch screens: hold anywhere on the screen to activate the
+                virtual joystick. Tap to pick up objects.
+              </p>
+              <hr class="splashseparator" />
+              <p class="splashtext">
                 Select "Learn" to move around the maze and learn it's layout.
               </p>
               <p class="splashtext">
@@ -87,34 +92,13 @@
 
       </header>
       <!-- /Header -->
-      <!-- Body -->
-      <section class="row no-gutters">
-        <!-- Touch control overlay -->
-        <!--<div id="touchControls">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
-            <g id="Touch-Centre">
-              <circle class="touch-icon" cx="500" cy="500" r="174.5"/>
-            </g>
-            <g id="Touch-Up">
-              <polygon class="touch-icon" points="325.87 299.5 500 0.99 674.13 299.5 325.87 299.5"/>
-            </g>
-            <g id="Touch-Left">
-              <polygon class="touch-icon" points="0.99 500 299.5 325.87 299.5 674.13 0.99 500"/>
-            </g>
-            <g id="Touch-Down">
-              <polygon class="touch-icon" points="325.87 700.5 674.13 700.5 500 999.01 325.87 700.5"/>
-            </g>
-            <g id="Touch-Right">
-              <polygon class="touch-icon" points="700.5 325.87 999.01 500 700.5 674.13 700.5 325.87"/>
-            </g>
-          </svg>
-        </div>-->
-
+      <!-- Content -->
+      <div class="row no-gutters">
         <div id="gameDiv" class="gameWrapper col-12">
           <canvas id="gameCanvas"></canvas>
         </div>
-      </section>
-      <!-- /Body -->
+      </div>
+      <!-- /Content -->
     </div>
 
     <!-- Bootstrap Javascript -->
@@ -130,13 +114,11 @@
     <script src="assets/scripts/map.js"></script>
     <script src="assets/scripts/ray.js"></script>
     <script src="assets/scripts/camera.js"></script>
-
     <!-- Game scripts -->
     <script src="assets/scripts/object.js"></script>
     <script src="assets/scripts/player.js"></script>
     <script src="assets/scripts/gamestate.js"></script>
     <script src="assets/scripts/main.js"></script>
-
 
   </body>
 </html>

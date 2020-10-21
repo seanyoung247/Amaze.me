@@ -12,9 +12,6 @@ body, html {
   font-family: 'Roboto', sans-serif;
   overflow: hidden;
 }
-/*body {
-  min-width: 600px;
-}*/
 /*Game canvas should take up full width with no gaps*/
 #pageWrapper {
   padding-left: 0;
@@ -23,7 +20,6 @@ body, html {
 .row {
   margin: 0;
 }
-
 /*
  * Header styles
  */
@@ -54,16 +50,14 @@ body, html {
   width: 25px;
   height: 25px;
 }
-
 /* Themes the hamburger icon SVG */
 .nav-menu_icon_line {
   fill: none;
   stroke: white;
-  stroke-linecap: square; /*round*/ /*square*/
+  stroke-linecap: square;
   stroke-miterlimit: 10;
   stroke-width: 100px;
 }
-
 .navWrapper {
   position: absolute;
   z-index: 999;
@@ -77,21 +71,17 @@ body, html {
   width: 80vw;
   margin: auto;
   float: none;
-
   background-color: #555;
   color: white;
-
   border-left: 1px solid #DDD;
   border-right: 1px solid #DDD;
   border-bottom: 1px solid #DDD;
 }
-
 /*
  * Game Splashscreen styles
  */
 #splashscreen {
   padding: 15px;
-
   /* Prevents the splashcreen from extending the page
     beyond the bottom of the screen, while also allowing
     scrolling of just the splashscreen */
@@ -103,7 +93,6 @@ body, html {
 #splashscreen.collapsing {
   overflow-y: hidden;
 }
-
 .splashform {
   display: inline-block;
   text-align: center;
@@ -145,21 +134,4 @@ h1.splashtext {
 #gameCanvas {
   width: 100%;
   height: 100%;
-}
-#touchControls {
-  /*Set above other elements*/
-  position: absolute;
-  z-index: 1;
-  /*Position on the right hand side half way down the screen*/
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, -100%);
-  /*Hidden by default*/
-  visibility: hidden;
-
-  width: 15em;
-  height: 15em;
-}
-.touch-icon {
-  fill: rgba(255,255,255,0.35);
 }
