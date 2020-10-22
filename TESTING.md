@@ -16,9 +16,11 @@ Google Chromes lighthouse was also run and provided the following report:
 
 [Lighthouse report](https://seanyoung247.github.io/Second-milestone-project/spec/lighthouse-report.html)
 
+Finally, JavaScript files were run through [JSHint](https://jshint.com/) to ensure they were syntactically correct.
+
 #### Jasmine Unit Tests
 
-Jasmine was used to ensure correct output to specifications for a number of the sites basic JavaScript types and objects. Some objects were not tested in this way due to being either more abstract or indirect in output (like the Camera) or being based around user interaction, like the Player.
+Jasmine was used to ensure correct output to specifications for a number of the site's basic JavaScript types and objects. Some objects were not tested in this way due to being either more abstract or indirect in output (like the Camera) or being based around user interaction, like the Player.
 
 Code tested through Jasmine:
 
@@ -29,7 +31,7 @@ Code tested through Jasmine:
 - RayMap2
 - GameObject
 
-The automated Jasmine tests can be run from [tests.html](tests.html)
+The automated Jasmine tests can be run from [tests.html](https://seanyoung247.github.io/Second-milestone-project/tests.html)
 
 ### Manual Testing
 
@@ -63,7 +65,7 @@ Primary iterative testing was undertaken on a SurfaceBook2 Laptop running Window
 
 #### Testing methodology
 
-Code changes were tested prior to committing and pushing to github on the local machine. This was in an attempt to prevent faulty or broken code from being pushed to the repository or deployed to the live site. On occasions where bugs were missed in testing an issue was opened on github if appropriate. Further, issues were not raised for known feature incomplete code committed to github, as this information was captured in the coding to-do lists. This approach kept most bugs from being uploaded, with only a few cases of bugs either too complex to be fixed for the current release, or those that introduced regressions in existing code being uploaded.
+Code changes were tested prior to committing and pushing to github on the local machine. This was in an attempt to prevent faulty or broken code from being pushed to the repository or deployed to the live site. On occasions where bugs were missed in testing an issue was opened on github if appropriate. Issues were not raised for bugs arising from known feature incomplete code committed to github, as this information was captured in the coding to-do lists. This approach kept most bugs from being uploaded, with only a few cases of bugs either too complex to be fixed for the current release, or those that introduced regressions in existing code being uploaded.
 
 #### Unit Testing
 
@@ -89,7 +91,7 @@ The project was submitted to peer review on the code institute slack [channel](h
 
 **Reason for introduction to repository:**
 
-- Bug is minor and unlikely to be seen at runtime and fix is too complex for current deadline. Raised as issue for future fix.
+- Bug is minor and unlikely to be seen at runtime. Fix is too complex for current deadline. Raised as issue for future fix.
 
 **Cause and proposed fix:**
 
