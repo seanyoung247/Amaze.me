@@ -39,7 +39,6 @@ $( document ).ready(function() {
   if (isTouchDevice()) {
     joystick = new VirtualJoystick({
 		  container	    : document.getElementById('gameDiv'),
-		  mouseSupport	: true,
       stickRadius   : 150,
       strokeStyle   : "rgba(255,255,255,0.5)",
 		});
