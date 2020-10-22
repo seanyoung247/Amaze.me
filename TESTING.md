@@ -69,15 +69,17 @@ Code changes were tested prior to committing and pushing to github on the local 
 
 Manual unit testing was conducted iteratively by attempting to "break" new code. For instance, making the player run into walls after collision detection was added. In this way most bugs were caught and fixed before committing to the repository and live site.
 
-The JavaScript console was used to output variable values during play to give hints to where faults were occurring and why. In some cases game data was also printed to the screen to make it easier to catch faults. 
+The JavaScript console was used to output variable values during play to give hints to where faults were occurring and why. In some cases game data was also printed to the screen to make it easier to catch faults. Frame rate and Frame time draw counters were used to trace performance issues and streamline rendering code.
+
+Engine Test Milestones
+
+Final UI testing was conducted prior to submission to confirm the UI fulfilled the required user stories:
+
+**[UI Testing](spec/uitesting.pdf)**
 
 #### Peer code Review
 
 The project was submitted to peer review on the code institute slack [channel](https://code-institute-room.slack.com/archives/CGWQJQKC5/p1603152019296500).
-
-#### User Acceptance Testing
-
-
 
 ### Known Issues
 
