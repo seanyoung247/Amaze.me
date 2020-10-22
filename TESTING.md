@@ -2,9 +2,13 @@
 
 [README.md](README.md)
 
-### Automated Testing
+## Contents
 
-#### Validation
+[TOC]
+
+## Automated Testing
+
+### Validation
 
 **HTML** and **CSS** code were validated with the W3C Markup and CSS validators. Both were found to have no errors or warnings. Reports can be seen below:
 
@@ -18,7 +22,7 @@ Google Chrome's **lighthouse** was also run and provided the following report:
 
 **JavaScript** files were run through [JSHint](https://jshint.com/) to ensure they were syntactically correct.
 
-#### Jasmine Unit Tests
+### Jasmine Unit Tests
 
 Jasmine was used to ensure correct output to specifications for a number of the site's basic JavaScript types and objects. Some objects were not tested in this way due to being either more abstract or indirect in output (like the Camera) or being based around user interaction, like the Player.
 
@@ -33,9 +37,9 @@ Code tested through Jasmine:
 
 The automated Jasmine tests can be run from [tests.html](https://seanyoung247.github.io/Second-milestone-project/tests.html)
 
-### Manual Testing
+## Manual Testing
 
-#### Testing Environments
+### Testing Environments
 
 Primary iterative testing was undertaken on a SurfaceBook2 Laptop running Windows 10 in the Google Chrome web browser. Once a feature was considered complete it was tested in other environments. Unfortunately, as I'm currently working overseas, my access to test systems is limited. Because of this, no primary testing on Apple products could be undertaken.
 
@@ -63,11 +67,11 @@ Primary iterative testing was undertaken on a SurfaceBook2 Laptop running Window
   - Edge
   - Opera
 
-#### Testing methodology
+### Testing methodology
 
 Code changes were tested prior to committing and pushing to github on the local machine. This was in an attempt to prevent faulty or broken code from being pushed to the repository or deployed to the live site. On occasions where bugs were missed in testing an issue was opened on github if appropriate. Issues were not raised for bugs arising from known feature incomplete code committed to github, as this information was captured in the coding to-do lists. This approach kept most bugs from being uploaded, with only a few cases of bugs either too complex to be fixed for the current release, or those that introduced regressions in existing code being uploaded.
 
-#### Unit Testing
+### Unit Testing
 
 Manual unit testing was conducted iteratively by attempting to "break" new code. For instance, making the player run into walls after collision detection was added. In this way most bugs were caught and fixed before committing to the repository and live site.
 
@@ -75,21 +79,21 @@ The JavaScript console was used to output variable values during play to give hi
 
 An outline of engine feature milestones and tests can be found below:
 
-[Engine Test Milestones](spec/enginetest.pdf)
+**[Engine Test Milestones](spec/enginetest.pdf)**
 
 Final UI testing was conducted prior to submission to confirm the UI fulfilled the required user stories:
 
 **[UI Testing](spec/uitesting.pdf)**
 
-#### Peer code Review
+### Peer code Review
 
 The project was submitted to peer review on the code institute slack [channel](https://code-institute-room.slack.com/archives/CGWQJQKC5/p1603152019296500).
 
-#### Student Checklist
+### Student Checklist
 
 A Final sanity check was done with the student check list to ensure the site fits submission guidelines.
 
-### Known Issues
+## Known Issues
 
 #### Wall collision
 
@@ -104,6 +108,8 @@ A Final sanity check was done with the student check list to ensure the site fit
 - Under some specific conditions the player can overlap or even pass through walls.
   - Collision detection is performed on x and y coordinates separately so collision in one dimension doesn't prevent moving in another. This means that under certain conditions moving in one dimension can bring the player into collision in another dimension without it being detected.
     - Requires improvements to the collision detection algorithm. After movement the player should be checked for collision again in all dimensions. If collision is detected in a dimension, the player object should be moved back along that dimensions view vector until no collision is detected.
+
+#### Game text overflow
 
 **[Game text doesn't fit on screen in portrait mode](https://github.com/seanyoung247/Second-milestone-project/issues/3)**
 
