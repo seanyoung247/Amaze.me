@@ -179,68 +179,7 @@ The engine code is contained within a number of JavaScript files:
 
 ## Testing
 
-### Automated Testing
-
-#### Validation
-
-HTML and CSS code were validated with the W3C Markup and CSS validators. Both were found to have no errors or warnings. Reports can be seen below:
-
-[W3C HTML validation report](spec/index-validation.html)
-
-[W3C CSS validation report](spec/stylesheet-validation.html)
-
-Google Chromes lighthouse was also run and provided the following report:
-
-[Lighthouse report](spec/lighthouse-report.html)
-
-#### Jasmine Unit Tests
-
-Jasmine was used to ensure correct output to specifications for a number of the sites basic JavaScript types and objects. Some objects were not tested in this way due to being either more abstract or indirect in output (like the Camera) or being based around user interaction, like Player.
-
-Code tested through Jasmine:
-
-- Point2
-- Vector2
-- BoundingBox
-- Ray2
-- RayMap2
-- GameObject
-
-The automated Jasmine tests can be run from [tests.html](tests.html)
-
-### Manual Testing
-
-Code changes were tested prior to committing and pushing to github on the local machine. This was in an attempt to prevent faulty or broken code from being pushed to the repository or deployed to the live site. On occasions where bugs were missed in testing an issue was opened on github if appropriate. Further, issues were not raised for known feature incomplete code committed to github, as this information was captured in the coding to-do lists.
-
-Two bugs are known to have been committed to github:
-
-[**Key presses no longer repeat properly**](https://github.com/seanyoung247/Second-milestone-project/issues/1) 
-
-- Reason for introduction to repository:
-  - New code passed testing, but introduced a regression in existing tested code.
-
-**[Player can overlap walls](https://github.com/seanyoung247/Second-milestone-project/issues/2)**
-
-- Reason for introduction to repository:
-  - Bug is minor and unlikely to be seen at runtime, and fix is too complex for current deadline. Raised as issue for future fix.
-
-#### Unit Testing
-
-#### Peer code Review
-
-#### User Acceptance Testing
-
-### Known Issues
-
-#### Wall collision
-
-[**Player can overlap walls**](https://github.com/seanyoung247/Second-milestone-project/issues/2)
-
-- Under some specific conditions the player can overlap or even pass through walls.
-  - Collision detection is performed on x and y coordinates separately so collision in one dimension doesn't prevent moving in another. This means that under certain conditions moving in one dimension can bring the player into collision in another dimension without it being detected.
-    - Requires improvements to the collision detection algorithm. After movement the player should be checked for collision again in all dimensions. If collision is detected in a dimension, the player object should be moved back along that dimensions view vector until no collision is detected.
-
-
+Information on testing can be found in [TESTING.md](TESTING.md)
 
 ## Source Control
 
@@ -316,9 +255,9 @@ The website was deployed to [github pages](https://pages.github.com/) through th
 - Object sprites (Ball, Bottle, Can, Cup Lamp, Vase, and Pedestal) are original works by Sean Young.
 - The Gate Texture was drawn in Adobe Illustrator from reference photographs by Sean Young.
 - The Hedge texture is based on licence free images from [Brusheezy](https://www.brusheezy.com/textures/20185-seamless-green-grass-textures) and heavily edited in Adobe Photoshop.
+- Inline SVG icons were created in Adobe Illustrator and sanitised by hand for inclusion as inline SVG by Sean Young.
 
 ### Acknowledgements
 
 - https://lodev.org/ was invaluable for coding the core engine. The optimised ray-distance equation (replacing Euclidean distance) is from the [raycasting](https://lodev.org/cgtutor/raycasting.html) tutorial. The sprite rendering algorithm is a JavaScript implementation of the algorithm found in [lodev](https://lodev.org/cgtutor/raycasting3.html) as well, as my own implementation had issues with "spherical aberration". My implementation of the [DDA Grid Traversal algorithm](https://en.wikipedia.org/wiki/Digital_differential_analyzer_(graphics_algorithm)) was inspired by lodev also.
-- 
-
+- A number of control elements are based on bootstrap and bootstrap examples. The drop down "splashscreen" menu is based on bootstrap collapsing menu examples. The difficulty button switch is based on bootstrap button group examples.
