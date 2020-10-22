@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 /*
  * Defines the 2D maps for use in the raycaster
  */

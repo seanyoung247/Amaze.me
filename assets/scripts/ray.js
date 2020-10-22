@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 /*
  * Models a single ray collision
  */
@@ -38,7 +39,7 @@ Ray2.prototype.cast = function (map) {
      Math.floor(this.origin.y)
   );
   //Returns the list of collisions this ray encountered while traversing the map
-  let hits = new Array();
+  let hits = [];
 
   /* We want to move in whole grid numbers, so we need to convert float vector
       values into single tile steps */

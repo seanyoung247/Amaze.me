@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 //Initial startup
 var game = null;
 var joystick = null;
@@ -6,9 +7,9 @@ var touched = false;
  * Basic touch functionality
  */
 function isTouchDevice() {
-  return (('ontouchstart' in window)
-      || (navigator.maxTouchPoints > 0)
-      || (navigator.msMaxTouchPoints > 0));
+  return (('ontouchstart' in window) ||
+          (navigator.maxTouchPoints > 0) ||
+          (navigator.msMaxTouchPoints > 0));
 }
 
 $( document ).ready(function() {

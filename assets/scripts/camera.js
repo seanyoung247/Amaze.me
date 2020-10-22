@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 /*
  * Models a raycasting camera that constructs a "3D" scene from 2D data.
  *  (1.57079632679 is 90 degrees in radians)
@@ -9,7 +10,7 @@ function Camera(pX = 0, pY = 0, dX = 0, dY = 0, fov = 1.57079632679, range = 15)
   this.range = range;
 
   //Depth buffer
-  this.depth = new Array();
+  this.depth = [];
 }
 /*
  * Draws the scene one vertical column at a time.
@@ -20,7 +21,7 @@ Camera.prototype.drawScene = function (surface, map) {
   let halfFOV = this.fov / 2;
   let offset = 0;
   let wallHeight = 0;
-  let screenY = 0;
+  let sY = 0;
   let wall = null;
   let ray = new Ray2(this.position.x, this.position.y, 0, 0, this.range);
   this.depth.length = surface.width;

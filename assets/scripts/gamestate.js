@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 /*
  * Game states are:
  *    PAUSED - Game logic and interaction suspended
@@ -9,12 +10,12 @@ const gamestates = {
   TRAINING: "training",
   PLAYING: "playing",
   WON: "won"
-}
+};
 const gamedifficulty = {
   EASY: "easy",       //Minimap and objects visible during play.
   NORMAL: "normal",   //Minimap visible during play.
   HARD: "hard"        //Minimap and objects hidden during play.
-}
+};
 
 /*
  * Controls game state and impliments game logic
@@ -87,7 +88,7 @@ function GameState(gameCanvas, mapTemplate) {
     largeFont: "50px Permanent Marker", largeColor: "white",
     messageFont: "25px Permanent Marker", messageColor: "white",
     hintFont: "15px Permanent Marker", hintColor: "white",
-  }
+  };
 
   this.setupGame(mapTemplate);
 }
@@ -108,12 +109,11 @@ GameState.prototype.setupGame = function (mapTemplate) {
                             aspectRatio); //FOV in radians
 
     for (let i = 0; i < objectDefs.length; i++) {
-      //GameObjects self register during creation
-      new GameObject(this.map, objectDefs[i]);
+      let tmp = new GameObject(this.map, objectDefs[i]);
     }
 
     this.setupGoals();
-}
+};
 
 /*
  * Keyboard input
@@ -140,7 +140,7 @@ GameState.prototype.setupDefaultKeys = function() {
   this.keyMap.set("Space", "interact");
   //Game state
   this.keyMap.set("KeyP", "pause");
-}
+};
 //Handles window keydown event
 GameState.prototype.keyDown = function(event) {
   let key = this.keyMap.get(event.code);
@@ -148,7 +148,7 @@ GameState.prototype.keyDown = function(event) {
     this.inputMap[key].down = true;
     this.inputMap[key].up = false;
   }
-}
+};
 //Handles window keyup event
 GameState.prototype.keyUp = function(event) {
   let key = this.keyMap.get(event.code);
@@ -179,7 +179,7 @@ GameState.prototype.resetPlayerPosition = function() {
   this.player.position.y = this.map.playerSpawn.position.y;
   this.player.direction.x = this.map.playerSpawn.vector.x;
   this.player.direction.y = this.map.playerSpawn.vector.y;
-}
+};
 
 /*
  * Populates the goals array with available objects in random order
@@ -224,7 +224,7 @@ GameState.prototype.unpause = function () {
       this.playStartTime += performance.now() - this.pauseStartTime;
     }
   }
-}
+};
 //Pauses the game if it's not already paused or win condition
 GameState.prototype.pause = function () {
   if (this.state != gamestates.PAUSED && this.state != gamestates.WON) {
@@ -232,7 +232,7 @@ GameState.prototype.pause = function () {
     this.state = gamestates.PAUSED;
     this.pauseStartTime = performance.now();
   }
-}
+};
 
 /*
  * Called when victory condition detected
@@ -259,10 +259,11 @@ GameState.prototype.playing = function () {
     case gamestates.PAUSED:
       if (this.lastState === gamestates.PLAYING) return true;
       else return false;
+      break;
     case gamestates.WON:
       return true;
   }
-}
+};
 
 /*
  * Called when the player requests an object interaction.
@@ -298,7 +299,7 @@ GameState.prototype.goalCheck = function (obj) {
     this.showHintMessage(this.messageMap.notPlaying.name);
   }
   return false;
-}
+};
 
 /*
  * Sets whether a hint message should be shown
@@ -314,7 +315,7 @@ GameState.prototype.showHintMessage = function (message) {
 
     this.currentMessage = message;
   }
-}
+};
 
 /*
  * Update step of the game cycle. Updates the game and game object state
@@ -393,14 +394,14 @@ GameState.prototype.drawScene = function (time) {
  * Calculates the x position to render the text passed centered horizontally
  */
 GameState.prototype.centerTextHorizontal = function (ctx, text) {
-  txtMetric = ctx.measureText(text);
+  let txtMetric = ctx.measureText(text);
   return ((this.gameCanvas.width / 2) - (txtMetric.width / 2));
 };
 /*
  * Calculates the y position to render the text passed centered vertically
  */
 GameState.prototype.centerTextVertical = function (ctx, text) {
-  txtMetric = ctx.measureText(text);
+  let txtMetric = ctx.measureText(text);
   return ((this.gameCanvas.height / 2) -
           ((txtMetric.actualBoundingBoxAscent +
           txtMetric.actualBoundingBoxDescent) / 2));
@@ -415,7 +416,6 @@ GameState.prototype.drawOutlineText = function (ctx, text, x, y) {
  * Draws a single hint message
  */
 GameState.prototype.drawHintMessages = function (ctx) {
-  let txtMetric;
   let x = 0, y = 0;
 
   for (const property in this.messageMap) {
@@ -457,7 +457,7 @@ GameState.prototype.drawHintMessages = function (ctx) {
       break;
     }
   }
-}
+};
 
 /*
  * Draws 2D overlay elements. Minimap, messages, game text etc.
@@ -517,8 +517,8 @@ GameState.prototype.drawOverlay = function (time) {
 
       this.drawOutlineText(ctx, message, x, y);
 
-      message = "Your time was: " + this.gameClock.minutes()
-                  + ":" + String(this.gameClock.seconds()).padStart(2, '0');
+      message = "Your time was: " + this.gameClock.minutes() +
+                 ":" + String(this.gameClock.seconds()).padStart(2, '0');
 
       x = this.centerTextHorizontal(ctx, message);
       y += Math.abs(y - (this.gameCanvas.height / 2)) * 2;

@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 /*
  * Defines an objects position and facing in the map
  */
@@ -39,7 +40,7 @@ function RayMap2(template, walls) {
   }
 
   //Wall types
-  this.walls = new Array();
+  this.walls = [];//new Array();
   for (let i = 0; i < walls.length; i++) {
     this.walls.push(new Wall(walls[i]));
   }
@@ -56,7 +57,7 @@ function RayMap2(template, walls) {
                                               template.oSpawn[i][1]);
   }
   //List of objects on the map
-  this.objects = new Array();
+  this.objects = [];//new Array();
 }
 
 /*
@@ -137,7 +138,7 @@ RayMap2.prototype.getObjectsInRange = function (origin, range) {
   }
   //if no object in range return null
   return null;
-}
+};
 
 /*
  * Returns the wall definition at point passed
@@ -149,5 +150,5 @@ RayMap2.prototype.getWallType = function (x, y) {
   } else {
     return this.walls[wallType - 1];
   }
-}
+};
  //More functions here as needed:

@@ -1,10 +1,11 @@
+/*jshint esversion: 6 */
 /*
  * Functions as the player's avatar in the game world. Accepts player commands
  * and positions and interacts with world objects to render the scene.
  */
 function Player(owner, map, mSpeed, tSpeed, radius, reach, fov) {
   //The game controler this player belongs to
-  this.owner = owner
+  this.owner = owner;
 
   this.map = map;
   //Read initial position from map
@@ -74,7 +75,7 @@ Player.prototype.move = function (timeDelta, directionX, directionY) {
   }
   //IMPROVEMENT: if collision before move detected, move player out of collision.
   //IMPROVEMENT: if collision after move detected, move player upto collision point.
-}
+};
 
 /*
  * These functions move the player backward, forwards and at right angles along
@@ -130,6 +131,6 @@ Player.prototype.interact = function (timeDelta) {
  * Returns true if player is within interaction distance of an object
  */
 Player.prototype.nearObject = function () {
-  if (this.map.getObjectsInRange(this.position, this.reach)) return true;
+  if (this.map.getObjectsInRange(this.position, this.reach) != null) return true;
   return false;
-}
+};

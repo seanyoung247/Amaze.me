@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 /**
  * Models a point in 2D space
  */
@@ -9,7 +10,7 @@ function Point2(x,y) {
 Point2.prototype.copy = function (point) {
   this.x = point.x;
   this.y = point.y;
-}
+};
 /*
  * Calculates distance between two points
  */
@@ -17,7 +18,7 @@ Point2.prototype.distanceToPoint = function (point) {
   let x = point.x - this.x;
   let y = point.y - this.y;
   return Math.sqrt( (x * x) + (y * y) );
-}
+};
 
 /**
  * Models a 2D Vector
@@ -30,7 +31,7 @@ function Vector2(x,y) {
 Vector2.prototype.copy = function (vector) {
   this.x = vector.x;
   this.y = vector.y;
-}
+};
 //Calculates and returns the euclidean distance (length) of this Vector
 Vector2.prototype.getMagnitude = function () {
   return Math.sqrt(this.x * this.x + this.y * this.y);
@@ -75,7 +76,7 @@ Vector2.prototype.rotate = function (x, y) {
   let tY = this.x * y + this.y * x;
   this.x = tX;
   this.y = tY;
-}
+};
 /**
  *  Rotates this vector by a given vector or angle (subtractive)
  */
@@ -93,7 +94,7 @@ Vector2.prototype.unrotate = function (x, y) {
   let tY = x * this.y - y * this.x;
   this.x = tX;
   this.y = tY;
-}
+};
 
 /*
  * Models a 2D rectangle.
@@ -119,9 +120,9 @@ BoundingBox.prototype.pointInBounds = function (point) {
   return this.inBounds(point.x, point.y);
 };
 BoundingBox.prototype.inBounds = function (x, y) {
-  if (x >= this.x && y >= this.y
-      && x <= (this.x + this.width)
-      && y <= (this.y + this.height)) {
+  if (x >= this.x && y >= this.y &&
+      x <= (this.x + this.width) &&
+      y <= (this.y + this.height)) {
     return true;
   } else return false;
 };
