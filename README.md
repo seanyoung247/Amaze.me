@@ -183,25 +183,78 @@ The engine code is contained within a number of JavaScript files:
 
 ## Testing
 
-Automated Testing
+### Automated Testing
 
-Validation
+#### Validation
 
-Jasmine Unit Tests
+#### Jasmine Unit Tests
 
-Manual Testing
+### Manual Testing
 
-Unit Testing
+#### Unit Testing
 
-Peer code Review
+#### Peer code Review
 
-User Acceptance Testing
+#### User Acceptance Testing
 
-Known Issues
+### Known Issues
 
-Wall collision
+#### Wall collision
+
+## Source Control
+
+The website was developed using the Atom editor with github for version control. Github Desktop was used to simplify the process of compiling pushing commits to the remote repository.
+
+### Branches
+
+As the project has only a single contributor, it was decided to not use branches beyond the master as they are unnecessary for the project's current scope.
+
+### Github
+
+### Github Desktop
+
+#### Github Accounts
+
+Once installed Github Desktop can be linked to an existing user account by:
+
+1. Selecting File->Options from the Github Desktop menu.
+2. Selecting sign in in the Accounts section of the dialog.
+3. Enter github user account and password.
+
+#### Cloning Repositories
+
+Adding an existing github repository to the local machine and Github Desktop can be achieved by:
+
+1. Selecting File->Clone repository... from the Github Desktop menu.
+2. Selecting the repository from the list in the dialog.
+3. Selecting where the repository should be cloned to on the local machine
+4. Clicking the clone button
+5. Github Desktop will automatically clone the repository.
+
+#### Selecting current Repository
+
+Github Desktop will automatically track any changes to the current local repository from the github repository.
+
+1. Click the "current repository" button
+2. Select the required repository from the menu
+
+#### Updating Github
+
+Github desktop will automatically flag unmerged changes in the current repository. These can be merged by:
+
+1. Deselect any changes to be excluded from the next commit in the changes list. (Github desktop automatically selects all available commits.)
+2. Add commit summary.
+3. Add commit description (if any).
+4. Click "commit to master".
+5. 
+
+
 
 ## Deployment
+
+
+
+
 
 
 
@@ -225,10 +278,11 @@ In addition, if it is not obvious, you should also describe how to run your code
 
 ### Media
 - Object sprites (Ball, Bottle, Can, Cup Lamp, Vase, and Pedestal) are original works by Sean Young.
-- The Gate Texture was drawn in Adobe Illustrator from reference photographs.
+- The Gate Texture was drawn in Adobe Illustrator from reference photographs by Sean Young.
 - The Hedge texture is based on licence free images from [Brusheezy](https://www.brusheezy.com/textures/20185-seamless-green-grass-textures) and heavily edited in Adobe Photoshop.
 
 ### Acknowledgements
 
-- https://lodev.org/ was invaluable for coding the core engine. The optimised ray-distance equation (replacing Euclidean distance) is from the [raycasting](https://lodev.org/cgtutor/raycasting.html) tutorial. The sprite rendering algorithm is a JavaScript reimplementation of the algorithm found in [lodev](https://lodev.org/cgtutor/raycasting3.html) as well, as my own implementation had issues with "spherical aberration".
+- https://lodev.org/ was invaluable for coding the core engine. The optimised ray-distance equation (replacing Euclidean distance) is from the [raycasting](https://lodev.org/cgtutor/raycasting.html) tutorial. The sprite rendering algorithm is a JavaScript implementation of the algorithm found in [lodev](https://lodev.org/cgtutor/raycasting3.html) as well, as my own implementation had issues with "spherical aberration". My implementation of the [DDA Grid Traversal algorithm](https://en.wikipedia.org/wiki/Digital_differential_analyzer_(graphics_algorithm)) was inspired by lodev also.
+- 
 
