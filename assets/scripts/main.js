@@ -1,6 +1,7 @@
 //Initial startup
 var game = null;
 var joystick = null;
+var touched = false;
 /*
  * Basic touch functionality
  */
@@ -42,10 +43,22 @@ $( document ).ready(function() {
       stickRadius   : 150,
       strokeStyle   : "rgba(255,255,255,0.5)",
 		});
-    joystick.addEventListener('touchEnd', function(event){
+    joystick.addEventListener('touchStart', function() {
+      touched = true;
+    });
+    joystick.addEventListener('touchEnd', function() {
+      touched = false;
       game.inputMap.interact.up = true;
       game.inputMap.interact.down = false;
-		})
+      game.inputMap.up.down = false;
+      game.inputMap.up.up = true;
+      game.inputMap.down.down = false;
+      game.inputMap.down.up = true;
+      game.inputMap.turnLeft.down = false;
+      game.inputMap.turnLeft.up = true;
+      game.inputMap.turnRight.down = false;
+      game.inputMap.turnRight.up = true;
+		});
   }
 
   //Start the game loop
@@ -53,14 +66,16 @@ $( document ).ready(function() {
 });
 
 function doTouch() {
-  game.inputMap.up.down = joystick.up();
-  game.inputMap.up.up = !joystick.up();
-  game.inputMap.down.down = joystick.down();
-  game.inputMap.down.up = !joystick.down();
-  game.inputMap.turnLeft.down = joystick.left();
-  game.inputMap.turnLeft.up = !joystick.left();
-  game.inputMap.turnRight.down = joystick.right();
-  game.inputMap.turnRight.up = !joystick.right();
+  if (touched) {
+    game.inputMap.up.down = joystick.up();
+    game.inputMap.up.up = !joystick.up();
+    game.inputMap.down.down = joystick.down();
+    game.inputMap.down.up = !joystick.down();
+    game.inputMap.turnLeft.down = joystick.left();
+    game.inputMap.turnLeft.up = !joystick.left();
+    game.inputMap.turnRight.down = joystick.right();
+    game.inputMap.turnRight.up = !joystick.right();
+  }
 }
 
 function drawBackground(ctx) {
