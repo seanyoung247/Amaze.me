@@ -6,15 +6,11 @@ AMaze.me is a memory game designed to help improve spatial memory. The idea was 
 
 AMaze.me requires the player to remember the position of objects in a maze and the route to get to them. They are presented with a random order in which to collect these objects, and judged on time, with the object being to improve their timings. The object is to improve memory while having fun.
 
+#### [See live project](https://seanyoung247.github.io/Second-milestone-project/) 
+
 ![screenshot](assets/images/screenshot.png)
 
-[See live project](https://seanyoung247.github.io/Second-milestone-project/) 
-
-
-
 ## Contents
-
-
 
 
 
@@ -41,7 +37,7 @@ All fonts are sourced from [google fonts](https://fonts.google.com/).
 
 [Roboto](https://fonts.google.com/specimen/Roboto) is used for site UI and text because it is a simple easy to read font.
 
-[Orbitron](https://fonts.google.com/specimen/Orbitron) is used for the in game title bar clock. This was chosen as it is easy to read and is reminiscent of a digital clock. Only the numbers and ':' character are imported as it is only used for the clock.
+[Orbitron](https://fonts.google.com/specimen/Orbitron) is used for the in game title bar clock. This was chosen as it is easy to read and is reminiscent of a digital clock. Only the numbers and ':' character are imported to aid load times as it is only used for the clock.
 
 [Permanent Marker](https://fonts.google.com/specimen/Permanent+Marker) is used for game generated messages because it is a visually interesting font that lends itself to the "hand drawn" aesthetic of the game.
 
@@ -187,9 +183,46 @@ The engine code is contained within a number of JavaScript files:
 
 #### Validation
 
+HTML and CSS code were validated with the W3C Markup and CSS validators. Both were found to have no errors or warnings. Reports can be seen below:
+
+[W3C HTML validation report](spec/index-validation.html)
+
+[W3C CSS validation report](spec/stylesheet-validation.html)
+
+Google Chromes lighthouse was also run and provided the following report:
+
+[Lighthouse report](spec/lighthouse-report.html)
+
 #### Jasmine Unit Tests
 
+Jasmine was used to ensure correct output to specifications for a number of the sites basic JavaScript types and objects. Some objects were not tested in this way due to being either more abstract or indirect in output (like the Camera) or being based around user interaction, like Player.
+
+Code tested through Jasmine:
+
+- Point2
+- Vector2
+- BoundingBox
+- Ray2
+- RayMap2
+- GameObject
+
+The automated Jasmine tests can be run from [tests.html](tests.html)
+
 ### Manual Testing
+
+Code changes were tested prior to committing and pushing to github on the local machine. This was in an attempt to prevent faulty or broken code from being pushed to the repository or deployed to the live site. On occasions where bugs were missed in testing an issue was opened on github if appropriate. Further, issues were not raised for known feature incomplete code committed to github, as this information was captured in the coding to-do lists.
+
+Two bugs are known to have been committed to github:
+
+[**Key presses no longer repeat properly**](https://github.com/seanyoung247/Second-milestone-project/issues/1) 
+
+- Reason for introduction to repository:
+  - New code passed testing, but introduced a regression in existing tested code.
+
+**[Player can overlap walls](https://github.com/seanyoung247/Second-milestone-project/issues/2)**
+
+- Reason for introduction to repository:
+  - Bug is minor and unlikely to be seen at runtime, and fix is too complex for current deadline. Raised as issue for future fix.
 
 #### Unit Testing
 
@@ -201,6 +234,14 @@ The engine code is contained within a number of JavaScript files:
 
 #### Wall collision
 
+[**Player can overlap walls**](https://github.com/seanyoung247/Second-milestone-project/issues/2)
+
+- Under some specific conditions the player can overlap or even pass through walls.
+  - Collision detection is performed on x and y coordinates separately so collision in one dimension doesn't prevent moving in another. This means that under certain conditions moving in one dimension can bring the player into collision in another dimension without it being detected.
+    - Requires improvements to the collision detection algorithm. After movement the player should be checked for collision again in all dimensions. If collision is detected in a dimension, the player object should be moved back along that dimensions view vector until no collision is detected.
+
+
+
 ## Source Control
 
 The website was developed using the Atom editor with github for version control. Github Desktop was used to simplify the process of compiling pushing commits to the remote repository.
@@ -208,8 +249,6 @@ The website was developed using the Atom editor with github for version control.
 ### Branches
 
 As the project has only a single contributor, it was decided to not use branches beyond the master as they are unnecessary for the project's current scope.
-
-### Github
 
 ### Github Desktop
 
@@ -246,32 +285,29 @@ Github desktop will automatically flag unmerged changes in the current repositor
 2. Add commit summary.
 3. Add commit description (if any).
 4. Click "commit to master".
-5. 
-
-
+5. Select Push Origin from the pane on the right.
 
 ## Deployment
 
+The website was deployed to [github pages](https://pages.github.com/) through the following steps:
 
+1. Navigate to [github](https://github.com/) in the browser.
 
+2. Sign in with user credentials.
 
+3. Navigate to repositories.
 
+4. Select the [repository](https://github.com/seanyoung247/Second-milestone-project) to deploy.
 
+5. Select settings from the menu bar.
 
+6. Scroll to Github Pages section.
 
+7. Select Master branch from source drop down.
 
-This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
+8. Click Save
 
-In particular, you should provide all details of the differences between the deployed version and the development version, if any, including:
-- Different values for environment variables (Heroku Config Vars)?
-- Different configuration files?
-- Separate git branch?
-
-In addition, if it is not obvious, you should also describe how to run your code locally.
-
-
-
-
+   Github pages will now deploy the site automatically and update any changes pushed to the master branch. 
 
 
 ## Credits
