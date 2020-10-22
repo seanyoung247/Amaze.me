@@ -6,17 +6,17 @@
 
 #### Validation
 
-HTML and CSS code were validated with the W3C Markup and CSS validators. Both were found to have no errors or warnings. Reports can be seen below:
+**HTML** and **CSS** code were validated with the W3C Markup and CSS validators. Both were found to have no errors or warnings. Reports can be seen below:
 
-[W3C HTML validation report](https://seanyoung247.github.io/Second-milestone-project/spec/index-validation.html)
+[W3C HTML validation report](spec/index-validation-report.pdf)
 
-[W3C CSS validation report](https://seanyoung247.github.io/Second-milestone-project/spec/stylesheet-validation.html)
+[W3C CSS validation report](spec/stylesheet-validation-report.pdf)
 
-Google Chromes lighthouse was also run and provided the following report:
+Google Chrome's **lighthouse** was also run and provided the following report:
 
-[Lighthouse report](https://seanyoung247.github.io/Second-milestone-project/spec/lighthouse-report.html)
+[Lighthouse report](spec/lighthouse-report.pdf)
 
-Finally, JavaScript files were run through [JSHint](https://jshint.com/) to ensure they were syntactically correct.
+**JavaScript** files were run through [JSHint](https://jshint.com/) to ensure they were syntactically correct.
 
 #### Jasmine Unit Tests
 
@@ -73,7 +73,9 @@ Manual unit testing was conducted iteratively by attempting to "break" new code.
 
 The JavaScript console was used to output variable values during play to give hints to where faults were occurring and why. In some cases game data was also printed to the screen to make it easier to catch faults. Frame rate and Frame time draw counters were used to trace performance issues and streamline rendering code.
 
-Engine Test Milestones
+An outline of engine feature milestones and tests can be found below:
+
+[Engine Test Milestones](spec/enginetest.pdf)
 
 Final UI testing was conducted prior to submission to confirm the UI fulfilled the required user stories:
 
@@ -82,6 +84,10 @@ Final UI testing was conducted prior to submission to confirm the UI fulfilled t
 #### Peer code Review
 
 The project was submitted to peer review on the code institute slack [channel](https://code-institute-room.slack.com/archives/CGWQJQKC5/p1603152019296500).
+
+#### Student Checklist
+
+A Final sanity check was done with the student check list to ensure the site fits submission guidelines.
 
 ### Known Issues
 
